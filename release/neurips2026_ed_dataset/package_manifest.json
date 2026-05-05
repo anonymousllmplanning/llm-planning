@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "path": "PACKAGING.md",
+      "sha256": "48762e28c4f3b8addcdb677ee921ba15be7b8cd69c883149099d30010c1410ea",
+      "bytes": 1545
+    },
+    {
+      "path": "README.md",
+      "sha256": "1d12037b06447f5dc5b077f414835b3f15313cce5c52ccb06926c2be7cd8d9b7",
+      "bytes": 1326
+    },
+    {
+      "path": "annotations/gaia_annotations.zip",
+      "sha256": "3cec5300c64acfd8142c0bf8c6b7d5d3e46d6e87385d762b06de0c57319a8b2d",
+      "bytes": 222356
+    },
+    {
+      "path": "croissant.json",
+      "sha256": "8e7adf5bcc01e0f83bd123c8db6e461ee4c72774c7c26d63e05a484fe2d0eefc",
+      "bytes": 7276
+    },
+    {
+      "path": "results/results_summaries.zip",
+      "sha256": "61d01cbe746be2f8e8cf79bf3e0dcd866de0c8ccc760678c4f4ca46adbfc2d64",
+      "bytes": 66748
+    },
+    {
+      "path": "scripts/scripts.zip",
+      "sha256": "ad2d174dfb4038bb4728ceabd73f79c65ae2fe52864f28e25e3f5744c36ee6cd",
+      "bytes": 228206
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/"
+  },
+  "@type": "sc:Dataset",
+  "name": "Augmented GAIA Planning Evaluation",
+  "description": "Evaluation artifact for a three-facet benchmark of agentic planning, tool invocation, and answer correctness. The artifact provides code, controlled Augmented GAIA annotations, aggregate result summaries, and scripts to rebuild the local evaluation data from official upstream sources. It does not redistribute GAIA validation/test questions, final answers, or attachments.",
+  "url": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning",
+  "codeRepository": "https://github.com/anonymousllmplanning/llm-planning",
+  "dateCreated": "2026-05-06",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "license": "Derived annotations and code are released under the artifact license. GAIA raw data remains subject to the official gated GAIA terms; TaskBench is MIT; UltraTool is Apache-2.0.",
+  "keywords": [
+    "agent evaluation",
+    "planning",
+    "tool use",
+    "GAIA",
+    "TaskBench",
+    "UltraTool",
+    "dependency DAG"
+  ],
+  "isBasedOn": [
+    "https://huggingface.co/datasets/gaia-benchmark/GAIA",
+    "https://huggingface.co/datasets/microsoft/Taskbench",
+    "https://github.com/JoeYing1019/UltraTool"
+  ],
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "gaia_annotations",
+      "name": "Controlled Augmented GAIA annotation bundle",
+      "description": "Annotation sidecar merged with an official GAIA snapshot by scripts/prepare_gaia_from_official.py.",
+      "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/main/annotations/gaia_annotations.zip",
+      "encodingFormat": "application/zip"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "aggregate_results",
+      "name": "Aggregate result summaries and figure data",
+      "description": "Sanitized aggregate tables, checksums, and figure source data used to audit the paper numbers.",
+      "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/main/results/results_summaries.zip",
+      "encodingFormat": "application/zip"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "scripts",
+      "name": "Preparation and evaluation scripts",
+      "description": "Scripts for fetching upstream sources, rebuilding local data, running experiments, and evaluating results.",
+      "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/main/scripts/scripts.zip",
+      "encodingFormat": "application/zip"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "augmented_gaia_annotations",
+      "name": "Augmented GAIA annotation rows",
+      "description": "Task-indexed planning/tool annotations, unfiltered candidate async orderings, and Gemma-4 behavior-preserving retained async orderings. Top-level GAIA questions, final answers, and attachments are omitted from the controlled bundle.",
+      "key": [
+        "task_id",
+        "domain"
+      ],
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "augmented_gaia_annotations/task_id",
+          "name": "task_id",
+          "description": "GAIA task identifier.",
+          "dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "augmented_gaia_annotations/domain",
+          "name": "domain",
+          "description": "GAIA input domain: text, document, vision, or audio.",
+          "dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "augmented_gaia_annotations/plan_dag",
+          "name": "plan_dag",
+          "description": "Gold planning DAG and dependency edges.",
+          "dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "augmented_gaia_annotations/tool_calls",
+          "name": "tool_calls",
+          "description": "Gold tool slots and argument annotations.",
+          "dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "augmented_gaia_annotations/sampled_orderings",
+          "name": "sampled_orderings",
+          "description": "Candidate or retained dependency-preserving async orderings.",
+          "dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "augmented_gaia_annotations/filter_metadata",
+          "name": "filter_metadata",
+          "description": "Gemma 4 replay-filter metadata for retained-ordering views.",
+          "dataType": "sc:Text"
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "local_augmented_gaia_view",
+      "name": "Rebuilt local Augmented GAIA view",
+      "description": "Generated local records created by merging official GAIA data with the annotation bundle. This view is produced by scripts/prepare_gaia_from_official.py and is not included as a crawlable public distribution.",
+      "key": [
+        "task_id"
+      ],
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "local_augmented_gaia_view/query",
+          "name": "query",
+          "description": "Official GAIA question text and attachment references, present only after local rebuild.",
+          "dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "local_augmented_gaia_view/gold",
+          "name": "gold",
+          "description": "Merged plan, tool, and final-answer references used by the evaluator.",
+          "dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "local_augmented_gaia_view/dags",
+          "name": "DAGs",
+          "description": "Evaluator-facing filtered DAG reference folder with 1,468 retained orderings.",
+          "dataType": "sc:Text"
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "crossbench_unified",
+      "name": "TaskBench and UltraTool cross-benchmark records",
+      "description": "Generated unified JSONL files for the paper's TaskBench and UltraTool transfer checks: 1,000 TaskBench rows and 1,000 UltraTool English rows.",
+      "key": [
+        "dataset",
+        "sample_id"
+      ],
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "crossbench_unified/dataset",
+          "name": "dataset",
+          "description": "TaskBench or UltraTool.",
+          "dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "crossbench_unified/query",
+          "name": "query",
+          "description": "User-facing task request.",
+          "dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "crossbench_unified/plan_dag",
+          "name": "plan_dag",
+          "description": "Planning graph reference.",
+          "dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "crossbench_unified/tool_calls",
+          "name": "tool_calls",
+          "description": "Tool-use reference slots.",
+          "dataType": "sc:Text"
+        }
+      ]
+    }
+  ]
+}
