@@ -6,6 +6,8 @@ numpy>=1.24.0
 scipy>=1.10.0
 pandas>=2.0.0
 pydantic>=2.0.0  # For data schemas
+huggingface_hub>=0.23.0  # Official benchmark fetch/rebuild helpers
+pyarrow>=14.0.0  # Reading official GAIA parquet metadata
 
 # Deep Learning & LLM
 transformers>=4.30.0
@@ -18,13 +20,18 @@ pdfplumber>=0.9.0  # Alternative PDF reader
 python-docx>=0.8.11  # Word documents
 python-pptx>=0.6.21  # PowerPoint presentations
 pytesseract>=0.3.10  # OCR for images
+Pillow>=10.0.0  # Image loading/normalization for vision tools
 openpyxl>=3.0.0  # Excel files (pandas dependency)
+xlrd>=2.0.1  # Legacy .xls spreadsheet support
+tabulate>=0.9.0  # pandas.DataFrame.to_markdown previews
+biopython>=1.83  # PDB parsing in python_executor
 
 # Tool Execution - Web & Network
 requests>=2.28.0  # HTTP requests
 beautifulsoup4>=4.11.0  # HTML parsing
 httpx>=0.24.0  # Async HTTP (optional for sglang)
 ddgs>=9.0.0  # DuckDuckGo/search wrapper used by web_search
+playwright>=1.45.0  # JS-rendered web browsing; run `playwright install chromium`
 html5lib>=1.1  # pandas.read_html fallback parser
 lxml>=4.9.0  # HTML/XML table parsing
 chess>=1.10.0  # python-chess import name: chess
@@ -45,6 +52,7 @@ jsonschema>=4.17.0
 # LLM APIs
 openai>=1.0.0  # For GPT-4/GPT-3.5
 anthropic>=0.18.0  # For Claude
+openai-whisper>=20231117  # Local fallback for audio_transcription
 
 # Development & Debugging
 ipdb>=0.13.13  # Interactive debugging

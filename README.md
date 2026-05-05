@@ -127,8 +127,8 @@ pip install -r requirements.txt
 ```
 
 Some tools benefit from optional system packages such as `poppler-utils`,
-`ffmpeg`, and document parsers for PDF, spreadsheet, presentation, archive, and
-audio tasks.
+`ffmpeg`, `tesseract-ocr`, and `graphviz`. For JS-rendered web pages, also run
+`playwright install chromium` after installing the Python requirements.
 
 ## Prepare Data
 
