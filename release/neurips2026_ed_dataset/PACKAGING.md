@@ -29,9 +29,10 @@ python scripts/prepare_crossbench.py \
   --output-root data
 ```
 
-`prepare_gaia_from_official.py` writes `data/Augmented/DAGs` as the Gemma 4
-replay-filtered scoring view, so the default `scripts/exp.sh` path uses the
-1,468 retained-ordering view.
+`prepare_gaia_from_official.py` writes `data/Augmented/DAGs` as the final
+Augmented GT scoring view: 165 native chain references plus 1,357
+Gemma 4-retained non-native async orderings, for 1,522 total reference ordering
+rows. This keeps the default `scripts/exp.sh` path unchanged.
 
 ## Smoke Tests
 

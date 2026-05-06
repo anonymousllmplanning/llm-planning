@@ -1,0 +1,4 @@
+level,tasks,native_only_tasks,exactly_one_tasks,augmented_reference_tasks,multi_order_rich_tasks,candidate_async_orderings,retained_async_orderings,retention_rate,native_steps_per_task,native_chain_edges_per_task,aug_dependency_edges_per_task,retained_async_orderings_per_augmented_task
+level_1,53,41,1,12,11,274,243,0.8868613138686131,5.339622641509434,4.339622641509434,4.283018867924528,20.25
+level_2,86,54,3,32,29,876,697,0.795662100456621,7.5813953488372094,6.5813953488372094,6.686046511627907,21.78125
+level_3,26,12,0,14,14,621,417,0.6714975845410628,13.423076923076923,12.423076923076923,10.923076923076923,29.785714285714285

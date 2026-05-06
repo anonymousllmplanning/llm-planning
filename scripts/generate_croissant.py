@@ -4,14 +4,72 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from datetime import date
 from pathlib import Path
 from typing import Any
 
 
-def file_object(file_id: str, name: str, description: str, content_url: str, encoding: str) -> dict[str, Any]:
+def croissant_context() -> dict[str, Any]:
     return {
+        "@language": "en",
+        "@vocab": "https://schema.org/",
+        "citeAs": "cr:citeAs",
+        "column": "cr:column",
+        "conformsTo": "dct:conformsTo",
+        "cr": "http://mlcommons.org/croissant/",
+        "rai": "http://mlcommons.org/croissant/RAI/",
+        "data": {"@id": "cr:data", "@type": "@json"},
+        "dataType": {"@id": "cr:dataType", "@type": "@vocab"},
+        "dct": "http://purl.org/dc/terms/",
+        "examples": {"@id": "cr:examples", "@type": "@json"},
+        "extract": "cr:extract",
+        "equivalentProperty": "cr:equivalentProperty",
+        "field": "cr:field",
+        "fileProperty": "cr:fileProperty",
+        "fileObject": "cr:fileObject",
+        "fileSet": "cr:fileSet",
+        "format": "cr:format",
+        "includes": "cr:includes",
+        "isLiveDataset": "cr:isLiveDataset",
+        "jsonPath": "cr:jsonPath",
+        "key": "cr:key",
+        "md5": "cr:md5",
+        "parentField": "cr:parentField",
+        "path": "cr:path",
+        "recordSet": "cr:recordSet",
+        "references": "cr:references",
+        "regex": "cr:regex",
+        "repeated": "cr:repeated",
+        "replace": "cr:replace",
+        "samplingRate": "cr:samplingRate",
+        "sc": "https://schema.org/",
+        "separator": "cr:separator",
+        "source": "cr:source",
+        "subField": "cr:subField",
+        "transform": "cr:transform",
+        "wd": "https://www.wikidata.org/wiki/",
+    }
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def file_object(
+    file_id: str,
+    name: str,
+    description: str,
+    content_url: str,
+    encoding: str,
+    local_path: Path | None = None,
+) -> dict[str, Any]:
+    obj = {
         "@type": "cr:FileObject",
         "@id": file_id,
         "name": name,
@@ -19,15 +77,22 @@ def file_object(file_id: str, name: str, description: str, content_url: str, enc
         "contentUrl": content_url,
         "encodingFormat": encoding,
     }
+    if local_path and local_path.exists():
+        obj["sha256"] = sha256_file(local_path)
+    return obj
 
 
-def field(field_id: str, name: str, description: str, data_type: str = "sc:Text") -> dict[str, Any]:
+def manifest_field(field_id: str, name: str, description: str, json_path: str, data_type: str = "sc:Text") -> dict[str, Any]:
     return {
         "@type": "cr:Field",
         "@id": field_id,
         "name": name,
         "description": description,
         "dataType": data_type,
+        "source": {
+            "fileObject": {"@id": "package_manifest"},
+            "extract": {"jsonPath": json_path},
+        },
     }
 
 
@@ -40,14 +105,9 @@ def main() -> None:
     args = parser.parse_args()
 
     base = args.dataset_url.rstrip("/")
+    release_root = args.output.parent
     metadata = {
-        "@context": {
-            "@language": "en",
-            "@vocab": "https://schema.org/",
-            "sc": "https://schema.org/",
-            "cr": "http://mlcommons.org/croissant/",
-            "dct": "http://purl.org/dc/terms/",
-        },
+        "@context": croissant_context(),
         "@type": "sc:Dataset",
         "name": args.name,
         "description": (
@@ -61,7 +121,10 @@ def main() -> None:
         "url": args.dataset_url,
         "codeRepository": args.repo_url,
         "dateCreated": str(date.today()),
+        "datePublished": str(date.today()),
         "conformsTo": "http://mlcommons.org/croissant/1.0",
+        "version": "1.0.0",
+        "citeAs": "Anonymous submission artifact for Augmented GAIA Planning Evaluation.",
         "license": (
             "Derived annotations and code are released under the artifact license. "
             "GAIA raw data remains subject to the official gated GAIA terms; "
@@ -81,13 +144,94 @@ def main() -> None:
             "https://huggingface.co/datasets/microsoft/Taskbench",
             "https://github.com/JoeYing1019/UltraTool",
         ],
+        "rai:dataCollection": (
+            "The artifact is built from existing benchmark sources and derived "
+            "planning/tool annotations. GAIA raw questions, final answers, and "
+            "attachments are not redistributed; users rebuild them locally from "
+            "the official gated GAIA source."
+        ),
+        "rai:dataCollectionType": "Derived annotations and evaluation-result summaries over existing benchmark tasks.",
+        "rai:dataCollectionTypeOthers": "No web scraping or new human-subject data collection is performed.",
+        "rai:dataCollectionMissing": (
+            "GAIA raw task text, final answers, and attachments are intentionally "
+            "omitted from the public artifact and must be obtained from the "
+            "official gated dataset."
+        ),
+        "rai:dataCollectionRaw": (
+            "Raw upstream data sources are GAIA, TaskBench, and UltraTool. The "
+            "released artifact contains controlled annotations, scripts, checksums, "
+            "and sanitized aggregate summaries."
+        ),
+        "rai:dataPreprocessingImputation": "No statistical imputation is applied.",
+        "rai:dataPeprocessingProtocol": (
+            "Scripts rebuild a local evaluation layout by merging official source "
+            "records with derived annotations. The final Augmented GAIA scoring "
+            "view contains 165 native chain references plus 1,357 Gemma 4-retained "
+            "non-native async orderings."
+        ),
+        "rai:dataPreprocessingManipulation": (
+            "GAIA questions, answers, and attachments are removed from released "
+            "annotation bundles; local rebuild restores them from official sources."
+        ),
+        "rai:dataAnnotationProtocol": (
+            "Dependency annotations are generated over planning steps, candidate "
+            "async orderings are sampled from those dependencies, and Gemma 4 replay "
+            "filtering retains behavior-preserving non-native orderings."
+        ),
+        "rai:dataAnnotationPlatform": "Local scripted annotation and replay-filtering pipeline.",
+        "rai:dataAnnotationAnalysis": (
+            "The paper reports construction statistics, replay-filter retention, "
+            "human spot checks, metric definitions, and aggregate model results."
+        ),
+        "rai:dataAnnotationPerItem": (
+            "Each GAIA task receives one native chain reference; tasks with retained "
+            "non-native async orderings include those additional references."
+        ),
+        "rai:dataAnnotationDemographics": (
+            "Not applicable: the artifact does not collect participant demographic "
+            "data or conduct a human-subject study."
+        ),
+        "rai:dataAnnotationTools": "LLM-assisted dependency annotation, scripted sampling, and replay filtering.",
+        "rai:dataBiases": [
+            "Coverage follows the upstream benchmark task distributions, including small Vision and Audio slices.",
+            "Replay filtering depends on one replay model and may exclude valid orderings that fail that model's behavior-preservation check.",
+        ],
+        "rai:dataUseCases": (
+            "Research evaluation of agent planning, tool invocation, and final-answer "
+            "correctness; audit and reproduction of the accompanying paper."
+        ),
+        "rai:dataLimitation": (
+            "Not intended for training deployed models or for redistributing GAIA raw "
+            "validation/test content. Full GAIA reproduction requires official gated access."
+        ),
+        "rai:dataSocialImpact": (
+            "The artifact supports more transparent agent evaluation, but benchmark "
+            "scores should not be interpreted as deployment readiness."
+        ),
+        "rai:dataSensitive": (
+            "No intentionally released personal or sensitive data beyond upstream "
+            "benchmark terms; GAIA raw files are excluded from the artifact."
+        ),
+        "rai:dataMaintenance": (
+            "Versioned artifact with checksums and rebuild scripts; updates should "
+            "regenerate the package manifest and Croissant metadata."
+        ),
         "distribution": [
+            file_object(
+                "package_manifest",
+                "Package manifest",
+                "JSON manifest listing released files, byte sizes, and checksums.",
+                f"{base}/resolve/main/package_manifest.json",
+                "application/json",
+                release_root / "package_manifest.json",
+            ),
             file_object(
                 "gaia_annotations",
                 "Controlled Augmented GAIA annotation bundle",
                 "Annotation sidecar merged with an official GAIA snapshot by scripts/prepare_gaia_from_official.py.",
                 f"{base}/resolve/main/annotations/gaia_annotations.zip",
                 "application/zip",
+                release_root / "annotations/gaia_annotations.zip",
             ),
             file_object(
                 "aggregate_results",
@@ -95,6 +239,7 @@ def main() -> None:
                 "Sanitized aggregate tables, checksums, and figure source data used to audit the paper numbers.",
                 f"{base}/resolve/main/results/results_summaries.zip",
                 "application/zip",
+                release_root / "results/results_summaries.zip",
             ),
             file_object(
                 "scripts",
@@ -102,58 +247,20 @@ def main() -> None:
                 "Scripts for fetching upstream sources, rebuilding local data, running experiments, and evaluating results.",
                 f"{base}/resolve/main/scripts/scripts.zip",
                 "application/zip",
+                release_root / "scripts/scripts.zip",
             ),
         ],
         "recordSet": [
             {
                 "@type": "cr:RecordSet",
-                "@id": "augmented_gaia_annotations",
-                "name": "Augmented GAIA annotation rows",
-                "description": (
-                    "Task-indexed planning/tool annotations, unfiltered candidate async orderings, "
-                    "and Gemma-4 behavior-preserving retained async orderings. Top-level GAIA "
-                    "questions, final answers, and attachments are omitted from the controlled bundle."
-                ),
-                "key": ["task_id", "domain"],
+                "@id": "artifact_files",
+                "name": "Artifact file manifest",
+                "description": "Released artifact files with byte sizes and checksums.",
+                "key": ["path"],
                 "field": [
-                    field("augmented_gaia_annotations/task_id", "task_id", "GAIA task identifier."),
-                    field("augmented_gaia_annotations/domain", "domain", "GAIA input domain: text, document, vision, or audio."),
-                    field("augmented_gaia_annotations/plan_dag", "plan_dag", "Gold planning DAG and dependency edges."),
-                    field("augmented_gaia_annotations/tool_calls", "tool_calls", "Gold tool slots and argument annotations."),
-                    field("augmented_gaia_annotations/sampled_orderings", "sampled_orderings", "Candidate or retained dependency-preserving async orderings."),
-                    field("augmented_gaia_annotations/filter_metadata", "filter_metadata", "Gemma 4 replay-filter metadata for retained-ordering views."),
-                ],
-            },
-            {
-                "@type": "cr:RecordSet",
-                "@id": "local_augmented_gaia_view",
-                "name": "Rebuilt local Augmented GAIA view",
-                "description": (
-                    "Generated local records created by merging official GAIA data with the annotation bundle. "
-                    "This view is produced by scripts/prepare_gaia_from_official.py and is not included as a "
-                    "crawlable public distribution."
-                ),
-                "key": ["task_id"],
-                "field": [
-                    field("local_augmented_gaia_view/query", "query", "Official GAIA question text and attachment references, present only after local rebuild."),
-                    field("local_augmented_gaia_view/gold", "gold", "Merged plan, tool, and final-answer references used by the evaluator."),
-                    field("local_augmented_gaia_view/dags", "DAGs", "Evaluator-facing filtered DAG reference folder with 1,468 retained orderings."),
-                ],
-            },
-            {
-                "@type": "cr:RecordSet",
-                "@id": "crossbench_unified",
-                "name": "TaskBench and UltraTool cross-benchmark records",
-                "description": (
-                    "Generated unified JSONL files for the paper's TaskBench and UltraTool transfer checks: "
-                    "1,000 TaskBench rows and 1,000 UltraTool English rows."
-                ),
-                "key": ["dataset", "sample_id"],
-                "field": [
-                    field("crossbench_unified/dataset", "dataset", "TaskBench or UltraTool."),
-                    field("crossbench_unified/query", "query", "User-facing task request."),
-                    field("crossbench_unified/plan_dag", "plan_dag", "Planning graph reference."),
-                    field("crossbench_unified/tool_calls", "tool_calls", "Tool-use reference slots."),
+                    manifest_field("artifact_files/path", "path", "Path within the dataset artifact.", "$.files[*].path"),
+                    manifest_field("artifact_files/sha256", "sha256", "SHA-256 checksum.", "$.files[*].sha256"),
+                    manifest_field("artifact_files/bytes", "bytes", "File size in bytes.", "$.files[*].bytes", "sc:Integer"),
                 ],
             },
         ],

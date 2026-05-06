@@ -14,7 +14,7 @@ Output layout is compatible with ``scripts/exp.sh``:
     cat_C_vision/{gaia.cat_C.json,attachments/}
     cat_D_audio/{gaia.cat_D.json,attachments/}
     Asynchronous_output/        # unfiltered candidate orderings, 1,913 rows total
-    DAGs/                       # Gemma-4 replay-filtered retained orderings, 1,468 total
+    DAGs/                       # final Augmented GT scoring view, 1,522 reference rows
 """
 
 from __future__ import annotations
@@ -48,7 +48,8 @@ CAT_DIRS = {
 }
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".tif", ".tiff"}
 AUDIO_EXTS = {".mp3", ".wav", ".m4a", ".flac", ".ogg"}
-ANNOTATION_DIRS = ("Asynchronous_output", "Gemma4_Filtered_DAGs")
+FINAL_GT_DIR = "Augmented_GT_NativePlusGemma4NonNative"
+ANNOTATION_DIRS = ("Asynchronous_output", FINAL_GT_DIR)
 
 
 def read_jsonl(path: Path) -> Iterable[dict[str, Any]]:
@@ -333,7 +334,11 @@ def copy_tree_clean(src: Path, dst: Path) -> None:
 
 def copy_filtered_summary_files(annotation_root: Path, output_root: Path) -> None:
     src_dir = next(
-        (annotation_root / name for name in ("Gemma4_Filtered_DAGs", "DAGs") if (annotation_root / name).exists()),
+        (
+            annotation_root / name
+            for name in (FINAL_GT_DIR, "DAGs", "Gemma4_Filtered_DAGs")
+            if (annotation_root / name).exists()
+        ),
         None,
     )
     if src_dir is None:
@@ -394,7 +399,11 @@ def main() -> None:
     official_rows = load_metadata_files(gaia_source)
     official_by_id = {row["task_id"]: row for row in official_rows}
     async_by_id = load_annotation_rows(annotation_root, "Asynchronous_output")
-    filtered_by_id = load_annotation_rows(annotation_root, "Gemma4_Filtered_DAGs", fallbacks=("DAGs",))
+    final_gt_by_id = load_annotation_rows(
+        annotation_root,
+        FINAL_GT_DIR,
+        fallbacks=("DAGs", "Gemma4_Filtered_DAGs"),
+    )
 
     categorized: dict[str, list[dict[str, Any]]] = {cat: [] for cat in CAT_DIRS}
     query_by_id: dict[str, dict[str, Any]] = {}
@@ -409,7 +418,7 @@ def main() -> None:
         )
         query_by_id[task_id] = query
         replacements_by_id[task_id] = replacements
-        annotation = filtered_by_id.get(task_id) or async_by_id.get(task_id)
+        annotation = final_gt_by_id.get(task_id) or async_by_id.get(task_id)
         categorized[official["cat"]].append(build_unified_record(official, annotation, query, replacements))
 
     for cat, rows in categorized.items():
@@ -417,7 +426,7 @@ def main() -> None:
         rows.sort(key=lambda rec: rec["meta"]["id"])
         write_json(out, rows)
 
-    for dirname, by_id in (("Asynchronous_output", async_by_id), ("DAGs", filtered_by_id)):
+    for dirname, by_id in (("Asynchronous_output", async_by_id), ("DAGs", final_gt_by_id)):
         grouped: dict[str, list[dict[str, Any]]] = {cat: [] for cat in CAT_DIRS}
         for task_id, annotation in by_id.items():
             official = official_by_id.get(task_id)
@@ -441,7 +450,10 @@ def main() -> None:
         "gaia_source": str(gaia_source),
         "annotation_root": str(annotation_root),
         "output_root": str(output_root),
-        "scheme": "DAGs is the Gemma 4 replay-filtered scoring view",
+        "scheme": (
+            "DAGs is the final Augmented GT scoring view: one native chain "
+            "reference per task plus Gemma 4-retained non-native async orderings"
+        ),
         "counts": {
             "tasks": sum(len(v) for v in categorized.values()),
             "cat_A": len(categorized["A"]),
@@ -463,7 +475,7 @@ def main() -> None:
     print(f"[OK] Wrote {output_root}")
     print(f"[OK] Tasks: {manifest['counts']['tasks']}")
     print(f"[OK] Asynchronous_output orderings: {count_orderings('Asynchronous_output')}")
-    print(f"[OK] DAGs orderings: {count_orderings('DAGs')}")
+    print(f"[OK] DAGs final reference orderings: {count_orderings('DAGs')}")
 
 
 if __name__ == "__main__":

@@ -25,8 +25,8 @@ GAIA raw validation/test questions, final answers, or attachments.
 - `PACKAGING.md`: rebuild and smoke-test procedure.
 
 The actual upload should include controlled annotation and result-summary
-archives, plus the repository scripts. GAIA raw data must be obtained by
-from the official gated Hugging Face dataset and rebuilt locally.
+archives, plus the repository scripts. GAIA raw data must be obtained from the
+official gated Hugging Face dataset and rebuilt locally.
 
 The Hugging Face Dataset Viewer is intentionally disabled because this artifact
 is not a single tabular dataset split. It is a controlled evaluation artifact

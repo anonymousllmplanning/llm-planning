@@ -23,8 +23,10 @@ from pathlib import Path
 from typing import Any, Iterable
 
 
-ANNOTATION_DIRS = ("Asynchronous_output", "Gemma4_Filtered_DAGs")
+ANNOTATION_DIRS = ("Asynchronous_output", "Augmented_GT_NativePlusGemma4NonNative")
 SUMMARY_FILES = (
+    "Augmented_GT_NativePlusGemma4NonNative/README.md",
+    "Augmented_GT_NativePlusGemma4NonNative/checksums.sha256",
     "Gemma4_Filtered_DAGs/README.md",
     "Gemma4_Filtered_DAGs/gemma4_filtered_dag_summary.json",
     "Gemma4_Filtered_DAGs/gemma4_filtered_dag_task_summary.csv",
@@ -138,6 +140,10 @@ def main() -> None:
         "This bundle omits GAIA questions, final answers, and attachments. It is\n"
         "intended to be merged with an official GAIA snapshot by\n"
         "`scripts/prepare_gaia_from_official.py`.\n\n"
+        "The final scoring view is `Augmented_GT_NativePlusGemma4NonNative`: one\n"
+        "native chain reference per GAIA task plus Gemma 4-retained non-native\n"
+        "async orderings. Rebuilding maps this view to `data/Augmented/DAGs` for\n"
+        "compatibility with the experiment scripts.\n\n"
         "Caution: planning step labels and tool annotations are derived benchmark\n"
         "annotations and may reveal task-specific solution structure. Distribute\n"
         "this bundle through the controlled artifact channel chosen for release.\n",

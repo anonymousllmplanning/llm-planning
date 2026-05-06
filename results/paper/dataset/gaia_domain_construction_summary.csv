@@ -1,0 +1,5 @@
+domain,cat,tasks,native_only_tasks,exactly_one_tasks,augmented_reference_tasks,multi_order_rich_tasks,candidate_async_orderings,retained_async_orderings,retention_rate,native_steps_per_task,native_chain_edges_per_task,aug_dependency_edges_per_task,retained_async_orderings_per_augmented_task
+Text,A,127,84,4,43,39,1298,994,0.765793528505393,7.968503937007874,6.968503937007874,6.74015748031496,23.11627906976744
+Document,B,25,16,0,9,9,299,241,0.8060200668896321,7.16,6.16,6.2,26.77777777777778
+Vision,C,10,5,0,5,5,155,103,0.6645161290322581,6.9,5.9,5.4,20.6
+Audio,D,3,2,0,1,1,19,19,1.0,8.0,7.0,7.0,19.0

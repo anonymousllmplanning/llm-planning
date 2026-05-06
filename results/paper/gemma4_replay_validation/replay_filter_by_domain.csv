@@ -1,0 +1,5 @@
+cat,domain,candidate_non_native,retained_non_native,retention_rate,filtered_non_native
+A,Text,1298,994,0.765793528505393,304
+B,Document,299,241,0.8060200668896321,58
+C,Vision,155,103,0.6645161290322581,52
+D,Audio,19,19,1.0,0

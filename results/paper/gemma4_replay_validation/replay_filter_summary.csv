@@ -1,0 +1,5 @@
+item,count,rate
+Candidate non-native async ordering rows,1771,100.0% (1771/1771)
+Retained behavior-preserving non-native orderings,1357,76.6% (1357/1771)
+Filtered non-native async orderings,414,23.4% (414/1771)
+Final Augmented GT reference rows including native chains,1522,165 native + 1357 non-native

@@ -1,0 +1,5 @@
+bucket,tasks,retained_async_orderings,interpretation
+0 retained async beyond native,107,0,native-chain only; Augmented GAIA falls back to the native chain
+exactly 1 retained async beyond native,4,4,native chain plus one behavior-preserving async reference
+>=2 retained async beyond native,54,1353,native chain plus at least two behavior-preserving async references; multi-order-rich subset
+>=1 retained async beyond native,58,1357,all augmented-reference tasks; exactly-one plus multi-order-rich
