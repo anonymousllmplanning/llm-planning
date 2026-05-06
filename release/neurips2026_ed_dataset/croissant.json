@@ -284,7 +284,7 @@
       "@id": "package_manifest",
       "name": "Package manifest",
       "description": "JSON manifest listing released files, byte sizes, and checksums.",
-      "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/28ce3275622211ce67e9df702eefcbb59c54d6c5/package_manifest.json",
+      "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/558124e477a66c88d009f064b072212563395a56/package_manifest.json",
       "encodingFormat": "application/json",
       "sha256": "0c7d507707b9af0a15168061fad4f208a5eaf24d50ed41746461bfcb053759b3"
     },
@@ -293,7 +293,7 @@
       "@id": "gaia_annotations",
       "name": "Controlled Augmented GAIA annotation bundle",
       "description": "Controlled Augmented GAIA annotation sidecar merged with an official GAIA snapshot by scripts/prepare_gaia_from_official.py. Contains derived annotation views, including 1,771 GPT-4o-derived candidate non-native async orderings and the final native-plus-Gemma-4-retained scoring view. Does not contain GAIA raw questions, final answers, or attachments.",
-      "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/28ce3275622211ce67e9df702eefcbb59c54d6c5/annotations/gaia_annotations.zip",
+      "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/558124e477a66c88d009f064b072212563395a56/annotations/gaia_annotations.zip",
       "encodingFormat": "application/zip",
       "sha256": "3bd1d2ea75788da8e7ca884b0a97b3b0e74dbf5967f70e48cb3fcf2b5395d9a0"
     },
@@ -302,7 +302,7 @@
       "@id": "aggregate_results",
       "name": "Sanitized result summaries and figure data",
       "description": "Sanitized aggregate and derived result tables, checksums, and figure source data used to audit the paper numbers. Contains no GAIA raw task text, attachments, final answers, raw model transcripts, or raw GAIA records; task-level rows contain only identifiers, metadata, and derived metric or review fields.",
-      "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/28ce3275622211ce67e9df702eefcbb59c54d6c5/results/results_summaries.zip",
+      "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/558124e477a66c88d009f064b072212563395a56/results/results_summaries.zip",
       "encodingFormat": "application/zip",
       "sha256": "28e4e0e7c432f686cba695ad5664737778701a92002723a65f6b2fdb48083302"
     },
@@ -311,7 +311,7 @@
       "@id": "scripts",
       "name": "Preparation and evaluation scripts",
       "description": "Scripts for fetching official upstream sources, rebuilding local data, running experiments, evaluating results, and supporting release packaging.",
-      "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/28ce3275622211ce67e9df702eefcbb59c54d6c5/scripts/scripts.zip",
+      "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/558124e477a66c88d009f064b072212563395a56/scripts/scripts.zip",
       "encodingFormat": "application/zip",
       "sha256": "4c26e2ca356939d9fdeaef1b057db42b94e7e592d85e7c4a9a9e83af2b39e034"
     }
