@@ -20,6 +20,7 @@ def croissant_context() -> dict[str, Any]:
         "conformsTo": "dct:conformsTo",
         "cr": "http://mlcommons.org/croissant/",
         "rai": "http://mlcommons.org/croissant/RAI/",
+        "prov": "http://www.w3.org/ns/prov#",
         "data": {"@id": "cr:data", "@type": "@json"},
         "dataType": {"@id": "cr:dataType", "@type": "@vocab"},
         "dct": "http://purl.org/dc/terms/",
@@ -144,6 +145,18 @@ def main() -> None:
             "https://huggingface.co/datasets/microsoft/Taskbench",
             "https://github.com/JoeYing1019/UltraTool",
         ],
+        "prov:wasDerivedFrom": [
+            "https://huggingface.co/datasets/gaia-benchmark/GAIA",
+            "https://huggingface.co/datasets/microsoft/Taskbench",
+            "https://github.com/JoeYing1019/UltraTool",
+        ],
+        "prov:wasGeneratedBy": [
+            "Official-source rebuild from gated GAIA and open TaskBench/UltraTool sources.",
+            "LLM-assisted dependency annotation over planning steps.",
+            "Candidate async-ordering sampling from dependency constraints.",
+            "Gemma 4 replay filtering of behavior-preserving non-native async orderings.",
+            "Sanitization step that removes GAIA raw questions, final answers, and attachments from released archives.",
+        ],
         "rai:dataCollection": (
             "The artifact is built from existing benchmark sources and derived "
             "planning/tool annotations. GAIA raw questions, final answers, and "
@@ -163,7 +176,7 @@ def main() -> None:
             "and sanitized aggregate summaries."
         ),
         "rai:dataPreprocessingImputation": "No statistical imputation is applied.",
-        "rai:dataPeprocessingProtocol": (
+        "rai:dataPreprocessingProtocol": (
             "Scripts rebuild a local evaluation layout by merging official source "
             "records with derived annotations. The final Augmented GAIA scoring "
             "view contains 165 native chain references plus 1,357 Gemma 4-retained "
@@ -200,13 +213,18 @@ def main() -> None:
             "Research evaluation of agent planning, tool invocation, and final-answer "
             "correctness; audit and reproduction of the accompanying paper."
         ),
-        "rai:dataLimitation": (
+        "rai:dataLimitations": (
             "Not intended for training deployed models or for redistributing GAIA raw "
             "validation/test content. Full GAIA reproduction requires official gated access."
         ),
         "rai:dataSocialImpact": (
             "The artifact supports more transparent agent evaluation, but benchmark "
             "scores should not be interpreted as deployment readiness."
+        ),
+        "rai:hasSyntheticData": True,
+        "rai:personalSensitiveInformation": (
+            "No intentionally released personal or sensitive data beyond upstream "
+            "benchmark terms; GAIA raw files are excluded from the artifact."
         ),
         "rai:dataSensitive": (
             "No intentionally released personal or sensitive data beyond upstream "

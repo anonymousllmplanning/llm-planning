@@ -865,39 +865,30 @@ in this reference-validated partial order. We define the parallelism ratio as
 A value of $\rho_q=0$ means the final references preserve the native chain
 order, while larger values indicate replay-validated reordering structure.
 Normalized Kendall distance is row-level and measures how far each retained
-reference ordering moves from the native chain. Figure~\ref{fig:appendix-critical-path-buckets}
-first summarizes the three replay-filtered coverage buckets, and
-Table~\ref{tab:appendix-critical-path} reports the same diagnostic over
-increasingly strict retained-ordering thresholds. The $\geq 2$ threshold is the
-multi-order-rich subset used in the main flexible-order diagnostics.
+reference ordering moves from the native chain. Table~\ref{tab:appendix-critical-path-buckets}
+first summarizes the three replay-filtered coverage buckets with task-weighted
+critical-path statistics, and Table~\ref{tab:appendix-critical-path} reports the
+row-level reordering diagnostic over increasingly strict retained-ordering
+thresholds. The $\geq 2$ threshold is the multi-order-rich subset used in the
+main flexible-order diagnostics.
 
-\begin{figure}[H]
+\begin{table}[H]
 \centering
-\resizebox{0.76\linewidth}{!}{%
-\begin{tikzpicture}[x=0.12cm,y=0.72cm]
-    \foreach \x in {0,10,20,30,40} {
-        \draw[gray!20] (\x,0.55) -- (\x,3.15);
-        \node[font=\tiny,anchor=north] at (\x,0.35) {\x\%};
-    }
-    \node[anchor=east,font=\scriptsize] at (-2.5,2.75) {Native-only};
-    \draw[gray!35] (0,2.52) rectangle (42,2.98);
-    \node[anchor=west,font=\tiny] at (1.0,2.75) {0.0\% \; (107 tasks, 107 rows)};
-
-    \node[anchor=east,font=\scriptsize] at (-2.5,1.85) {Exactly-one};
-    \draw[gray!35] (0,1.62) rectangle (42,2.08);
-    \fill[green!60!black] (0,1.62) rectangle (19.0,2.08);
-    \node[font=\tiny,text=white] at (9.5,1.85) {19.0\%};
-    \node[anchor=west,font=\tiny] at (20.0,1.85) {4 tasks, 8 rows};
-
-    \node[anchor=east,font=\scriptsize] at (-2.5,0.95) {Multi-order-rich};
-    \draw[gray!35] (0,0.72) rectangle (42,1.18);
-    \fill[blue!65] (0,0.72) rectangle (39.8,1.18);
-    \node[font=\tiny,text=white] at (19.9,0.95) {39.8\%};
-    \node[anchor=west,font=\tiny] at (40.5,0.95) {54 tasks, 1{,}407 rows};
-\end{tikzpicture}}
-\caption{Reference-validated parallelism by replay-filtered coverage bucket. Rows count final Augmented GAIA references: native-only tasks contribute one native row, exactly-one tasks contribute one native plus one retained non-native row, and multi-order-rich tasks contribute one native plus at least two retained non-native rows.}
-\label{fig:appendix-critical-path-buckets}
-\end{figure}
+\scriptsize
+\setlength{\tabcolsep}{8pt}
+\begin{tabular}{lrrrrrr}
+\toprule
+Task bucket & Tasks & Native mean & Native median & Critical mean & Critical median & Parallelism mean \\
+\midrule
+All tasks & 165 & 7.78 & 7.0 & 6.45 & 6.0 & 11.6\% \\
+Native-only & 107 & 6.35 & 6.0 & 6.35 & 6.0 & 0.0\% \\
+Exactly-one & 4 & 5.50 & 5.5 & 4.50 & 4.5 & 19.0\% \\
+Multi-order-rich & 54 & 10.80 & 9.0 & 6.81 & 6.5 & 33.9\% \\
+\bottomrule
+\end{tabular}
+\caption{Task-weighted reference-validated critical-path profile by replay-filtered coverage bucket. Critical path is computed from the conservative partial order induced by final Augmented GAIA references, so native-only tasks preserve the native chain by definition.}
+\label{tab:appendix-critical-path-buckets}
+\end{table}
 
 \begin{table}[H]
 \centering

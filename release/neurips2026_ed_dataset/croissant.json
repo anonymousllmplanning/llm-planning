@@ -7,6 +7,7 @@
     "conformsTo": "dct:conformsTo",
     "cr": "http://mlcommons.org/croissant/",
     "rai": "http://mlcommons.org/croissant/RAI/",
+    "prov": "http://www.w3.org/ns/prov#",
     "data": {
       "@id": "cr:data",
       "@type": "@json"
@@ -72,13 +73,25 @@
     "https://huggingface.co/datasets/microsoft/Taskbench",
     "https://github.com/JoeYing1019/UltraTool"
   ],
+  "prov:wasDerivedFrom": [
+    "https://huggingface.co/datasets/gaia-benchmark/GAIA",
+    "https://huggingface.co/datasets/microsoft/Taskbench",
+    "https://github.com/JoeYing1019/UltraTool"
+  ],
+  "prov:wasGeneratedBy": [
+    "Official-source rebuild from gated GAIA and open TaskBench/UltraTool sources.",
+    "LLM-assisted dependency annotation over planning steps.",
+    "Candidate async-ordering sampling from dependency constraints.",
+    "Gemma 4 replay filtering of behavior-preserving non-native async orderings.",
+    "Sanitization step that removes GAIA raw questions, final answers, and attachments from released archives."
+  ],
   "rai:dataCollection": "The artifact is built from existing benchmark sources and derived planning/tool annotations. GAIA raw questions, final answers, and attachments are not redistributed; users rebuild them locally from the official gated GAIA source.",
   "rai:dataCollectionType": "Derived annotations and evaluation-result summaries over existing benchmark tasks.",
   "rai:dataCollectionTypeOthers": "No web scraping or new human-subject data collection is performed.",
   "rai:dataCollectionMissing": "GAIA raw task text, final answers, and attachments are intentionally omitted from the public artifact and must be obtained from the official gated dataset.",
   "rai:dataCollectionRaw": "Raw upstream data sources are GAIA, TaskBench, and UltraTool. The released artifact contains controlled annotations, scripts, checksums, and sanitized aggregate summaries.",
   "rai:dataPreprocessingImputation": "No statistical imputation is applied.",
-  "rai:dataPeprocessingProtocol": "Scripts rebuild a local evaluation layout by merging official source records with derived annotations. The final Augmented GAIA scoring view contains 165 native chain references plus 1,357 Gemma 4-retained non-native async orderings.",
+  "rai:dataPreprocessingProtocol": "Scripts rebuild a local evaluation layout by merging official source records with derived annotations. The final Augmented GAIA scoring view contains 165 native chain references plus 1,357 Gemma 4-retained non-native async orderings.",
   "rai:dataPreprocessingManipulation": "GAIA questions, answers, and attachments are removed from released annotation bundles; local rebuild restores them from official sources.",
   "rai:dataAnnotationProtocol": "Dependency annotations are generated over planning steps, candidate async orderings are sampled from those dependencies, and Gemma 4 replay filtering retains behavior-preserving non-native orderings.",
   "rai:dataAnnotationPlatform": "Local scripted annotation and replay-filtering pipeline.",
@@ -91,8 +104,10 @@
     "Replay filtering depends on one replay model and may exclude valid orderings that fail that model's behavior-preservation check."
   ],
   "rai:dataUseCases": "Research evaluation of agent planning, tool invocation, and final-answer correctness; audit and reproduction of the accompanying paper.",
-  "rai:dataLimitation": "Not intended for training deployed models or for redistributing GAIA raw validation/test content. Full GAIA reproduction requires official gated access.",
+  "rai:dataLimitations": "Not intended for training deployed models or for redistributing GAIA raw validation/test content. Full GAIA reproduction requires official gated access.",
   "rai:dataSocialImpact": "The artifact supports more transparent agent evaluation, but benchmark scores should not be interpreted as deployment readiness.",
+  "rai:hasSyntheticData": true,
+  "rai:personalSensitiveInformation": "No intentionally released personal or sensitive data beyond upstream benchmark terms; GAIA raw files are excluded from the artifact.",
   "rai:dataSensitive": "No intentionally released personal or sensitive data beyond upstream benchmark terms; GAIA raw files are excluded from the artifact.",
   "rai:dataMaintenance": "Versioned artifact with checksums and rebuild scripts; updates should regenerate the package manifest and Croissant metadata.",
   "distribution": [
@@ -103,7 +118,7 @@
       "description": "JSON manifest listing released files, byte sizes, and checksums.",
       "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/main/package_manifest.json",
       "encodingFormat": "application/json",
-      "sha256": "ae0372bd5ce6a73201ed6d64fd42180a13ef29a2564d1fb0f62f5330cf6fb6e7"
+      "sha256": "19f87e18a47b4e3a47f38305eaa803c643c79e818933161f9d2c2d7a92ad115d"
     },
     {
       "@type": "cr:FileObject",
@@ -130,7 +145,7 @@
       "description": "Scripts for fetching upstream sources, rebuilding local data, running experiments, and evaluating results.",
       "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/main/scripts/scripts.zip",
       "encodingFormat": "application/zip",
-      "sha256": "3bd5e162a0dafcf327fb976033b46b7353af6c4379705ae436e8283b33ba7490"
+      "sha256": "b001e5ef2df23f945524852d0824567d414b085ef538764d2e877c5adb750200"
     }
   ],
   "recordSet": [
