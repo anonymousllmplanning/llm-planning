@@ -16,6 +16,9 @@ Metric Definitions (dataset-aware):
   * Span-Node F1 is retained only as a diagnostic field.
 - Link/Edge F1: strict and semantically re-anchored edge matching are both reported
 - t-F1 (param_name_f1): F1 of "{tool_name}-{param_name}" strings
+  Predicted optional execution-control arguments are ignored when the matching
+  gold tool slot does not require them, so provider/runtime defaults do not
+  penalize otherwise correctly grounded calls.
 - v-F1 (type_aware_value_f1): value F1 used in ToolUsageScore.
   GAIA uses execution-normalized stable value entries; other benchmarks keep
   the strict type-aware value matcher.
@@ -270,6 +273,44 @@ _URL_TRACKING_KEYS = {
 _TYPE_AWARE_TEXT_ARGS = {"query", "problem", "custom_prompt"}
 _TYPE_AWARE_EXACT_ARGS = {"task", "language", "action", "sheet", "page", "slide_number", "answer_type"}
 _TYPE_AWARE_THRESHOLD = 0.5
+
+# Execution-control arguments that are often injected by runtime adapters or
+# model-side tool defaults.  They are ignored for ParamF1 only when the
+# corresponding gold tool slot does not require that argument.
+_OPTIONAL_EXECUTION_CONTROL_ARG_NAMES = {
+    "action",
+    "engine",
+    "language",
+    "max_results",
+    "page",
+}
+
+
+def _normalize_param_name_for_schema(name: Any) -> str:
+    text = str(name or "").strip()
+    text = re.sub(r"(?<!^)(?=[A-Z])", "_", text)
+    text = text.lower()
+    text = re.sub(r"[^a-z0-9]+", "_", text)
+    return re.sub(r"_+", "_", text).strip("_")
+
+
+def _is_optional_execution_control_arg(
+    tool_name: str,
+    param_name: Any,
+    gold_param_names_by_tool: Dict[str, Set[str]],
+) -> bool:
+    """Return True when a predicted argument is an ignorable control default.
+
+    The exception is deliberate: if the gold annotation for this tool explicitly
+    requires the parameter name, it remains part of ParamF1/strict value scoring.
+    This keeps all model families on the same schema-level metric while avoiding
+    penalties for adapter defaults such as search engines or pagination knobs.
+    """
+    normalized_name = _normalize_param_name_for_schema(param_name)
+    return (
+        normalized_name in _OPTIONAL_EXECUTION_CONTROL_ARG_NAMES
+        and normalized_name not in gold_param_names_by_tool.get(tool_name, set())
+    )
 
 
 def _multiset_token_f1(a_tokens: List[str], b_tokens: List[str]) -> float:
@@ -2163,6 +2204,7 @@ class ASTEvaluationSystem:
         # Calculate TaskBench-style t-F1 and v-F1
         gold_task_arg_names: List[str] = []      # "{tool_name}-{param_name}"
         gold_type_aware_entries: List[Tuple[str, str, Any]] = []
+        gold_param_names_by_tool: Dict[str, Set[str]] = {}
         pred_task_arg_names: List[str] = []
         pred_type_aware_entries: List[Tuple[str, str, Any]] = []
 
@@ -2193,6 +2235,9 @@ class ASTEvaluationSystem:
 
             for name, value in normalized_args:
                 if name:
+                    gold_param_names_by_tool.setdefault(tool_name, set()).add(
+                        _normalize_param_name_for_schema(name)
+                    )
                     task_arg_key = f"{tool_name}-{name}"
                     gold_task_arg_names.append(task_arg_key)
                     gold_type_aware_entries.append((tool_name, name, value))
@@ -2249,6 +2294,8 @@ class ASTEvaluationSystem:
 
             for name, value in normalized_args:
                 if name:
+                    if _is_optional_execution_control_arg(tool_name, name, gold_param_names_by_tool):
+                        continue
                     pred_task_arg_names.append(f"{tool_name}-{name}")
 
         for c in pred_calls_for_value_metrics:
@@ -2266,6 +2313,8 @@ class ASTEvaluationSystem:
 
             for name, value in normalized_args:
                 if not name:
+                    continue
+                if _is_optional_execution_control_arg(tool_name, name, gold_param_names_by_tool):
                     continue
                 pred_type_aware_entries.append((tool_name, name, value))
 

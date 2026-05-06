@@ -144,6 +144,14 @@ Tool usage is evaluated from realized non-submit tool calls:
 ToolUsageScore = (ToolF1 + ParamF1 + ParamValueF1) / 3
 ```
 
+`ParamF1` is computed in the shared evaluation framework for every model
+family. Predicted optional execution-control arguments such as `engine`,
+`max_results`, `action`, `page`, and `language` are ignored only when the gold
+tool slot for that tool does not require them. If a gold slot explicitly
+requires one of these arguments, it remains part of ParamF1. This avoids
+provider- or adapter-specific defaults changing the score while keeping genuine
+schema errors penalized.
+
 For GAIA, `ParamValueF1` uses execution-normalized stable value matching. It
 credits equivalent file/path aliases, typed file-reader realizations, shared
 image/audio file resources, URL normalizations, numeric calculator equivalence,
@@ -286,6 +294,13 @@ tool library and is intended for ablations.
 
 `ANSWER_VERIFIER_MODEL` is optional and disabled by default. Leave it unset or
 set it to an empty string to reproduce the default human-review answer workflow.
+
+To verify the framework-level ParamF1 normalization without running a full
+experiment:
+
+```bash
+python scripts/utils/smoke_test_optional_arg_normalization.py
+```
 
 ## GAIA Answer-Mode Commands
 
