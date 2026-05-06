@@ -104,20 +104,21 @@ data/Augmented/
 The categorized splits contain the task records and attachments used for
 inference. `Asynchronous_output/` stores the unfiltered GPT-4o dependency DAG
 annotations and candidate dependency-preserving async orderings. It contains
-1,913 candidate orderings. `DAGs/` stores the Gemma 4 replay-filtered scoring
-view: the same task-level dependency DAGs with only the 1,468
-behavior-preserving async orderings retained. The controlled annotation bundle
+1,771 non-native candidate orderings. `DAGs/` stores the final Gemma 4
+replay-filtered scoring view: the 165 native chain references plus 1,357
+behavior-preserving non-native async orderings. The controlled annotation bundle
 may call this source view `Gemma4_Filtered_DAGs/`; the local rebuilt data root
 uses only `DAGs/` so that `scripts/exp.sh` has one canonical reference path.
 
 The paper accounting for the final release is:
 
 - 165 original GAIA tasks.
-- 1,284 planning nodes and 1,119 reduced dependency edges.
-- 1,913 candidate async orderings.
-- 1,468 Gemma 4 behavior-preserving retained async orderings.
-- 134 tasks with at least one retained async ordering beyond the native chain.
-- 57 multi-order-rich tasks with at least two retained async orderings.
+- 1,284 planning nodes and 1,086 reduced dependency edges.
+- 1,771 candidate non-native async orderings.
+- 1,357 Gemma 4 behavior-preserving retained non-native async orderings.
+- 1,522 final reference ordering rows after adding the 165 native chains.
+- 58 tasks with at least one retained async ordering beyond the native chain.
+- 54 multi-order-rich tasks with at least two retained async orderings.
 
 ## Metrics
 
@@ -238,7 +239,7 @@ export GAIA_DATA_ROOT=/path/to/Augmented
 
 ### TaskBench and UltraTool
 
-The public repo also does not track TaskBench or UltraTool generated files. To
+The public repo also does not track generated TaskBench or UltraTool data files. To
 fetch upstream sources into an ignored local directory:
 
 ```bash

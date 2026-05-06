@@ -1,0 +1,8 @@
+cat,domain,recommendation,tasks
+A,Text,keep_current,106
+A,Text,manual_review_no_gold_tool,8
+A,Text,review_add_reasoning_or_computation_candidate,6
+A,Text,review_add_web_retrieval_candidate,7
+B,Document,add_document_access_alternatives_to_python_executor,25
+C,Vision,keep_image_recognition_hard_gold_do_not_add_reasoning_by_default,10
+D,Audio,keep_audio_transcription_and_reasoning,3

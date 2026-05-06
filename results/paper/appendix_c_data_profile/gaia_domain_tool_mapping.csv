@@ -1,0 +1,5 @@
+domain,cat,scenario,tool_functions_from_tools_py,paper_role
+Text,A,Web/text reasoning and structured calculation,web_search; web_browser; python_executor/code execution; calculator; reasoning; file/download helpers; submit_final_answer,"search, inspect sources, compute intermediate quantities, and submit concise answer"
+Document,B,PDF/spreadsheet/presentation/archive reading,file_reader; pdf_reader; excel_reader; pptx_reader; zip_extractor; python_executor; calculator; reasoning; web_search/web_browser; submit_final_answer,parse local attachments and combine document evidence with computation
+Vision,C,Image/OCR/diagram/chess/music/color-number tasks,image_recognition; file_reader; python_executor; calculator; reasoning; web_search/web_browser; submit_final_answer,convert visual evidence into textual/structured observations before planning and solving
+Audio,D,Speech/audio transcription tasks,audio_transcription; file_reader/download helpers; reasoning; submit_final_answer,transcribe audio evidence and solve text constraints over transcript

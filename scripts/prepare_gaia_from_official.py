@@ -13,7 +13,7 @@ Output layout is compatible with ``scripts/exp.sh``:
     cat_B_document/{gaia.cat_B.json,attachments/}
     cat_C_vision/{gaia.cat_C.json,attachments/}
     cat_D_audio/{gaia.cat_D.json,attachments/}
-    Asynchronous_output/        # unfiltered candidate orderings, 1,913 rows total
+    Asynchronous_output/        # non-native candidate async orderings, 1,771 rows total
     DAGs/                       # final Augmented GT scoring view, 1,522 reference rows
 """
 

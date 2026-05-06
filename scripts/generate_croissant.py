@@ -116,21 +116,22 @@ def main() -> None:
             "tool invocation, and answer correctness. The artifact provides code, "
             "controlled Augmented GAIA annotations, aggregate result summaries, and "
             "scripts to rebuild the local evaluation data from official upstream "
-            "sources. It does not redistribute GAIA validation/test questions, final "
-            "answers, or attachments."
+            "sources. The primary dataset contribution is the Augmented GAIA "
+            "annotation and reference layer; TaskBench and UltraTool are auxiliary "
+            "cross-benchmark validation sources. The artifact does not redistribute "
+            "GAIA validation/test questions, final answers, or attachments."
         ),
         "url": args.dataset_url,
         "codeRepository": args.repo_url,
         "dateCreated": str(date.today()),
         "datePublished": str(date.today()),
-        "conformsTo": "http://mlcommons.org/croissant/1.0",
+        "conformsTo": [
+            "http://mlcommons.org/croissant/1.1",
+            "http://mlcommons.org/croissant/RAI/1.0",
+        ],
         "version": "1.0.0",
         "citeAs": "Anonymous submission artifact for Augmented GAIA Planning Evaluation.",
-        "license": (
-            "Derived annotations and code are released under the artifact license. "
-            "GAIA raw data remains subject to the official gated GAIA terms; "
-            "TaskBench is MIT; UltraTool is Apache-2.0."
-        ),
+        "license": "https://creativecommons.org/licenses/by/4.0/",
         "keywords": [
             "agent evaluation",
             "planning",
@@ -146,91 +147,245 @@ def main() -> None:
             "https://github.com/JoeYing1019/UltraTool",
         ],
         "prov:wasDerivedFrom": [
-            "https://huggingface.co/datasets/gaia-benchmark/GAIA",
-            "https://huggingface.co/datasets/microsoft/Taskbench",
-            "https://github.com/JoeYing1019/UltraTool",
+            {
+                "@id": "https://huggingface.co/datasets/gaia-benchmark/GAIA",
+                "prov:label": "GAIA",
+                "description": (
+                    "Official gated GAIA benchmark source used as the parent task "
+                    "set for Augmented GAIA. This artifact uses derived annotations "
+                    "over the GAIA validation split, whose final answers support "
+                    "local answer-correctness scoring. Raw GAIA questions, final "
+                    "answers, and attachments are not redistributed in this artifact, "
+                    "and the held-out GAIA test split is not used for local answer "
+                    "scoring because its answers are private."
+                ),
+                "sc:license": "Official gated Hugging Face dataset terms.",
+            }
         ],
         "prov:wasGeneratedBy": [
-            "Official-source rebuild from gated GAIA and open TaskBench/UltraTool sources.",
-            "LLM-assisted dependency annotation over planning steps.",
-            "Candidate async-ordering sampling from dependency constraints.",
-            "Gemma 4 replay filtering of behavior-preserving non-native async orderings.",
-            "Sanitization step that removes GAIA raw questions, final answers, and attachments from released archives.",
+            {
+                "@type": "prov:Activity",
+                "prov:label": "Collection from existing benchmark sources",
+                "prov:type": "Collection",
+                "description": (
+                    "The primary raw source is the official gated GAIA benchmark. "
+                    "TaskBench and UltraTool are referenced only as auxiliary "
+                    "cross-benchmark validation sources and are materialized by "
+                    "separate rebuild scripts."
+                ),
+                "prov:wasAttributedTo": [
+                    {
+                        "@type": "prov:Agent",
+                        "@id": "anonymous_research_team",
+                        "prov:label": "Anonymous research team",
+                        "description": "Research team identity withheld for double-blind review.",
+                    },
+                    {
+                        "@type": "prov:SoftwareAgent",
+                        "@id": "scripts/fetch_official_sources.py",
+                        "prov:label": "fetch_official_sources.py",
+                        "description": "Helper script for obtaining official upstream sources locally.",
+                    },
+                ],
+            },
+            {
+                "@type": "prov:Activity",
+                "prov:label": "Local rebuild and sanitization",
+                "prov:type": "Preprocessing",
+                "description": (
+                    "Scripts rebuild a local evaluation layout from official sources "
+                    "and derived annotations. GAIA raw questions, final answers, "
+                    "and attachments are removed from released archives; local "
+                    "rebuild restores them from the official gated source."
+                ),
+                "prov:wasAttributedTo": [
+                    {
+                        "@type": "prov:SoftwareAgent",
+                        "@id": "scripts/prepare_gaia_from_official.py",
+                        "prov:label": "prepare_gaia_from_official.py",
+                    },
+                    {
+                        "@type": "prov:SoftwareAgent",
+                        "@id": "scripts/export_gaia_annotations.py",
+                        "prov:label": "export_gaia_annotations.py",
+                    },
+                ],
+            },
+            {
+                "@type": "prov:Activity",
+                "prov:label": "Dependency annotation and async-ordering generation",
+                "prov:type": "Annotation",
+                "description": (
+                    "GPT-4o is used to annotate dependency DAGs over planning-intent "
+                    "steps. Candidate non-native async orderings are then sampled "
+                    "from those dependency constraints."
+                ),
+                "prov:wasAttributedTo": [
+                    {
+                        "@type": "prov:SoftwareAgent",
+                        "@id": "GPT-4o",
+                        "prov:label": "GPT-4o",
+                        "description": "LLM used for dependency annotation.",
+                    },
+                    {
+                        "@type": "prov:SoftwareAgent",
+                        "@id": "async_ordering_sampler",
+                        "prov:label": "Dependency-aware async-ordering sampler",
+                    },
+                ],
+            },
+            {
+                "@type": "prov:Activity",
+                "prov:label": "Behavior-preserving replay filtering",
+                "prov:type": "Filtering",
+                "description": (
+                    "Gemma 4 replay filtering keeps non-native async orderings that "
+                    "preserve native-chain execution behavior under the shared tool "
+                    "layer. The final Augmented GAIA scoring view contains 165 native "
+                    "chain references plus 1,357 retained non-native references."
+                ),
+                "prov:wasAttributedTo": [
+                    {
+                        "@type": "prov:SoftwareAgent",
+                        "@id": "Gemma_4",
+                        "prov:label": "Gemma 4",
+                        "description": "Replay model used for behavior-preserving filtering.",
+                    },
+                    {
+                        "@type": "prov:SoftwareAgent",
+                        "@id": "scripts/utils/model_guided_async_ordering_replay.py",
+                        "prov:label": "model_guided_async_ordering_replay.py",
+                    },
+                ],
+            },
+            {
+                "@type": "prov:Activity",
+                "prov:label": "Release packaging",
+                "prov:type": "Packaging",
+                "description": (
+                    "Release scripts package controlled annotations, sanitized "
+                    "aggregate summaries, checksums, code, and Croissant metadata."
+                ),
+                "prov:wasAttributedTo": [
+                    {
+                        "@type": "prov:SoftwareAgent",
+                        "@id": "scripts/generate_croissant.py",
+                        "prov:label": "generate_croissant.py",
+                    }
+                ],
+            },
         ],
         "rai:dataCollection": (
             "The artifact is built from existing benchmark sources and derived "
-            "planning/tool annotations. GAIA raw questions, final answers, and "
+            "planning/tool annotations. The primary GAIA-derived component uses "
+            "the official validation split because its final answers support local "
+            "answer-correctness scoring. GAIA raw questions, final answers, and "
             "attachments are not redistributed; users rebuild them locally from "
             "the official gated GAIA source."
         ),
-        "rai:dataCollectionType": "Derived annotations and evaluation-result summaries over existing benchmark tasks.",
-        "rai:dataCollectionTypeOthers": "No web scraping or new human-subject data collection is performed.",
-        "rai:dataCollectionMissing": (
+        "rai:dataCollectionType": [
+            "Secondary Data analysis",
+            "Existing datasets",
+            "Others: LLM-assisted derived annotation and scripted replay filtering",
+        ],
+        "rai:dataCollectionMissingData": (
             "GAIA raw task text, final answers, and attachments are intentionally "
             "omitted from the public artifact and must be obtained from the "
-            "official gated dataset."
+            "official gated dataset. The held-out GAIA test split is not included "
+            "in local answer scoring because its final answers are private."
         ),
-        "rai:dataCollectionRaw": (
-            "Raw upstream data sources are GAIA, TaskBench, and UltraTool. The "
-            "released artifact contains controlled annotations, scripts, checksums, "
-            "and sanitized aggregate summaries."
+        "rai:dataCollectionRawData": (
+            "The primary raw upstream source is the official gated GAIA dataset. "
+            "The released artifact uses derived annotations over the GAIA validation "
+            "split and does not redistribute GAIA raw questions, final answers, or "
+            "attachments. The held-out GAIA test split is not used for local answer "
+            "scoring because its final answers are private. TaskBench and UltraTool "
+            "are used only as auxiliary cross-benchmark validation sources through "
+            "rebuild scripts. The released artifact contains controlled annotations, "
+            "scripts, checksums, and sanitized aggregate summaries."
         ),
-        "rai:dataPreprocessingImputation": "No statistical imputation is applied.",
-        "rai:dataPreprocessingProtocol": (
-            "Scripts rebuild a local evaluation layout by merging official source "
-            "records with derived annotations. The final Augmented GAIA scoring "
-            "view contains 165 native chain references plus 1,357 Gemma 4-retained "
-            "non-native async orderings."
-        ),
-        "rai:dataPreprocessingManipulation": (
+        "rai:dataImputationProtocol": "No statistical imputation is applied.",
+        "rai:dataPreprocessingProtocol": [
+            (
+                "Scripts rebuild a local evaluation layout by merging official source "
+                "records with derived annotations."
+            ),
+            (
+                "The final Augmented GAIA scoring view contains 165 native chain "
+                "references plus 1,357 Gemma 4-retained non-native async orderings."
+            ),
+        ],
+        "rai:dataManipulationProtocol": (
             "GAIA questions, answers, and attachments are removed from released "
             "annotation bundles; local rebuild restores them from official sources."
         ),
-        "rai:dataAnnotationProtocol": (
-            "Dependency annotations are generated over planning steps, candidate "
-            "async orderings are sampled from those dependencies, and Gemma 4 replay "
-            "filtering retains behavior-preserving non-native orderings."
-        ),
-        "rai:dataAnnotationPlatform": "Local scripted annotation and replay-filtering pipeline.",
-        "rai:dataAnnotationAnalysis": (
-            "The paper reports construction statistics, replay-filter retention, "
-            "human spot checks, metric definitions, and aggregate model results."
-        ),
-        "rai:dataAnnotationPerItem": (
+        "rai:dataAnnotationProtocol": [
+            (
+                "Dependency annotations are generated over planning steps using GPT-4o."
+            ),
+            (
+                "Candidate non-native async orderings are sampled from the dependency "
+                "constraints and filtered by Gemma 4 replay for behavior preservation."
+            ),
+        ],
+        "rai:dataAnnotationPlatform": ["Local scripted annotation and replay-filtering pipeline."],
+        "rai:dataAnnotationAnalysis": [
+            (
+                "The paper reports construction statistics, replay-filter retention, "
+                "human spot checks, metric definitions, and aggregate model results."
+            )
+        ],
+        "rai:annotationsPerItem": (
             "Each GAIA task receives one native chain reference; tasks with retained "
             "non-native async orderings include those additional references."
         ),
-        "rai:dataAnnotationDemographics": (
+        "rai:annotatorDemographics": (
             "Not applicable: the artifact does not collect participant demographic "
             "data or conduct a human-subject study."
         ),
-        "rai:dataAnnotationTools": "LLM-assisted dependency annotation, scripted sampling, and replay filtering.",
-        "rai:dataBiases": [
-            "Coverage follows the upstream benchmark task distributions, including small Vision and Audio slices.",
-            "Replay filtering depends on one replay model and may exclude valid orderings that fail that model's behavior-preservation check.",
+        "rai:machineAnnotationTools": [
+            "GPT-4o dependency annotation",
+            "Dependency-aware async-ordering sampler",
+            "Gemma 4 behavior-preserving replay filter",
+            "Local Python rebuild and evaluation scripts",
         ],
+        "rai:dataBiases": (
+            "Coverage follows the upstream GAIA task distribution, including small "
+            "Vision and Audio slices. The replay-filtered reference set also depends "
+            "on one replay model, so valid reorderings may be excluded when they fail "
+            "that model's behavior-preservation check."
+        ),
         "rai:dataUseCases": (
-            "Research evaluation of agent planning, tool invocation, and final-answer "
-            "correctness; audit and reproduction of the accompanying paper."
+            "Validated use cases are research evaluation of agent planning, tool "
+            "invocation, and final-answer correctness, plus audit and reproduction "
+            "of the accompanying paper's aggregate results. The artifact is not "
+            "validated for model training, fine-tuning, deployment readiness "
+            "assessment, or replacing official GAIA access."
         ),
         "rai:dataLimitations": (
-            "Not intended for training deployed models or for redistributing GAIA raw "
-            "validation/test content. Full GAIA reproduction requires official gated access."
+            "The artifact is evaluation-only and is not intended for training or "
+            "fine-tuning deployed models. It uses derived annotations over the GAIA "
+            "validation split and does not redistribute GAIA raw validation/test "
+            "questions, final answers, or attachments, so full GAIA reproduction "
+            "requires official gated access. The held-out GAIA test split is not "
+            "used for local answer scoring because its final answers are private. "
+            "The benchmark inherits GAIA's task distribution and has small Vision "
+            "and Audio slices."
         ),
         "rai:dataSocialImpact": (
-            "The artifact supports more transparent agent evaluation, but benchmark "
-            "scores should not be interpreted as deployment readiness."
+            "The artifact supports more transparent diagnosis of tool-using agents "
+            "by separating planning, tool invocation, and final-answer correctness. "
+            "Risks include over-interpreting benchmark scores as deployment readiness "
+            "or using the annotations outside their validated evaluation setting. "
+            "Mitigations include evaluation-only documentation, source-access guidance, "
+            "sanitized release archives, and explicit exclusion of GAIA raw content."
         ),
         "rai:hasSyntheticData": True,
         "rai:personalSensitiveInformation": (
             "No intentionally released personal or sensitive data beyond upstream "
             "benchmark terms; GAIA raw files are excluded from the artifact."
         ),
-        "rai:dataSensitive": (
-            "No intentionally released personal or sensitive data beyond upstream "
-            "benchmark terms; GAIA raw files are excluded from the artifact."
-        ),
-        "rai:dataMaintenance": (
+        "rai:dataReleaseMaintenancePlan": (
             "Versioned artifact with checksums and rebuild scripts; updates should "
             "regenerate the package manifest and Croissant metadata."
         ),

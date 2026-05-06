@@ -1,0 +1,15 @@
+tool,arg,gold_count,pred_count
+audio_transcription,file_path,21,39
+calculator,expression,210,224
+download_file,url,0,93
+excel_reader,file_path,0,241
+file_reader,file_path,0,71
+image_recognition,file_path,70,194
+image_recognition,task,70,194
+pdf_reader,file_path,0,281
+pptx_reader,file_path,0,9
+resource,file_path,266,1204
+web_browser,url,420,1614
+web_resource,url,420,1707
+web_search,query,1372,3064
+zip_extractor,file_path,0,14

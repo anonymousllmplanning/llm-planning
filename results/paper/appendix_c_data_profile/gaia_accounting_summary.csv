@@ -1,0 +1,14 @@
+quantity,value,interpretation
+Tasks,165,"Original GAIA validation tasks retained without changing query, attachment, or answer target."
+Planning nodes,"1,284",Step inventory in the GPT-4o dependency annotations.
+Dependency edges,"1,086",Reduced dependency edges used by the planning-reference layer.
+Candidate non-native async orderings,"1,771",GPT-4o-derived candidate dependency-preserving non-native orderings.
+Retained non-native async orderings,"1,357",Gemma 4 behavior-preserving non-native orderings retained after replay filtering.
+Native chain references,165,One original serialized chain reference per GAIA validation task.
+Final reference ordering rows,"1,522","165 native chain references plus 1,357 retained non-native async orderings."
+Native-only tasks,107,Tasks with no retained async ordering beyond the native chain.
+Tasks with >=1 retained async ordering,58 (35.2%),Tasks with at least one retained non-native reference.
+Tasks with exactly 1 retained async ordering,4 (2.4%),Native chain plus one retained non-native reference.
+Tasks with >=2 retained async orderings,54 (32.7%),Multi-order-rich subset used for flexible-order stress tests.
+Mean native steps per task,7.78,Average size of the original step inventory.
+Mean dependency edges per task,6.58,Average reduced dependency-edge count.

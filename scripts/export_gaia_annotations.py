@@ -23,13 +23,18 @@ from pathlib import Path
 from typing import Any, Iterable
 
 
-ANNOTATION_DIRS = ("Asynchronous_output", "Augmented_GT_NativePlusGemma4NonNative")
+ANNOTATION_DIRS = (
+    ("GPT4o_NonNative_Orderings", "Asynchronous_output"),
+    ("Augmented_GT_NativePlusGemma4NonNative", "Augmented_GT_NativePlusGemma4NonNative"),
+)
 SUMMARY_FILES = (
-    "Augmented_GT_NativePlusGemma4NonNative/README.md",
-    "Augmented_GT_NativePlusGemma4NonNative/checksums.sha256",
-    "Gemma4_Filtered_DAGs/README.md",
-    "Gemma4_Filtered_DAGs/gemma4_filtered_dag_summary.json",
-    "Gemma4_Filtered_DAGs/gemma4_filtered_dag_task_summary.csv",
+    ("GPT4o_NonNative_Orderings/README.md", "Asynchronous_output/README.md"),
+    ("GPT4o_NonNative_Orderings/summary.json", "Asynchronous_output/summary.json"),
+    ("GPT4o_NonNative_Orderings/category_summary.csv", "Asynchronous_output/category_summary.csv"),
+    ("Augmented_GT_NativePlusGemma4NonNative/README.md", "Augmented_GT_NativePlusGemma4NonNative/README.md"),
+    ("Augmented_GT_NativePlusGemma4NonNative/summary.json", "Augmented_GT_NativePlusGemma4NonNative/summary.json"),
+    ("Augmented_GT_NativePlusGemma4NonNative/category_summary.csv", "Augmented_GT_NativePlusGemma4NonNative/category_summary.csv"),
+    ("Augmented_GT_NativePlusGemma4NonNative/task_summary.csv", "Augmented_GT_NativePlusGemma4NonNative/task_summary.csv"),
 )
 
 
@@ -107,16 +112,17 @@ def main() -> None:
         "source_root": "data/Augmented",
         "strip_top_level_query": True,
         "strip_gold_final_answer": not args.keep_final_answer,
-        "annotation_dirs": list(ANNOTATION_DIRS),
+        "annotation_dirs": [dst for _, dst in ANNOTATION_DIRS],
+        "source_annotation_dirs": {dst: src for src, dst in ANNOTATION_DIRS},
         "files": [],
     }
 
-    for dirname in ANNOTATION_DIRS:
-        src_dir = source_root / dirname
+    for source_dirname, output_dirname in ANNOTATION_DIRS:
+        src_dir = source_root / source_dirname
         if not src_dir.exists():
             raise FileNotFoundError(f"Missing annotation directory: {src_dir}")
         for src in sorted(src_dir.glob("gaia_cat_*_async_plan.jsonl")):
-            rel = src.relative_to(source_root)
+            rel = Path(output_dirname) / src.name
             dst = output_root / rel
             rows = (
                 strip_raw_gaia_fields(row, strip_final_answer=not args.keep_final_answer)
@@ -125,14 +131,14 @@ def main() -> None:
             write_jsonl(dst, rows)
             manifest["files"].append(rel.as_posix())
 
-    for rel_text in SUMMARY_FILES:
-        src = source_root / rel_text
+    for source_rel_text, output_rel_text in SUMMARY_FILES:
+        src = source_root / source_rel_text
         if not src.exists():
             continue
-        dst = output_root / rel_text
+        dst = output_root / output_rel_text
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
-        manifest["files"].append(rel_text)
+        manifest["files"].append(output_rel_text)
 
     readme = output_root / "README.md"
     readme.write_text(

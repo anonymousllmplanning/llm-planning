@@ -1,0 +1,9 @@
+pool,subset,n,metric,native,augmented,delta,delta_percent,ci_95_delta,models_with_positive_delta
+closed,GAIA Level 2 multi-order-rich,29,NodeF1,0.499,0.499,+0.000,+0.0%,by construction,0/8
+closed,GAIA Level 2 multi-order-rich,29,EdgeF1,0.086,0.114,+0.028,+32.6%,"[+0.019,+0.037]",8/8
+closed,GAIA Level 2 multi-order-rich,29,PlanningScore,0.286,0.300,+0.014,+4.9%,"[+0.010,+0.019]",8/8
+closed,All multi-order-rich,54,NodeF1,0.491,0.491,+0.000,+0.0%,by construction,0/8
+closed,All multi-order-rich,54,EdgeF1,0.074,0.102,+0.029,+38.6%,"[+0.023,+0.035]",8/8
+closed,All multi-order-rich,54,PlanningScore,0.278,0.293,+0.014,+5.1%,"[+0.011,+0.018]",8/8
+open-weight,GAIA Level 2 multi-order-rich,29,EdgeF1,0.088,0.124,+0.036,+40.6%,"[+0.0271,+0.0439]",7/7
+open-weight,All multi-order-rich,54,EdgeF1,0.074,0.107,+0.033,+45.4%,"[+0.0263,+0.0398]",7/7

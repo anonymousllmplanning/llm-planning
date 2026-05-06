@@ -1,0 +1,7 @@
+threshold,multi_order_rich,tasks,retained_rows,parallelism_mean,parallelism_median,kendall_mean,kendall_median,kendall_max
+>=1,false,58,"1,357",40.0%,40.0%,0.230,0.200,0.667
+>=2,true,54,"1,353",40.1%,40.0%,0.230,0.200,0.667
+>=5,false,40,"1,314",40.4%,40.0%,0.232,0.205,0.667
+>=10,false,32,"1,266",41.0%,40.0%,0.236,0.209,0.667
+>=20,false,26,"1,163",42.2%,42.9%,0.246,0.222,0.667
+>=50,false,13,650,42.6%,40.0%,0.259,0.222,0.667

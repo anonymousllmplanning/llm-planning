@@ -1,0 +1,9 @@
+outcome_category,rows,percent_of_candidates,filter_decision
+Native and reordered answers both correct and text-equivalent,"1,219",68.8%,retained
+Native and reordered answers both correct but surface-different,37,2.1%,retained
+"Both answers wrong, same wrong answer",101,5.7%,retained
+"Both answers wrong, different wrong answers",151,8.5%,filtered
+"Native correct, reordered wrong",69,3.9%,filtered
+"Native wrong, reordered correct",68,3.8%,filtered
+Native chain replay produced no usable answer,88,5.0%,filtered
+Reordered replay produced no usable answer,38,2.1%,filtered

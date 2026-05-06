@@ -1,0 +1,5 @@
+task_bucket,tasks,native_mean,native_median,critical_mean,critical_median,parallelism_mean
+All tasks,165,7.78,7.0,6.45,6.0,11.6%
+Native-only,107,6.35,6.0,6.35,6.0,0.0%
+Exactly-one,4,5.50,5.5,4.50,4.5,19.0%
+Multi-order-rich,54,10.80,9.0,6.81,6.5,33.9%

@@ -30,16 +30,18 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BASE_DIR="$(dirname "$SCRIPT_DIR")"
 LOGS_DIR="${BASE_DIR}/logs"
 if [[ -z "${PYTHON:-}" ]]; then
-    PYTHON="$(which python 2>/dev/null || true)"
-    if [[ -z "${PYTHON}" ]]; then
-        PYTHON="$(which python3 2>/dev/null || true)"
-    fi
-    if [[ -z "${PYTHON}" ]]; then
-        echo "[ERROR] Neither 'python' nor 'python3' found in PATH" >&2
-        exit 1
+    if [[ -n "${CONDA_PREFIX:-}" && -x "${CONDA_PREFIX}/bin/python" ]]; then
+        PYTHON="${CONDA_PREFIX}/bin/python"
+    elif [[ -n "${MAMBA_ROOT_PREFIX:-}" && -x "${MAMBA_ROOT_PREFIX}/envs/llm_planning/bin/python" ]]; then
+        PYTHON="${MAMBA_ROOT_PREFIX}/envs/llm_planning/bin/python"
+    elif [[ -x "$HOME/micromamba-root/envs/llm_planning/bin/python" ]]; then
+        PYTHON="$HOME/micromamba-root/envs/llm_planning/bin/python"
+    elif command -v python >/dev/null 2>&1; then
+        PYTHON="$(command -v python)"
+    else
+        PYTHON="python3"
     fi
 fi
-echo "[DEBUG] Using python interpreter: ${PYTHON}"
 
 # Create per-run log directory
 RUN_TIMESTAMP="${RUN_TIMESTAMP:-$(date +%Y%m%d_%H%M%S)}"

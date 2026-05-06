@@ -1,0 +1,36 @@
+model,params,model_id,cat,domain,n,slot_tool_f1_modified_gt,unique_tool_f1_modified_gt,unique_ats_modified_gt,tisr,tool_clean_unique_modified_gt_n
+Mistral Large 3,675B,Mistral-Large-3-675B-Instruct-2512,ALL,All,165,0.412038,0.485945,0.675926,0.951022,120
+Llama-3.1,405B,Llama-3.1-405B-Instruct-FP8,ALL,All,165,0.472786,0.499913,0.614005,0.943198,104
+Llama-3.3,70B,Llama-3.3-70B-Instruct,ALL,All,165,0.526526,0.560298,0.683449,0.929373,118
+Gemma 4,31B,gemma-4-31B-it,ALL,All,165,0.536961,0.592670,0.703704,0.960741,128
+Mistral Small 3.2,24B,Mistral-Small-3.2-24B-Instruct-2506,ALL,All,165,0.544861,0.572525,0.710069,0.928438,121
+Llama-4 Maverick,17B,Llama-4-Maverick-17B-128E-Instruct-FP8,ALL,All,165,0.423937,0.503304,0.697338,0.951438,120
+Gemma 3,12B,gemma-3-12b-it,ALL,All,165,0.548843,0.596133,0.750579,0.903666,120
+Mistral Large 3,675B,Mistral-Large-3-675B-Instruct-2512,A,Text,127,0.359443,0.445857,0.716981,0.955921,87
+Llama-3.1,405B,Llama-3.1-405B-Instruct-FP8,A,Text,127,0.416912,0.439895,0.602201,0.950085,72
+Llama-3.3,70B,Llama-3.3-70B-Instruct,A,Text,127,0.502067,0.528871,0.705975,0.943148,87
+Gemma 4,31B,gemma-4-31B-it,A,Text,127,0.521176,0.576790,0.742138,0.955740,92
+Mistral Small 3.2,24B,Mistral-Small-3.2-24B-Instruct-2506,A,Text,127,0.506652,0.531534,0.732704,0.927891,88
+Llama-4 Maverick,17B,Llama-4-Maverick-17B-128E-Instruct-FP8,A,Text,127,0.368404,0.443795,0.702830,0.953409,85
+Gemma 3,12B,gemma-3-12b-it,A,Text,127,0.495402,0.549606,0.767296,0.906751,88
+Mistral Large 3,675B,Mistral-Large-3-675B-Instruct-2512,B,Document,25,0.646667,0.680762,0.580000,0.930667,23
+Llama-3.1,405B,Llama-3.1-405B-Instruct-FP8,B,Document,25,0.680667,0.700952,0.620000,0.888952,21
+Llama-3.3,70B,Llama-3.3-70B-Instruct,B,Document,25,0.619273,0.660571,0.560000,0.848222,19
+Gemma 4,31B,gemma-4-31B-it,B,Document,25,0.603760,0.652381,0.540000,0.994667,25
+Mistral Small 3.2,24B,Mistral-Small-3.2-24B-Instruct-2506,B,Document,25,0.648190,0.668190,0.560000,0.910000,21
+Llama-4 Maverick,17B,Llama-4-Maverick-17B-128E-Instruct-FP8,B,Document,25,0.662222,0.712381,0.620000,0.916333,22
+Gemma 3,12B,gemma-3-12b-it,B,Document,25,0.704889,0.722857,0.620000,0.861571,20
+Mistral Large 3,675B,Mistral-Large-3-675B-Instruct-2512,C,Vision,10,0.450357,0.487143,0.533333,0.925000,7
+Llama-3.1,405B,Llama-3.1-405B-Instruct-FP8,C,Vision,10,0.604524,0.709524,0.758333,0.975000,8
+Llama-3.3,70B,Llama-3.3-70B-Instruct,C,Vision,10,0.596581,0.693492,0.808333,0.987500,10
+Gemma 4,31B,gemma-4-31B-it,C,Vision,10,0.531515,0.622857,0.766667,0.926667,8
+Mistral Small 3.2,24B,Mistral-Small-3.2-24B-Instruct-2506,C,Vision,10,0.735253,0.825714,0.908333,0.960000,9
+Llama-4 Maverick,17B,Llama-4-Maverick-17B-128E-Instruct-FP8,C,Vision,10,0.464012,0.690714,0.841667,1.000000,10
+Gemma 3,12B,gemma-3-12b-it,C,Vision,10,0.735427,0.782381,0.875000,0.940833,9
+Mistral Large 3,675B,Mistral-Large-3-675B-Instruct-2512,D,Audio,3,0.555556,0.555556,0.500000,1.000000,3
+Llama-3.1,405B,Llama-3.1-405B-Instruct-FP8,D,Audio,3,0.666667,0.666667,0.500000,1.000000,3
+Llama-3.3,70B,Llama-3.3-70B-Instruct,D,Audio,3,0.555556,0.611111,0.500000,0.833333,2
+Gemma 4,31B,gemma-4-31B-it,D,Audio,3,0.666667,0.666667,0.500000,1.000000,3
+Mistral Small 3.2,24B,Mistral-Small-3.2-24B-Instruct-2506,D,Audio,3,0.666667,0.666667,0.500000,1.000000,3
+Llama-4 Maverick,17B,Llama-4-Maverick-17B-128E-Instruct-FP8,D,Audio,3,0.655556,0.655556,0.666667,1.000000,3
+Gemma 3,12B,gemma-3-12b-it,D,Audio,3,0.888889,0.888889,0.833333,1.000000,3
