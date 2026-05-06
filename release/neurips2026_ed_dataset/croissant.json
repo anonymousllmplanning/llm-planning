@@ -50,7 +50,7 @@
   },
   "@type": "sc:Dataset",
   "name": "Augmented GAIA Planning Evaluation",
-  "description": "Evaluation artifact for a three-facet benchmark of agentic planning, tool invocation, and answer correctness. The artifact provides code, controlled Augmented GAIA annotation sidecars, Croissant metadata, checksums, sanitized aggregate result summaries, and scripts to rebuild the local evaluation data from official upstream sources. The primary dataset contribution is the Augmented GAIA annotation and reference layer: a tool-reference layer, GPT-4o dependency-DAG annotations, GPT-4o-derived non-native candidate orderings, and Gemma 4 behavior-preserving replay-filtered reference orderings. TaskBench and UltraTool are included only as auxiliary cross-benchmark validation assets. The artifact does not redistribute GAIA validation/test questions, final answers, or attachments.",
+  "description": "Evaluation artifact for a three-facet benchmark of agentic planning, tool invocation, and answer correctness. The artifact provides code, controlled Augmented GAIA annotation sidecars, Croissant metadata, checksums, sanitized result summaries and figure-source tables, and scripts to rebuild the local evaluation data from official upstream sources. The primary dataset contribution is the Augmented GAIA annotation and reference layer: a tool-reference layer, GPT-4o dependency-DAG annotations, GPT-4o-derived non-native candidate orderings, and Gemma 4 behavior-preserving replay-filtered reference orderings. TaskBench and UltraTool are included only as auxiliary cross-benchmark validation assets. The artifact does not redistribute GAIA validation/test questions, final answers, or attachments.",
   "url": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning",
   "codeRepository": "https://github.com/anonymousllmplanning/llm-planning",
   "dateCreated": "2026-05-07",
@@ -230,8 +230,8 @@
     "Existing datasets",
     "Others: LLM-assisted derived annotation and scripted replay filtering"
   ],
-  "rai:dataCollectionMissingData": "GAIA raw task text, final answers, and attachments are intentionally omitted from the public artifact and must be obtained from the official gated dataset. This omission is a redistribution and access-control decision, not missingness from failed collection. The GAIA test split is not included in local answer scoring because its final answers are private. Closed-model API outputs are summarized only through sanitized aggregate result files.",
-  "rai:dataCollectionRawData": "The primary raw upstream source is the official gated GAIA dataset. The released artifact uses derived annotations over the GAIA validation split and does not redistribute GAIA raw questions, final answers, or attachments. The held-out GAIA test split is not used for local answer scoring because its final answers are private. TaskBench and UltraTool are auxiliary sources used through rebuild scripts and normalized into the shared evaluation format for cross-benchmark checks. The released files contain controlled annotation sidecars, scripts, checksums, Croissant metadata, RAI metadata, and sanitized aggregate summaries.",
+  "rai:dataCollectionMissingData": "GAIA raw task text, final answers, and attachments are intentionally omitted from the public artifact and must be obtained from the official gated dataset. This omission is a redistribution and access-control decision, not missingness from failed collection. The GAIA test split is not included in local answer scoring because its final answers are private. Closed-model API outputs are represented through sanitized summary and figure-source files rather than raw transcripts.",
+  "rai:dataCollectionRawData": "The primary raw upstream source is the official gated GAIA dataset. The released artifact uses derived annotations over the GAIA validation split and does not redistribute GAIA raw questions, final answers, or attachments. The held-out GAIA test split is not used for local answer scoring because its final answers are private. TaskBench and UltraTool are auxiliary sources used through rebuild scripts and normalized into the shared evaluation format for cross-benchmark checks. The released files contain controlled annotation sidecars, scripts, checksums, Croissant metadata, RAI metadata, and sanitized aggregate or derived result summaries.",
   "rai:dataImputationProtocol": "No statistical imputation is applied.",
   "rai:dataPreprocessingProtocol": [
     "scripts/prepare_gaia_from_official.py merges an official GAIA snapshot with the controlled annotation bundle and writes the local data/Augmented layout used by scripts/exp.sh.",
@@ -259,7 +259,7 @@
     "Replay-filter analysis: 1,357/1,771 candidate non-native orderings retained (76.6%), covering 58 tasks; 54 tasks have at least two retained non-native orderings.",
     "Human spot check: majority vote judged 244/248 asserted dependency edges correct (98.4%) and 96/103 sampled nonedges correctly absent (93.2%).",
     "Agreement analysis: pooled dependency-existence judgments had 330/351 unanimous rows (94.0%) with Fleiss kappa 0.905; sampled-nonedge Fleiss kappa was 0.755.",
-    "Aggregate evaluation analysis reports plan structural fidelity, tool invocation accuracy, and end-task answer correctness; released result summaries are aggregate tables rather than raw GAIA examples."
+    "Aggregate evaluation analysis reports plan structural fidelity, tool invocation accuracy, and end-task answer correctness; released result files are sanitized derived tables rather than raw GAIA examples."
   ],
   "rai:annotationsPerItem": "Each of the 165 GAIA validation tasks receives one native chain reference. After replay filtering, 107 tasks are native-only, 4 tasks add exactly one retained non-native async reference, and 54 tasks are multi-order-rich with at least two retained non-native references. Across all tasks, the final scoring view contains 1,522 reference ordering rows: 165 native chain references plus 1,357 retained non-native references. Tool-use scoring is supported by 379 gold tool-slot annotations.",
   "rai:annotatorDemographics": "For the internal dependency spot check, three independent annotators reviewed the sampled dependency rows. Annotators were not recruited through a crowdsourcing platform, and demographic attributes were not collected or released because the activity was an internal quality audit rather than a human-subject data collection study.",
@@ -300,8 +300,8 @@
     {
       "@type": "cr:FileObject",
       "@id": "aggregate_results",
-      "name": "Aggregate result summaries and figure data",
-      "description": "Sanitized aggregate tables, checksums, and figure source data used to audit the paper numbers. Contains no GAIA raw records, attachments, final answers, or per-task qualitative examples.",
+      "name": "Sanitized result summaries and figure data",
+      "description": "Sanitized aggregate and derived result tables, checksums, and figure source data used to audit the paper numbers. Contains no GAIA raw task text, attachments, final answers, raw model transcripts, or raw GAIA records; task-level rows contain only identifiers, metadata, and derived metric or review fields.",
       "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/28ce3275622211ce67e9df702eefcbb59c54d6c5/results/results_summaries.zip",
       "encodingFormat": "application/zip",
       "sha256": "28e4e0e7c432f686cba695ad5664737778701a92002723a65f6b2fdb48083302"
@@ -310,7 +310,7 @@
       "@type": "cr:FileObject",
       "@id": "scripts",
       "name": "Preparation and evaluation scripts",
-      "description": "Scripts for fetching official upstream sources, rebuilding local data, running experiments, evaluating results, and regenerating Croissant metadata.",
+      "description": "Scripts for fetching official upstream sources, rebuilding local data, running experiments, evaluating results, and supporting release packaging.",
       "contentUrl": "https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/28ce3275622211ce67e9df702eefcbb59c54d6c5/scripts/scripts.zip",
       "encodingFormat": "application/zip",
       "sha256": "4c26e2ca356939d9fdeaef1b057db42b94e7e592d85e7c4a9a9e83af2b39e034"
