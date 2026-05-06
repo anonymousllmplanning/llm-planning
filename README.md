@@ -195,7 +195,7 @@ If you already have an official GAIA snapshot:
 ```bash
 python scripts/prepare_gaia_from_official.py \
   --gaia-source /path/to/official/GAIA \
-  --annotation-root /path/to/controlled/gaia_annotations \
+  --annotation-root annotations/gaia_annotations \
   --output-root data/Augmented \
   --overwrite
 ```
@@ -210,7 +210,7 @@ python scripts/fetch_official_sources.py \
 
 python scripts/prepare_gaia_from_official.py \
   --gaia-source raw_sources/gaia \
-  --annotation-root /path/to/controlled/gaia_annotations \
+  --annotation-root annotations/gaia_annotations \
   --output-root data/Augmented \
   --overwrite
 ```
@@ -221,7 +221,7 @@ owned by the authors:
 ```bash
 python scripts/export_gaia_annotations.py \
   --source-root data/Augmented \
-  --output-root /path/to/controlled/gaia_annotations \
+  --output-root annotations/gaia_annotations \
   --overwrite
 ```
 
