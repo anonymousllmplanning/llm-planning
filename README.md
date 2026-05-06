@@ -44,6 +44,46 @@ repository does not redistribute GAIA questions, final answers, or attachments.
   limited to aggregate tables, figures, and non-raw summaries. Paper source
   files are intentionally not tracked in this repository.
 
+## Dataset Artifact
+
+The anonymized NeurIPS evaluation-dataset artifact is hosted on Hugging Face:
+
+- Dataset artifact:
+  <https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning>
+- Croissant metadata:
+  <https://huggingface.co/datasets/anonymousllmplanning/augmented-gaia-planning/resolve/main/croissant.json>
+
+The artifact contains controlled Augmented GAIA annotations, Croissant metadata,
+a package manifest, rebuild scripts, checksums, and sanitized aggregate result
+summaries. It does **not** contain GAIA raw validation/test questions, final
+answers, or attachments. To reconstruct the full local evaluation layout, first
+obtain GAIA from the official gated Hugging Face dataset
+(`gaia-benchmark/GAIA`) after accepting its access conditions, then combine that
+official source with the released annotation bundle using the scripts below.
+
+To download the artifact locally:
+
+```bash
+python - <<'PY'
+from huggingface_hub import snapshot_download
+
+snapshot_download(
+    repo_id="anonymousllmplanning/augmented-gaia-planning",
+    repo_type="dataset",
+    local_dir="release/neurips2026_ed_dataset",
+)
+PY
+```
+
+After downloading, extract the controlled annotation archive before running the
+GAIA preparation step:
+
+```bash
+mkdir -p annotations/gaia_annotations
+unzip -q release/neurips2026_ed_dataset/annotations/gaia_annotations.zip \
+  -d annotations/gaia_annotations
+```
+
 ## Augmented GAIA Data Layout
 
 After rebuilding from the official GAIA snapshot, the canonical local GAIA root
