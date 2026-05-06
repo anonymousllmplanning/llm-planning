@@ -7,8 +7,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "865300b3a499e01133a1374bf19e27acb6149299cc8bb3ee6c16b69224dee555",
-      "bytes": 1580
+      "sha256": "eaf7355bf51c8f15a3b4d1da71c26d8a8bd3ce7e8e35e60deb32f37ce193de07",
+      "bytes": 1413
     },
     {
       "path": "annotations/gaia_annotations.zip",
@@ -17,13 +17,13 @@
     },
     {
       "path": "results/results_summaries.zip",
-      "sha256": "6a56db0ec157e4b77b475e2119af4fb9d841c347456f33dc150d7297b97357ee",
-      "bytes": 23129
+      "sha256": "28e4e0e7c432f686cba695ad5664737778701a92002723a65f6b2fdb48083302",
+      "bytes": 91906
     },
     {
       "path": "scripts/scripts.zip",
-      "sha256": "d9aa124afa97b04acf61d8f1f65edefbf9ca8d42196b5b597ddcf5cce3867e27",
-      "bytes": 235328
+      "sha256": "4c26e2ca356939d9fdeaef1b057db42b94e7e592d85e7c4a9a9e83af2b39e034",
+      "bytes": 421266
     }
   ]
 }
