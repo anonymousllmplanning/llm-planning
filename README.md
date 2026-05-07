@@ -196,7 +196,7 @@ If you already have an official GAIA snapshot:
 ```bash
 python scripts/prepare_gaia_from_official.py \
   --gaia-source /path/to/official/GAIA \
-  --annotation-root annotations/gaia_annotations \
+  --annotation-root /path/to/controlled/gaia_annotations \
   --output-root data/Augmented \
   --overwrite
 ```
@@ -211,7 +211,7 @@ python scripts/fetch_official_sources.py \
 
 python scripts/prepare_gaia_from_official.py \
   --gaia-source raw_sources/gaia \
-  --annotation-root annotations/gaia_annotations \
+  --annotation-root /path/to/controlled/gaia_annotations \
   --output-root data/Augmented \
   --overwrite
 ```
@@ -222,7 +222,7 @@ owned by the authors:
 ```bash
 python scripts/export_gaia_annotations.py \
   --source-root data/Augmented \
-  --output-root annotations/gaia_annotations \
+  --output-root /path/to/controlled/gaia_annotations \
   --overwrite
 ```
 
@@ -239,7 +239,7 @@ export GAIA_DATA_ROOT=/path/to/Augmented
 
 ### TaskBench and UltraTool
 
-The public repo also does not track generated TaskBench or UltraTool data files. To
+The public repo also does not track TaskBench or UltraTool generated files. To
 fetch upstream sources into an ignored local directory:
 
 ```bash
@@ -261,9 +261,18 @@ python scripts/prepare_crossbench.py \
 For the raw upstream layout, `/path/to/crossbench_source` can be the parent
 folder containing `microsoft/Taskbench` files and the cloned UltraTool
 repository. The script searches for TaskBench folders containing
-`data.json`, `graph_desc.json`, `user_requests.json`, and `tool_desc.json`, and
+`data.json`, `graph_desc.json`, `user_requests.jsonl`, and `tool_desc.json`, and
 for the UltraTool English `test_set` folder containing `test.json` and
 `tool_usage*.json` files.
+
+If only one auxiliary upstream source is being prepared, use `--only`:
+
+```bash
+python scripts/prepare_crossbench.py \
+  --source-root /path/to/official/Taskbench \
+  --output-root data \
+  --only taskbench
+```
 
 This creates:
 

@@ -518,6 +518,8 @@ def convert_taskbench(
     # Load user requests
     user_requests: Dict[str, str] = {}
     user_requests_path = tb_dir / "user_requests.json"
+    if not user_requests_path.exists():
+        user_requests_path = tb_dir / "user_requests.jsonl"
     if user_requests_path.exists():
         for row in load_jsonl(user_requests_path):
             user_requests[row.get("id", "")] = row.get("user_request", "")
@@ -556,11 +558,13 @@ def convert_taskbench(
         if limit is not None and len(records) >= limit:
             break
 
-        instruction = row.get("instruction", "")
+        instruction = row.get("instruction") or row.get("user_request", "")
         user_query = user_requests.get(sample_id, instruction)
 
         # Parse tool_nodes (handles various formats)
         tool_nodes_raw = row.get("tool_nodes", [])
+        if not tool_nodes_raw:
+            tool_nodes_raw = row.get("task_nodes", [])
         if isinstance(tool_nodes_raw, str):
             try:
                 tool_nodes_raw = json.loads(tool_nodes_raw)
@@ -588,6 +592,8 @@ def convert_taskbench(
 
         # Parse tool_links
         tool_links_raw = row.get("tool_links", [])
+        if not tool_links_raw:
+            tool_links_raw = row.get("task_links", [])
         if isinstance(tool_links_raw, str):
             try:
                 tool_links_raw = json.loads(tool_links_raw)

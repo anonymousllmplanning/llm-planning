@@ -106,11 +106,13 @@ def find_existing(root: Path, relative: str, alternatives: list[str]) -> Path | 
 
 def find_taskbench_raw_dirs(root: Path) -> list[Path]:
     """Find official TaskBench subset folders containing the expected raw files."""
-    required = {"data.json", "graph_desc.json", "user_requests.json", "tool_desc.json"}
+    required = {"data.json", "graph_desc.json", "tool_desc.json"}
     dirs = []
     for data_file in sorted(root.rglob("data.json")):
         parent = data_file.parent
-        if required.issubset({p.name for p in parent.iterdir() if p.is_file()}):
+        names = {p.name for p in parent.iterdir() if p.is_file()}
+        has_requests = "user_requests.json" in names or "user_requests.jsonl" in names
+        if required.issubset(names) and has_requests:
             dirs.append(parent)
     return dirs
 
@@ -170,6 +172,12 @@ def main() -> None:
     parser.add_argument("--ultratool-limit", type=int, default=1000)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
+        "--only",
+        choices=("both", "taskbench", "ultratool"),
+        default="both",
+        help="Materialize only one auxiliary benchmark when the source root contains just that upstream dataset.",
+    )
+    parser.add_argument(
         "--taskbench-raw-dirs",
         type=Path,
         nargs="*",
@@ -191,65 +199,67 @@ def main() -> None:
     output_root = args.output_root.resolve()
     manifest: dict[str, dict] = {}
 
-    taskbench_out = output_root / TASKBENCH_TARGET
-    taskbench_existing = find_existing(
-        source_root,
-        TASKBENCH_TARGET,
-        ["Taskbench/unified_taskbench_all.jsonl"],
-    )
-    if taskbench_existing is None:
-        raw_dirs = [p.resolve() for p in args.taskbench_raw_dirs or []]
-        if not raw_dirs:
-            raw_dirs = find_taskbench_raw_dirs(source_root)
-        if not raw_dirs:
-            raise FileNotFoundError(
-                "Could not find TaskBench unified or raw source. Provide a source root containing "
-                f"{TASKBENCH_TARGET}, {TASKBENCH_ALL}, or official raw subset folders with "
-                "data.json / graph_desc.json / user_requests.json / tool_desc.json."
+    if args.only in {"both", "taskbench"}:
+        taskbench_out = output_root / TASKBENCH_TARGET
+        taskbench_existing = find_existing(
+            source_root,
+            TASKBENCH_TARGET,
+            ["Taskbench/unified_taskbench_all.jsonl"],
+        )
+        if taskbench_existing is None:
+            raw_dirs = [p.resolve() for p in args.taskbench_raw_dirs or []]
+            if not raw_dirs:
+                raw_dirs = find_taskbench_raw_dirs(source_root)
+            if not raw_dirs:
+                raise FileNotFoundError(
+                    "Could not find TaskBench unified or raw source. Provide a source root containing "
+                    f"{TASKBENCH_TARGET}, {TASKBENCH_ALL}, or official raw subset folders with "
+                    "data.json / graph_desc.json / user_requests.jsonl / tool_desc.json."
+                )
+            taskbench_all = output_root / TASKBENCH_ALL
+            build_taskbench_unified_from_raw(
+                raw_dirs,
+                taskbench_all,
+                no_alignment_filter=args.taskbench_no_alignment_filter,
             )
-        taskbench_all = output_root / TASKBENCH_ALL
-        build_taskbench_unified_from_raw(
-            raw_dirs,
-            taskbench_all,
-            no_alignment_filter=args.taskbench_no_alignment_filter,
-        )
-        taskbench_existing = taskbench_all
-    if taskbench_existing.name == "unified_taskbench_all.jsonl":
-        rows = build_taskbench_subset(
-            taskbench_existing,
-            taskbench_out,
-            seed=args.seed,
-            chain_n=args.taskbench_chain,
-            dag_n=args.taskbench_dag,
-        )
-    else:
-        copy_file(taskbench_existing, taskbench_out)
-        rows = sum(1 for _ in taskbench_out.open("r", encoding="utf-8"))
-    manifest[TASKBENCH_TARGET] = {"rows": rows, "sha256": sha256(taskbench_out)}
+            taskbench_existing = taskbench_all
+        if taskbench_existing.name == "unified_taskbench_all.jsonl":
+            rows = build_taskbench_subset(
+                taskbench_existing,
+                taskbench_out,
+                seed=args.seed,
+                chain_n=args.taskbench_chain,
+                dag_n=args.taskbench_dag,
+            )
+        else:
+            copy_file(taskbench_existing, taskbench_out)
+            rows = sum(1 for _ in taskbench_out.open("r", encoding="utf-8"))
+        manifest[TASKBENCH_TARGET] = {"rows": rows, "sha256": sha256(taskbench_out)}
 
-    ultratool_out = output_root / ULTRATOOL_TARGET
-    ultratool_existing = find_existing(
-        source_root,
-        ULTRATOOL_TARGET,
-        ["Ultratool/unified_ultratool_en.jsonl"],
-    )
-    if ultratool_existing is None:
-        raw_dir = args.ultratool_raw_dir.resolve() if args.ultratool_raw_dir else find_ultratool_raw_dir(source_root)
-        if raw_dir is None:
-            raise FileNotFoundError(
-                "Could not find UltraTool unified or raw source. Provide a source root containing "
-                f"{ULTRATOOL_TARGET}, {ULTRATOOL_ALL_EN}, or an official English test_set folder "
-                "with test.json / tool_usage*.json files."
-            )
-        ultratool_all = output_root / ULTRATOOL_ALL_EN
-        build_ultratool_unified_from_raw(raw_dir, ultratool_all)
-        ultratool_existing = ultratool_all
-    if ultratool_existing.name == "unified_ultratool_en.jsonl":
-        rows = first_n_jsonl(ultratool_existing, ultratool_out, args.ultratool_limit)
-    else:
-        copy_file(ultratool_existing, ultratool_out)
-        rows = sum(1 for _ in ultratool_out.open("r", encoding="utf-8"))
-    manifest[ULTRATOOL_TARGET] = {"rows": rows, "sha256": sha256(ultratool_out)}
+    if args.only in {"both", "ultratool"}:
+        ultratool_out = output_root / ULTRATOOL_TARGET
+        ultratool_existing = find_existing(
+            source_root,
+            ULTRATOOL_TARGET,
+            ["Ultratool/unified_ultratool_en.jsonl"],
+        )
+        if ultratool_existing is None:
+            raw_dir = args.ultratool_raw_dir.resolve() if args.ultratool_raw_dir else find_ultratool_raw_dir(source_root)
+            if raw_dir is None:
+                raise FileNotFoundError(
+                    "Could not find UltraTool unified or raw source. Provide a source root containing "
+                    f"{ULTRATOOL_TARGET}, {ULTRATOOL_ALL_EN}, or an official English test_set folder "
+                    "with test.json / tool_usage*.json files."
+                )
+            ultratool_all = output_root / ULTRATOOL_ALL_EN
+            build_ultratool_unified_from_raw(raw_dir, ultratool_all)
+            ultratool_existing = ultratool_all
+        if ultratool_existing.name == "unified_ultratool_en.jsonl":
+            rows = first_n_jsonl(ultratool_existing, ultratool_out, args.ultratool_limit)
+        else:
+            copy_file(ultratool_existing, ultratool_out)
+            rows = sum(1 for _ in ultratool_out.open("r", encoding="utf-8"))
+        manifest[ULTRATOOL_TARGET] = {"rows": rows, "sha256": sha256(ultratool_out)}
 
     manifest_path = output_root / "crossbench_manifest.json"
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
@@ -257,8 +267,8 @@ def main() -> None:
         json.dump(manifest, handle, indent=2, ensure_ascii=False)
         handle.write("\n")
 
-    print(f"[OK] Wrote {taskbench_out}")
-    print(f"[OK] Wrote {ultratool_out}")
+    for relative in manifest:
+        print(f"[OK] Wrote {output_root / relative}")
     print(f"[OK] Wrote {manifest_path}")
 
 
