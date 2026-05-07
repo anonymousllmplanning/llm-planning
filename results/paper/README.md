@@ -5,7 +5,7 @@ Sanitized aggregate CSV files used to audit the reported results. Files are grou
 - `main_tables/`: headline open-weight GAIA tables and tool-clean diagnostics.
 - `appendix_c_data_profile/`: Augmented GAIA construction, accounting, and reference-validated parallelism summaries.
 - `appendix_e_replay_filter/`: Gemma 4 replay-filter retention and outcome typology summaries.
-- `appendix_closed_model_extension/`: OpenAI/Gemini closed-model extension aggregates.
+- `closed_model_extension/`: OpenAI/Gemini/Claude closed-model extension aggregates.
 - `appendix_cross_benchmark/`: TaskBench and UltraTool auxiliary cross-benchmark summaries.
 - `reference_diagnostics/`: best-reference and threshold diagnostics for flexible-order scoring.
 - `tool_scoring_audits/`: aggregate audits for tool and parameter-value scoring.

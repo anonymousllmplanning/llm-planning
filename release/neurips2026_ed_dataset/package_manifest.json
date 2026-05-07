@@ -2,28 +2,28 @@
   "files": [
     {
       "path": "PACKAGING.md",
-      "sha256": "62ab33fbebfbfe103f91d4055c64b1a37100f0aa8e59039eefd564be256de895",
-      "bytes": 1645
+      "bytes": 1645,
+      "sha256": "62ab33fbebfbfe103f91d4055c64b1a37100f0aa8e59039eefd564be256de895"
     },
     {
       "path": "README.md",
-      "sha256": "eaf7355bf51c8f15a3b4d1da71c26d8a8bd3ce7e8e35e60deb32f37ce193de07",
-      "bytes": 1413
+      "bytes": 1413,
+      "sha256": "eaf7355bf51c8f15a3b4d1da71c26d8a8bd3ce7e8e35e60deb32f37ce193de07"
     },
     {
       "path": "annotations/gaia_annotations.zip",
-      "sha256": "3bd1d2ea75788da8e7ca884b0a97b3b0e74dbf5967f70e48cb3fcf2b5395d9a0",
-      "bytes": 228736
+      "bytes": 228736,
+      "sha256": "3bd1d2ea75788da8e7ca884b0a97b3b0e74dbf5967f70e48cb3fcf2b5395d9a0"
     },
     {
       "path": "results/results_summaries.zip",
-      "sha256": "28e4e0e7c432f686cba695ad5664737778701a92002723a65f6b2fdb48083302",
-      "bytes": 91906
+      "bytes": 30926,
+      "sha256": "c8565973b168300faee22b8568ce0797f4246229496de7d47f2eb7c3f6824670"
     },
     {
       "path": "scripts/scripts.zip",
-      "sha256": "4c26e2ca356939d9fdeaef1b057db42b94e7e592d85e7c4a9a9e83af2b39e034",
-      "bytes": 421266
+      "bytes": 415874,
+      "sha256": "b3891e386f16eacb49bde90248f475050195e6cbe4fc90f680abe6fdfc04b723"
     }
   ]
 }
