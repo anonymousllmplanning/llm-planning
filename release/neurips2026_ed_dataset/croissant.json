@@ -81,26 +81,28 @@
       "@id": "https://huggingface.co/datasets/gaia-benchmark/GAIA",
       "prov:label": "GAIA",
       "description": "Official gated GAIA benchmark source used as the parent task set for Augmented GAIA. This artifact uses derived annotations over the GAIA validation split because that split includes final-answer targets for local answer-correctness evaluation. Raw GAIA questions, final answers, and attachments are not redistributed in this artifact. The held-out GAIA test split is not used for local answer scoring because its final answers are private.",
-      "sc:license": "Official gated Hugging Face dataset terms."
+      "sc:license": "https://huggingface.co/datasets/gaia-benchmark/GAIA"
     },
     {
       "@id": "https://huggingface.co/datasets/microsoft/Taskbench",
       "prov:label": "TaskBench",
       "description": "Public TaskBench benchmark used only for auxiliary cross-benchmark validation of the planning and tool-use facets. The paper uses a balanced 1,000-example subset with 500 DAG-style and 500 chain-style examples after conversion into the shared evaluation format.",
-      "sc:license": "MIT License."
+      "sc:license": "https://spdx.org/licenses/MIT.html"
     },
     {
       "@id": "https://github.com/JoeYing1019/UltraTool",
       "prov:label": "UltraTool",
       "description": "Public UltraTool source used only for auxiliary cross-benchmark validation of the planning and tool-use facets. The paper uses a 1,000-example English subset after conversion into the shared evaluation format.",
-      "sc:license": "Apache License 2.0."
+      "sc:license": "https://spdx.org/licenses/Apache-2.0.html"
     }
   ],
   "prov:wasGeneratedBy": [
     {
       "@type": "prov:Activity",
       "prov:label": "Collection from existing benchmark sources",
-      "prov:type": "Collection",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q4929239"
+      },
       "description": "The primary raw source is the official gated GAIA validation split. GAIA is used because it provides realistic multimodal tasks with verifiable final answers in the validation split. TaskBench and UltraTool are referenced only as auxiliary cross-benchmark validation sources and are materialized by separate rebuild scripts. No GAIA raw questions, final answers, or attachments are collected into the public artifact.",
       "prov:wasAttributedTo": [
         {
@@ -120,7 +122,9 @@
     {
       "@type": "prov:Activity",
       "prov:label": "Local rebuild and sanitization",
-      "prov:type": "Preprocessing",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q5227332"
+      },
       "description": "Scripts rebuild a local evaluation layout by merging official source records with the released derived annotations. The GAIA rebuild categorizes the 165 validation tasks into Text, Document, Vision, and Audio folders, restores attachments only from the official gated source, and writes the final scoring view expected by scripts/exp.sh. The released annotation archives exclude GAIA raw task text, final answers, and attachments; sanitized aggregate results exclude per-task raw GAIA details.",
       "prov:wasAttributedTo": [
         {
@@ -143,7 +147,9 @@
     {
       "@type": "prov:Activity",
       "prov:label": "Tool-reference annotation",
-      "prov:type": "Annotation",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q109719325"
+      },
       "description": "A shared 16-tool runtime universe is exposed to GAIA records, and 379 gold tool-slot annotations are added for tool invocation scoring. These annotations support tool-family, argument-slot, and argument-value evaluation without changing the original GAIA task, attachment, or answer target.",
       "prov:wasAttributedTo": [
         {
@@ -161,7 +167,9 @@
     {
       "@type": "prov:Activity",
       "prov:label": "Dependency annotation and async-ordering generation",
-      "prov:type": "Annotation",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q109719325"
+      },
       "description": "GPT-4o is used to annotate direct dependency DAGs over the original GAIA planning-intent step sequence. The canonical construction keeps the full step inventory, checks schema validity, forward-only edge orientation, single step occurrence, and acyclicity, then applies transitive reduction. The final planning-reference layer contains 1,284 planning nodes and 1,086 reduced dependency edges across 165 tasks. Candidate non-native dependency-preserving async orderings are sampled from these constraints, yielding 1,771 candidate non-native ordering rows before replay filtering.",
       "prov:wasAttributedTo": [
         {
@@ -180,7 +188,9 @@
     {
       "@type": "prov:Activity",
       "prov:label": "Behavior-preserving replay filtering",
-      "prov:type": "Filtering",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q6661985"
+      },
       "description": "Gemma 4 replay filtering keeps non-native async orderings that reproduce the native-chain execution outcome under the shared tool layer. Outcome reproduction allows both gold-equivalent correct answers and same-wrong answers, so the filter checks behavior preservation rather than selecting only orderings that solve the task. Of 1,771 candidate non-native async orderings, 1,357 are retained (76.6%). The final Augmented GAIA scoring view contains 165 native chain references plus 1,357 retained non-native references, for 1,522 total reference ordering rows. The retained non-native rows cover 58 tasks; 54 tasks have at least two retained non-native orderings and form the multi-order-rich subset.",
       "prov:wasAttributedTo": [
         {
@@ -199,7 +209,9 @@
     {
       "@type": "prov:Activity",
       "prov:label": "Human dependency spot check",
-      "prov:type": "Quality assurance",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q836575"
+      },
       "description": "Three independent annotators reviewed a stratified sample of 30 multi-order-rich tasks to audit dependency quality. Each annotator reviewed 351 rows: 248 asserted dependency edges and 103 sampled nonedges. Majority vote judged 244/248 asserted edges correct (98.4%) and 96/103 sampled nonedges correctly absent (93.2%). Pooled dependency-existence agreement was 330/351 unanimous rows (94.0%) with Fleiss kappa 0.905; sampled-nonedge Fleiss kappa was 0.755. The audit supports using the synthesized graphs as binary dependency references while documenting a small number of omitted dependencies.",
       "prov:wasAttributedTo": [
         {
@@ -213,7 +225,9 @@
     {
       "@type": "prov:Activity",
       "prov:label": "Release packaging",
-      "prov:type": "Packaging",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q121141730"
+      },
       "description": "Release scripts package controlled annotations, sanitized aggregate summaries, checksums, code, Croissant metadata, and RAI metadata. The package manifest records byte sizes and SHA-256 checksums for released files.",
       "prov:wasAttributedTo": [
         {
@@ -233,44 +247,14 @@
   "rai:dataCollectionMissingData": "GAIA raw task text, final answers, and attachments are intentionally omitted from the public artifact and must be obtained from the official gated dataset. This omission is a redistribution and access-control decision, not missingness from failed collection. The GAIA test split is not included in local answer scoring because its final answers are private. Closed-model API outputs are represented through sanitized summary and figure-source files rather than raw transcripts.",
   "rai:dataCollectionRawData": "The primary raw upstream source is the official gated GAIA dataset. The released artifact uses derived annotations over the GAIA validation split and does not redistribute GAIA raw questions, final answers, or attachments. The held-out GAIA test split is not used for local answer scoring because its final answers are private. TaskBench and UltraTool are auxiliary sources used through rebuild scripts and normalized into the shared evaluation format for cross-benchmark checks. The released files contain controlled annotation sidecars, scripts, checksums, Croissant metadata, RAI metadata, and sanitized aggregate or derived result summaries.",
   "rai:dataImputationProtocol": "No statistical imputation is applied.",
-  "rai:dataPreprocessingProtocol": [
-    "scripts/prepare_gaia_from_official.py merges an official GAIA snapshot with the controlled annotation bundle and writes the local data/Augmented layout used by scripts/exp.sh.",
-    "The GAIA validation records are partitioned into Text, Document, Vision, and Audio folders while preserving original queries, attachments, native chains, and final-answer targets in the local rebuild only.",
-    "The released annotation bundle removes GAIA raw task text, final answers, and attachments; local rebuild restores those fields only from the official gated source.",
-    "The final Augmented GAIA scoring view contains 165 native chain references plus 1,357 Gemma 4-retained non-native async orderings, for 1,522 total reference ordering rows.",
-    "scripts/prepare_crossbench.py normalizes TaskBench and UltraTool auxiliary subsets into the same evaluation format without providing final-answer scoring for those benchmarks."
-  ],
+  "rai:dataPreprocessingProtocol": "1. scripts/prepare_gaia_from_official.py merges an official GAIA snapshot with the controlled annotation bundle and writes the local data/Augmented layout used by scripts/exp.sh. 2. The GAIA validation records are partitioned into Text, Document, Vision, and Audio folders while preserving original queries, attachments, native chains, and final-answer targets in the local rebuild only. 3. The released annotation bundle removes GAIA raw task text, final answers, and attachments; local rebuild restores those fields only from the official gated source. 4. The final Augmented GAIA scoring view contains 165 native chain references plus 1,357 Gemma 4-retained non-native async orderings, for 1,522 total reference ordering rows. 5. scripts/prepare_crossbench.py normalizes TaskBench and UltraTool auxiliary subsets into the same evaluation format without providing final-answer scoring for those benchmarks.",
   "rai:dataManipulationProtocol": "No statistical imputation is applied. GAIA raw questions, final answers, and attachments are stripped from released annotation bundles; local rebuild restores them from official sources. Dependency annotations are structurally validated and transitively reduced; candidate async orderings are filtered by replay outcome reproduction. Aggregate result files are sanitized to avoid per-task GAIA raw details.",
-  "rai:dataAnnotationProtocol": [
-    "Tool-reference annotation adds a shared 16-tool runtime universe and 379 gold tool slots for GAIA tool invocation scoring.",
-    "GPT-4o dependency annotation receives each task query and original ordered executable step sequence and identifies direct earlier-step dependencies.",
-    "Dependency payloads are rejected if they fail schema checks, omit steps, contain non-forward dependencies, duplicate steps, or form cycles; surviving graphs are transitively reduced.",
-    "Candidate non-native async orderings are sampled from the dependency constraints; the native chain remains a valid reference for every task.",
-    "Gemma 4 replay filtering retains a non-native ordering when its replay reproduces the native-chain outcome under the shared executable tool layer.",
-    "A three-annotator human spot check audits dependency-edge precision and sampled nonedge omissions on 30 multi-order-rich tasks."
-  ],
-  "rai:dataAnnotationPlatform": [
-    "Local scripted annotation, validation, and replay-filtering pipeline.",
-    "LLM API calls for GPT-4o dependency annotation and Gemma 4 replay filtering.",
-    "Internal human review forms for the dependency spot check."
-  ],
-  "rai:dataAnnotationAnalysis": [
-    "Construction accounting: 165 GAIA validation tasks, 1,284 planning nodes, 1,086 reduced dependency edges, 1,771 candidate non-native async orderings, and 1,357 retained non-native async orderings.",
-    "Replay-filter analysis: 1,357/1,771 candidate non-native orderings retained (76.6%), covering 58 tasks; 54 tasks have at least two retained non-native orderings.",
-    "Human spot check: majority vote judged 244/248 asserted dependency edges correct (98.4%) and 96/103 sampled nonedges correctly absent (93.2%).",
-    "Agreement analysis: pooled dependency-existence judgments had 330/351 unanimous rows (94.0%) with Fleiss kappa 0.905; sampled-nonedge Fleiss kappa was 0.755.",
-    "Aggregate evaluation analysis reports plan structural fidelity, tool invocation accuracy, and end-task answer correctness; released result files are sanitized derived tables rather than raw GAIA examples."
-  ],
+  "rai:dataAnnotationProtocol": "1. Tool-reference annotation adds a shared 16-tool runtime universe and 379 gold tool slots for GAIA tool invocation scoring. 2. GPT-4o dependency annotation receives each task query and original ordered executable step sequence and identifies direct earlier-step dependencies. 3. Dependency payloads are rejected if they fail schema checks, omit steps, contain non-forward dependencies, duplicate steps, or form cycles; surviving graphs are transitively reduced. 4. Candidate non-native async orderings are sampled from the dependency constraints; the native chain remains a valid reference for every task. 5. Gemma 4 replay filtering retains a non-native ordering when its replay reproduces the native-chain outcome under the shared executable tool layer. 6. A three-annotator human spot check audits dependency-edge precision and sampled nonedge omissions on 30 multi-order-rich tasks.",
+  "rai:dataAnnotationPlatform": "1. Local scripted annotation, validation, and replay-filtering pipeline. 2. LLM API calls for GPT-4o dependency annotation and Gemma 4 replay filtering. 3. Internal human review forms for the dependency spot check.",
+  "rai:dataAnnotationAnalysis": "1. Construction accounting: 165 GAIA validation tasks, 1,284 planning nodes, 1,086 reduced dependency edges, 1,771 candidate non-native async orderings, and 1,357 retained non-native async orderings. 2. Replay-filter analysis: 1,357/1,771 candidate non-native orderings retained (76.6%), covering 58 tasks; 54 tasks have at least two retained non-native orderings. 3. Human spot check: majority vote judged 244/248 asserted dependency edges correct (98.4%) and 96/103 sampled nonedges correctly absent (93.2%). 4. Agreement analysis: pooled dependency-existence judgments had 330/351 unanimous rows (94.0%) with Fleiss kappa 0.905; sampled-nonedge Fleiss kappa was 0.755. 5. Aggregate evaluation analysis reports plan structural fidelity, tool invocation accuracy, and end-task answer correctness; released result files are sanitized derived tables rather than raw GAIA examples.",
   "rai:annotationsPerItem": "Each of the 165 GAIA validation tasks receives one native chain reference. After replay filtering, 107 tasks are native-only, 4 tasks add exactly one retained non-native async reference, and 54 tasks are multi-order-rich with at least two retained non-native references. Across all tasks, the final scoring view contains 1,522 reference ordering rows: 165 native chain references plus 1,357 retained non-native references. Tool-use scoring is supported by 379 gold tool-slot annotations.",
   "rai:annotatorDemographics": "For the internal dependency spot check, three independent annotators reviewed the sampled dependency rows. Annotators were not recruited through a crowdsourcing platform, and demographic attributes were not collected or released because the activity was an internal quality audit rather than a human-subject data collection study.",
-  "rai:machineAnnotationTools": [
-    "GPT-4o dependency annotation over original GAIA step sequences",
-    "Schema, acyclicity, forward-edge, and transitive-reduction validation scripts",
-    "Dependency-aware async-ordering sampler",
-    "Gemma 4 behavior-preserving replay filter",
-    "Shared 16-tool executable runtime in src/inference/tools.py",
-    "Local Python rebuild and evaluation scripts"
-  ],
+  "rai:machineAnnotationTools": "1. GPT-4o dependency annotation over original GAIA step sequences 2. Schema, acyclicity, forward-edge, and transitive-reduction validation scripts 3. Dependency-aware async-ordering sampler 4. Gemma 4 behavior-preserving replay filter 5. Shared 16-tool executable runtime in src/inference/tools.py 6. Local Python rebuild and evaluation scripts",
   "rai:dataBiases": "The benchmark inherits the upstream GAIA validation distribution and therefore reflects GAIA task selection, modality mix, and difficulty mix. The released profile is imbalanced across input domains: 127 Text, 25 Document, 10 Vision, and 3 Audio tasks, so Vision and Audio findings have limited statistical stability. The dependency layer is machine-assisted by GPT-4o, which can introduce model-specific annotation bias; the replay-filtered reference set also depends on Gemma 4, so valid reorderings may be excluded when they fail that model-specific behavior-preservation check. The human spot check is a quality audit over 30 multi-order-rich tasks rather than a full relabeling of all tasks.",
   "rai:dataUseCases": "Validated use cases are research evaluation of agent planning structure, tool invocation behavior, and final-answer correctness on the GAIA-derived benchmark; audit of the accompanying aggregate results; and reproduction of the released open-weight evaluation pipeline after obtaining official GAIA access. TaskBench and UltraTool files support auxiliary planning/tool-use cross-benchmark validation only. The artifact is not validated for model training, fine-tuning, leaderboard replacement, deployment-readiness assessment, safety certification, or use as a substitute for official GAIA access.",
   "rai:dataLimitations": "The artifact is evaluation-only and is not intended for training or fine-tuning deployed models. It uses derived annotations over the GAIA validation split and does not redistribute GAIA raw validation/test questions, final answers, or attachments, so full GAIA reproduction requires official gated access. The GAIA test split is not used for local answer scoring because its final answers are private. The benchmark inherits GAIA distributional limits and has small Vision and Audio slices. Dependency annotations are LLM-assisted and validated by structural checks, replay filtering, and a sampled human spot check, but they are not exhaustive human gold labels. Replay filtering uses a single replay model, Gemma 4, so the retained non-native ordering pool reflects that model and runtime profile. Closed-model extension results depend on API access and are reported as supplementary rather than as the primary reproducible result.",
