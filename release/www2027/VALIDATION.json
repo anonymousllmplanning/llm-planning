@@ -60,7 +60,7 @@
   },
   "manuscript_aligned_results": {
     "status": "passed",
-    "checks": 139,
+    "checks": 132,
     "tables": 26,
     "aggregate_rows": 183,
     "scope": "Displayed-value fidelity, checksums, aggregate accounting and asset metadata; no claim of independently rerunning all experiments.",

@@ -9,15 +9,16 @@ This release contains source code, synthetic tests, and
 responses, execution trajectories, paper sources, and gated benchmark data are
 distributed separately.
 
-![Framework and three-facet evaluation](docs/assets/framework_overview.png)
+![Framework and three-facet evaluation](docs/assets/overview_figure.png)
 
-The overview preserves the original illustration layout with current reference
-counts. Replay and human review provide separate evidence; neither filters the
-main reference pool. S3 is the evaluated pre-execution planning object.
+Both supplied figures are retained unchanged as architecture illustrations.
+For current statistics, stage definitions, and reference policy, the manuscript
+text and [core result tables](results/README.md) take precedence over numbers
+or labels printed in the figures.
 
 The dependency-synthesis workflow is shown in the original pipeline diagram:
 
-![Dependency annotation and deterministic compilation](docs/assets/dependency_synthesis_pipeline.png)
+![Dependency annotation and deterministic compilation](docs/assets/pipeline_figure.png)
 
 ## Installation
 

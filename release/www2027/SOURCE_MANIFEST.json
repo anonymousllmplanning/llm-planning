@@ -10,8 +10,8 @@
       "sha256": "9f6893ce757ee4a94db5c1f5c1f5ea2e28c6aa62b54259ce6f82b94ff6cdcb0a"
     },
     "README.md": {
-      "size": 7209,
-      "sha256": "eca7b4fd58029fcd3e39ea2de9e505f418a88f6cb1b7f7bc63ae1ff3f7c1ba70"
+      "size": 7230,
+      "sha256": "83929edc06deade3e401ae9688922ad0a81ba66e55dc3f5b3d469569e8a7c24d"
     },
     "annotations/README.md": {
       "size": 1079,
@@ -21,21 +21,17 @@
       "size": 1240,
       "sha256": "223977395ef8f16bbcdb4ac14f4963ce8a3eabf08bd756913b16f1106b57b76f"
     },
-    "docs/assets/dependency_synthesis_pipeline.png": {
-      "size": 336577,
-      "sha256": "8262c05ee348607566f633c1d3c69af9619f3dc25e2ea081c7539917e2435774"
-    },
-    "docs/assets/framework_overview.facts.json": {
-      "size": 668,
-      "sha256": "a85235f649178d11753e7ebb685fc54611174575ac6bc5c49971f261f49b31cd"
-    },
-    "docs/assets/framework_overview.png": {
-      "size": 1685962,
-      "sha256": "0404278270b2ba48889a991397aa81efa396ec55e4675a4e142a051cb763ea45"
-    },
     "docs/assets/inference_pipeline_main.png": {
       "size": 324266,
       "sha256": "74ca02fa31e4df4a9b9daea66d40e8fcf4376aa830a9aa6d509fad7ed2bfcd80"
+    },
+    "docs/assets/overview_figure.png": {
+      "size": 382721,
+      "sha256": "086232c3275cc49395982e3be3afa1ce6d0b27a963e67602225c8c89331e9bc2"
+    },
+    "docs/assets/pipeline_figure.png": {
+      "size": 336577,
+      "sha256": "8262c05ee348607566f633c1d3c69af9619f3dc25e2ea081c7539917e2435774"
     },
     "docs/protocol.md": {
       "size": 4304,
@@ -94,8 +90,8 @@
       "sha256": "3889594cf1ba77aea9fd645cdc33200175258d8441c37fa43de53bd6ed59ecaf"
     },
     "scripts/validate_result_artifacts.py": {
-      "size": 5084,
-      "sha256": "6a876c3b43340dd803bcf3f99c5b7527aee7dc9607b0464570640faa4b5bf153"
+      "size": 4048,
+      "sha256": "0ecfb7fbe2d870cf0c453903d87a3c3cae3e12fba63695b9f8e8a2b7b14e6f55"
     },
     "src/__init__.py": {
       "size": 448,

@@ -21,7 +21,7 @@ python scripts/export_paper_results.py --main /path/to/main.tex \
   --appendix /path/to/appendix.tex --output /path/to/new-export
 ```
 
-The current [framework diagram](../docs/assets/framework_overview.png) preserves
-the original illustration layout and uses 1,786 candidate orderings and 1,951
-total references. The [dependency-synthesis pipeline](../docs/assets/dependency_synthesis_pipeline.png)
-is retained in its original layout.
+The supplied [overview](../docs/assets/overview_figure.png) and
+[dependency-synthesis pipeline](../docs/assets/pipeline_figure.png) are uploaded
+unchanged as architecture illustrations. Current manuscript text and these
+result tables take precedence over statistics or labels printed in the figures.
