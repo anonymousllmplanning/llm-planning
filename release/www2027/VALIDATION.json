@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "release": "WWW2027 anonymous experimental framework",
+  "offline_validation_api_calls": 0,
+  "gpu_used": false,
+  "recorded_ordering_and_stage4_handoff_tests": {
+    "passed": 8
+  },
+  "parser_checkpoint_and_technical_repair_tests": {
+    "passed": 8
+  },
+  "optional_argument_normalization": "passed",
+  "shell_syntax": "passed",
+  "python_ast_files": 43,
+  "cli_and_portability_checks": {
+    "passed": 19,
+    "checks": [
+      "bash_syntax",
+      "python_compile",
+      "recorded_ordering_and_stage4_prompt_smoke",
+      "src.evaluation.runner_help",
+      "src.inference.runner_help",
+      "prepare_gaia_from_official.py_help",
+      "export_gaia_annotations.py_help",
+      "exp_help_outside_checkout",
+      "api_argument_arrays_and_space_paths",
+      "captured_command_arrays",
+      "nine_paper_model_routing_dry_run",
+      "configured_remote_inventory_dry_run",
+      "custom_api_remote_filter",
+      "zh_profile_outside_checkout",
+      "invalid_backend_fails",
+      "empty_remote_filter_fails",
+      "schedule_auto_discovery",
+      "cleanup_preserves_unrelated_process",
+      "private_inventory_and_global_process_kill_removed"
+    ]
+  },
+  "primary_planning_parity": {
+    "tasks": 2970,
+    "orders": 35118,
+    "references": 1951,
+    "alignment_matches": 2970,
+    "selected_rank_matches": 2970,
+    "primary_score_values_checked": 105354,
+    "max_absolute_score_difference": 0.0,
+    "diagnostic_overrides": [
+      "span alignment bypassed",
+      "node label similarity bypassed"
+    ]
+  },
+  "executed_inference_modules_preserved": 16,
+  "limitations": [
+    "Live model inference and external tools were not rerun for this source validation.",
+    "Primary planning parity uses frozen cached embeddings; it does not validate every auxiliary metric.",
+    "Gated benchmark inputs, controlled annotations, schedules, historical checkpoints and experimental results are separate artifacts."
+  ]
+}

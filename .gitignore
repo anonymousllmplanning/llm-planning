@@ -1,0 +1,29 @@
+# Local generated benchmark data and raw upstream sources
+data/
+raw_sources/
+controlled/
+organized_results/
+results/
+traces/
+checkpoints/
+repair_outputs/
+logs/
+backup/
+runtime_artifacts/
+*.answer/
+*.order/
+
+# Python/runtime caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Secrets and local environment
+.env
+.env.*
+*.key
+*.pem
+.DS_Store

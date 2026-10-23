@@ -1,0 +1,31 @@
+{
+  "reference_version": "gaia165-native165-candidates1786",
+  "tasks": 165,
+  "native_references": 165,
+  "candidate_references": 1786,
+  "replay_filter_applied_to_main_reference_set": false,
+  "stage1_dag_handoff": "steps_only",
+  "technical_repair": {
+    "parser": "uniform-technical-repair-v2",
+    "max_new_attempts_per_selected_case": 1,
+    "S1_max_tokens": 8192,
+    "S3_max_tokens": 16384,
+    "S5_max_tokens": 4096,
+    "S4_max_turns": 15,
+    "S4_action_requests_per_turn": 2,
+    "model_specific_forced_submit": false,
+    "selection_uses_answers_or_scores": false,
+    "historical_first_pass_budgets_mixed": true
+  },
+  "models": [
+    "Mistral-Large-3-675B-Instruct-2512",
+    "Llama-3.1-405B-Instruct-FP8",
+    "Devstral-2-123B-Instruct-2512",
+    "Llama-3.3-70B-Instruct",
+    "gemma-4-31B-it",
+    "Qwen/Qwen3.8-27B-FP8",
+    "Mistral-Small-3.2-24B-Instruct-2506",
+    "Llama-4-Maverick-17B-128E-Instruct-FP8",
+    "Qwen/Qwen3.5-9B"
+  ]
+}
