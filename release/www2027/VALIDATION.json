@@ -11,7 +11,7 @@
   },
   "optional_argument_normalization": "passed",
   "shell_syntax": "passed",
-  "python_ast_files": 47,
+  "python_ast_files": 46,
   "cli_and_portability_checks": {
     "passed": 19,
     "checks": [
@@ -60,7 +60,7 @@
   },
   "manuscript_aligned_results": {
     "status": "passed",
-    "checks": 138,
+    "checks": 139,
     "tables": 26,
     "aggregate_rows": 183,
     "scope": "Displayed-value fidelity, checksums, aggregate accounting and asset metadata; no claim of independently rerunning all experiments.",

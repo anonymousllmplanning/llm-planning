@@ -11,10 +11,13 @@ distributed separately.
 
 ![Framework and three-facet evaluation](docs/assets/framework_overview.png)
 
-The [PDF](docs/assets/framework_overview.pdf) and
-[SVG](docs/assets/framework_overview.svg) versions use the same current
-reference counts and group-specific response policy. Replay and human review
-provide separate evidence; neither filters the main reference pool.
+The overview preserves the original illustration layout with current reference
+counts. Replay and human review provide separate evidence; neither filters the
+main reference pool. S3 is the evaluated pre-execution planning object.
+
+The dependency-synthesis workflow is shown in the original pipeline diagram:
+
+![Dependency annotation and deterministic compilation](docs/assets/dependency_synthesis_pipeline.png)
 
 ## Installation
 
@@ -46,7 +49,7 @@ playwright install chromium
 | `configs/www2027.json` | Cohort, stage budgets, and reference policy |
 | `docs/protocol.md` | Execution, technical repair, evidence, and evaluation details |
 | `results/www2027/` | Main and appendix aggregate tables aligned to the manuscript |
-| `release/www2027/` | Source snapshot, file manifest, and checksums |
+| `release/www2027/` | Source/result snapshots, file manifest, and checksums |
 
 ## Data preparation
 

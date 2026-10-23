@@ -21,6 +21,7 @@ python scripts/export_paper_results.py --main /path/to/main.tex \
   --appendix /path/to/appendix.tex --output /path/to/new-export
 ```
 
-The current [framework diagram](../docs/assets/framework_overview.png) uses
-1,786 candidate orderings and 1,951 total references. Its editable vector
-versions and rendering code are included.
+The current [framework diagram](../docs/assets/framework_overview.png) preserves
+the original illustration layout and uses 1,786 candidate orderings and 1,951
+total references. The [dependency-synthesis pipeline](../docs/assets/dependency_synthesis_pipeline.png)
+is retained in its original layout.

@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import re
 from PIL import Image
-from pypdf import PdfReader
+import pytesseract
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / 'results/www2027'
@@ -65,11 +65,12 @@ def main():
     check('figure_semantic_records', facts['artifact_dependency_records']+facts['state_dependency_records']==1334)
     image = Image.open(ROOT/'docs/assets/framework_overview.png')
     check('png_no_text_metadata', all(k in {'dpi'} for k in image.info))
-    pdf = PdfReader(ROOT/'docs/assets/framework_overview.pdf')
-    check('pdf_no_author_or_machine_metadata', not any(pdf.metadata.get(k) for k in
-          ['/Author','/Creator','/Producer','/CreationDate','/ModDate']))
-    visible = '\n'.join(page.extract_text() for page in pdf.pages)
-    check('figure_current_counts', all(s in visible for s in ['1,786','1,951','1,207','S3']))
+    pipeline = Image.open(ROOT/'docs/assets/dependency_synthesis_pipeline.png')
+    check('pipeline_no_text_metadata', all(k in {'dpi'} for k in pipeline.info))
+    visible = pytesseract.image_to_string(image) + '\n' + pytesseract.image_to_string(image,config='--psm 11')
+    normalized_visible = visible.replace(' ', '').replace('\n','')
+    check('figure_current_counts', all(s in normalized_visible for s in ['1,786','1,951','1,207']))
+    check('figure_policy_metadata', facts['replay_filters_main_reference_set'] is False)
     check('figure_old_counts_removed', not any(s in visible for s in ['1,771','1,522','1,357','414 dropped']))
     report={'status':'passed','checks':len(checks),'tables':len(manifest['tables']),
             'aggregate_rows':sum(t['rows'] for t in manifest['tables']),

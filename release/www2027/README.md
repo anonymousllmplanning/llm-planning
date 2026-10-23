@@ -1,6 +1,6 @@
 # WWW 2027 source and core-result release
 
-- `framework_source.zip`: source, synthetic tests, current diagram and rendering code.
+- `framework_source.zip`: source, synthetic tests, and current diagram assets.
 - `core_results.zip`: 26 manuscript-aligned aggregate tables, documentation and table manifest.
 - `SOURCE_MANIFEST.json`: source file sizes and SHA-256 hashes.
 - `SHA256SUMS`: hashes for published files and both release archives.
