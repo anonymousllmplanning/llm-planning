@@ -1,0 +1,7 @@
+group,check,yes,no,unsure,no_majority
+,Source plan coherent,5,21,0,4
+,Tool capability compatible,18,10,0,2
+,Terminal policy reasonable,30,0,0,0
+,Shared-state interference possible,4,26,0,0
+,Factual consistency,9,4,17,0
+,Full-graph review completed,30,0,0,0

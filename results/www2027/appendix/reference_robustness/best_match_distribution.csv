@@ -1,0 +1,5 @@
+group,stage,scope,gain_and_tie_pairs,tasks_with_gain,median_delta_among_gains,native_zero_percent,augmented_zero_percent
+,S3,All 165,190 / 1295,55 / 165,0.1818,68.75%,58.79%
+,S3,Rich 63,179 / 388,49 / 63,0.1667,68.43%,43.92%
+,S1,All 165,193 / 1292,51 / 165,0.1667,63.91%,54.41%
+,S1,Rich 63,183 / 384,47 / 63,0.1667,63.84%,40.21%

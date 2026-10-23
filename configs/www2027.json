@@ -1,5 +1,12 @@
 {
   "reference_version": "gaia165-native165-candidates1786",
+  "primary_planning_stage": "stage3",
+  "auxiliary_planning_stage": "stage1",
+  "closed_model_configurations_in_results": 11,
+  "response_policy": {
+    "open_weight": "synthesized_S5_final_answer",
+    "closed_model": "submitted_response_with_recorded_final_response_fallback"
+  },
   "tasks": 165,
   "native_references": 165,
   "candidate_references": 1786,

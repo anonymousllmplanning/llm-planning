@@ -1,33 +1,49 @@
 {
-  "release": "WWW2027 source-only framework",
+  "release": "WWW2027 anonymous framework",
   "files": {
     ".gitignore": {
-      "size": 362,
-      "sha256": "28099f57288570fbe2b7c5bbfa2edd1bd6f68eed636aebb4c3c7dd86ad51ec0c"
+      "size": 554,
+      "sha256": "b628c39684308c20972780a823ff1f270a2d3b25adda66979b40ff1121732b46"
     },
     "LICENSE": {
       "size": 1077,
       "sha256": "9f6893ce757ee4a94db5c1f5c1f5ea2e28c6aa62b54259ce6f82b94ff6cdcb0a"
     },
     "README.md": {
-      "size": 6301,
-      "sha256": "114ae466395acaea197eefda8bcb703ffbab1c882b332cdae452b80795a6f1e1"
+      "size": 7057,
+      "sha256": "4330c4e3b732db4d7679a2a4ab18cd8323da712bb7488bbb439b5061ed2c7e18"
     },
     "annotations/README.md": {
       "size": 1079,
       "sha256": "19adbfc404da8bf68594467f4abbfdbcd9670f2ac86369c5b6892c5079b1ce05"
     },
     "configs/www2027.json": {
-      "size": 957,
-      "sha256": "112783c50b133bd12406e989751e03ea3a87a31820a799b44a12706e40220700"
+      "size": 1240,
+      "sha256": "223977395ef8f16bbcdb4ac14f4963ce8a3eabf08bd756913b16f1106b57b76f"
+    },
+    "docs/assets/framework_overview.facts.json": {
+      "size": 668,
+      "sha256": "a85235f649178d11753e7ebb685fc54611174575ac6bc5c49971f261f49b31cd"
+    },
+    "docs/assets/framework_overview.pdf": {
+      "size": 36685,
+      "sha256": "8a950838aa16d545d10680e8f1c3666f537c06d22690f0ec55268a58a4c9cdac"
+    },
+    "docs/assets/framework_overview.png": {
+      "size": 568119,
+      "sha256": "e7a9814de094bf0e695f7e64955f80afd079679080105befbdd64fe272aa17ad"
+    },
+    "docs/assets/framework_overview.svg": {
+      "size": 35066,
+      "sha256": "054ea8c7f120645bdf6d4d347412251545fff470017f93a3d7c2679126360f12"
     },
     "docs/assets/inference_pipeline_main.png": {
       "size": 324266,
       "sha256": "74ca02fa31e4df4a9b9daea66d40e8fcf4376aa830a9aa6d509fad7ed2bfcd80"
     },
     "docs/protocol.md": {
-      "size": 3978,
-      "sha256": "c9934a75fe48942eaa2e1f3994e0b9f2ead285ca7ae518c139983c04ca232598"
+      "size": 4304,
+      "sha256": "f637d31352fd3c5534b0a6e47590f9ae59ba9d20f0074b17bb55c7c0fac1613b"
     },
     "docs/reference_policy.md": {
       "size": 2429,
@@ -49,6 +65,10 @@
       "size": 11047,
       "sha256": "e5af3afa5ea9712c091987481dee318cb451992d58fa5c3baee660c29d6470b2"
     },
+    "scripts/export_paper_results.py": {
+      "size": 12324,
+      "sha256": "6f1c94aa1bd7fc31fb7614ea9d6c52da0eb2374b88da5634ebc0cf3f10553a38"
+    },
     "scripts/fetch_official_sources.py": {
       "size": 4492,
       "sha256": "735b44dd28d6eab65913d0448a676bf263d3cb067d607c10ed70e53df1e01d84"
@@ -65,6 +85,10 @@
       "size": 21741,
       "sha256": "ddcda12ff4f8ef721fa2863e1a10d048fc96b5b88b042b59a0df1ca74e50c477"
     },
+    "scripts/render_framework_overview.py": {
+      "size": 8357,
+      "sha256": "2db1cdda3aa340d48c12e2f4897a76dd8a2f7086132547b2b53f37a330fc8855"
+    },
     "scripts/repair_predictions.py": {
       "size": 6786,
       "sha256": "9d57ba213cd5118fb8238984326dd7d8c0f1c1834764d5804fc7587d17848cb3"
@@ -76,6 +100,10 @@
     "scripts/utils/smoke_test_recorded_orderings.py": {
       "size": 8381,
       "sha256": "3889594cf1ba77aea9fd645cdc33200175258d8441c37fa43de53bd6ed59ecaf"
+    },
+    "scripts/validate_result_artifacts.py": {
+      "size": 4947,
+      "sha256": "3128f4a943279cc17d4bd24cda5802b9ecc32e71da5c8acbee22a7b3fd4332be"
     },
     "src/__init__.py": {
       "size": 448,
@@ -216,6 +244,10 @@
     "tests/test_protocol.py": {
       "size": 5730,
       "sha256": "8827c69995905ce60c9ddbd8efc9a1556f92fe0bc3ebef21ab836e1e002bac22"
+    },
+    "tests/test_result_exports.py": {
+      "size": 1774,
+      "sha256": "0a365a8cf35797efbdd05d6a0993b7c1b738ea16bf972de86346884ee0c8e579"
     }
   }
 }

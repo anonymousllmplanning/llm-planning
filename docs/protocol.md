@@ -63,8 +63,12 @@ alignment, computes each reference's PlanningScore, then selects the maximum.
 Native wins exact ties, followed by lower candidate rank. S1 and S3 use the same
 selection rule and are reported separately.
 
-Final-answer correctness uses S5. Automatic exact matching is a diagnostic;
-human judgments are a separate input. Tool metrics retain their eligibility
+S3 is the primary pre-execution planning stage; S1 is an auxiliary comparison.
+Open-weight final-answer correctness uses S5. Closed-model results use the
+recorded submitted response, or the recorded final response when submission is
+absent. Human judgments refer to that same group-specific returned response;
+they are not transferred between response fields. Automatic exact matching is
+a diagnostic; human judgments are a separate input. Tool metrics retain their eligibility
 denominators and normalized-value diagnostics. TaskBench and UltraTool are
 auxiliary benchmarks and do not share GAIA's final-answer target.
 

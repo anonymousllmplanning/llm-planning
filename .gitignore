@@ -3,7 +3,15 @@ data/
 raw_sources/
 controlled/
 organized_results/
-results/
+results/*
+!results/README.md
+!results/www2027/
+results/www2027/*
+!results/www2027/main/
+!results/www2027/appendix/
+!results/www2027/manifest.json
+!results/www2027/README.md
+!results/www2027/SHA256SUMS
 traces/
 checkpoints/
 repair_outputs/

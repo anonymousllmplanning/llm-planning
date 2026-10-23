@@ -1,0 +1,13 @@
+group,model,tasks,node_f1,edge_f1,planning_score
+TaskBench,Mistral Large 3,"1,000",0.669,0.229,0.449
+TaskBench,Llama-3.3,"1,000",0.703,0.342,0.523
+TaskBench,Gemma 4,"1,000",0.817,0.418,0.618
+TaskBench,Mistral Small 3.2,"1,000",0.798,0.410,0.604
+TaskBench,Llama-4 Maverick,"1,000",0.815,0.449,0.632
+TaskBench,Five-model mean,--,0.760,0.370,0.565
+UltraTool,Mistral Large 3,"1,000",0.492,0.077,0.284
+UltraTool,Llama-3.3,"1,000",0.503,0.100,0.302
+UltraTool,Gemma 4,"1,000",0.551,0.125,0.338
+UltraTool,Mistral Small 3.2,"1,000",0.530,0.108,0.319
+UltraTool,Llama-4 Maverick,"1,000",0.541,0.129,0.335
+UltraTool,Five-model mean,--,0.523,0.108,0.316

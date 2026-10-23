@@ -1,0 +1,4 @@
+group,slice,tasks,edge_f1_native,edge_f1_augmented,edge_f1_delta,delta_ci95
+,Web-source,66,0.0861,0.1141,+0.0281,"[+0.0167,+0.0417]"
+,With candidates,30,0.0585,0.1203,+0.0617,"[+0.0413,+0.0827]"
+,Multi-order-rich,25,0.0480,0.1173,+0.0693,"[+0.0458,+0.0939]"

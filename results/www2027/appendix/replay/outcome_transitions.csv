@@ -1,0 +1,9 @@
+group,outcome,llama4,gemma4
+,Correct / equivalent text,1126,1258
+,Correct / different surface,2,40
+,Wrong / same answer,146,134
+,Wrong / different answer,153,232
+,Correct to wrong,44,37
+,Wrong to correct,224,50
+,Native answer unavailable,64,0
+,Candidate answer unavailable,27,35

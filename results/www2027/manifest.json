@@ -1,0 +1,534 @@
+{
+  "title": "WWW 2027 manuscript-aligned core aggregate results",
+  "precision": "Exact displayed manuscript values; no unreported precision is inferred.",
+  "primary_planning_stage": "S3",
+  "auxiliary_planning_stage": "S1",
+  "open_weight_configurations": 9,
+  "closed_model_configurations": 11,
+  "tasks": 165,
+  "native_references": 165,
+  "candidate_orderings": 1786,
+  "replay_filters_main_references": false,
+  "manuscript_snapshots": [
+    {
+      "manuscript": "main",
+      "sha256": "adafef4a2aab462cfb3d73a97b79fe44e273a7f08566f209a3ac84f200cf7931"
+    },
+    {
+      "manuscript": "appendix",
+      "sha256": "c7df40e9918e32bc50f9e42cd1c3622835f651d3bdcb306d81dec239ebb8e949"
+    }
+  ],
+  "raw_questions_answers_traces_or_identifiers_included": false,
+  "tables": [
+    {
+      "file": "main/dataset_profile.csv",
+      "manuscript": "main",
+      "table_label": "tab:gaia-dataset-stats",
+      "caption_tex": "Released reference profile. Semantic records and compiled graph edges are different objects; reduced edges include the terminal-action policy. Counts precede replay or human filtering.",
+      "rows": 4,
+      "columns": [
+        "group",
+        "layer",
+        "statistics"
+      ],
+      "sha256": "a479fad02ea06f6a72917947982c858cb2fda81e27ce91f48da718a8f8461fd8",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "54594e1cc79f16afeb49bfe6128127baa5d72d4a73306b8e3d1259ec16835957"
+    },
+    {
+      "file": "main/three_facet_headline.csv",
+      "manuscript": "main",
+      "table_label": "tab:native-augmented-eval",
+      "caption_tex": "Three-facet evaluation on GAIA for eleven closed-model and nine open-weight configurations. Planning and answer scores use all 165 tasks per configuration; tool-reference scores use the 144 tasks with annotated tool slots. Augmented selects the highest PlanningScore over Native and every released alternative ordering. NodeF1 is unchanged and differences are computed before rounding. Means give equal weight to configurations within each group. $^{\\dagger}$Accepted is the human-reviewed fraction of returned responses; response extraction and tool environments are specified in Appendix~\\ref{app:implementation}. Maverick lists active parameters.",
+      "rows": 22,
+      "columns": [
+        "group",
+        "model",
+        "parameters",
+        "node_f1",
+        "edge_f1_native",
+        "edge_f1_augmented",
+        "edge_f1_delta",
+        "tool_f1",
+        "param_f1",
+        "param_value_f1",
+        "normalized_em",
+        "token_f1",
+        "accepted_rate"
+      ],
+      "sha256": "dc543ea69eb262e8aab14a6ebce92ac138e358a9f034ddf28ddb4fa0b05c8469",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "b0e04fb9dcba42ff312fcf51cbd135613768aa4f599db6bd5403467b71cc582a"
+    },
+    {
+      "file": "main/multi_order_score_lift.csv",
+      "manuscript": "main",
+      "table_label": "tab:multi-order-score-lift",
+      "caption_tex": "Reference-score gains for the closed-model and open-weight groups on the same multi-order-rich tasks. Scores are equal-model means. Native evaluates each fixed prediction against the original chain; Augmented selects its best match from Native and the released alternative orderings. Intervals use 2{,}000 paired task-cluster bootstrap resamples, retaining every configuration within its group for each sampled task. The final column counts configurations with a positive mean gain.",
+      "rows": 12,
+      "columns": [
+        "group",
+        "subset",
+        "metric",
+        "native",
+        "augmented",
+        "delta",
+        "relative_delta_percent",
+        "delta_ci95",
+        "models_with_positive_delta"
+      ],
+      "sha256": "5d2678619f7778299f35b01ebe03642489fdf892db7ea092100fb4dd26a8336f",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "4f69250c156d324aa7f2861703112dd7e50397bbeb0615bc7907fba380a38ed0"
+    },
+    {
+      "file": "main/reference_budget.csv",
+      "manuscript": "main",
+      "table_label": "tab:reference-budget-sensitivity",
+      "caption_tex": "Reference-budget sensitivity of EdgeF1 on the 63 multi-order-rich tasks. Budgets 1 and 2 are exact expectations over all uniform subsets, so no favorable subset is selected. Gain pairs is the expected share of 567 model--task pairs that strictly exceed Native. Intervals bootstrap the exact expected deltas over tasks (2{,}000 resamples, seed 20261022).",
+      "rows": 4,
+      "columns": [
+        "group",
+        "non_native_budget",
+        "edge_f1",
+        "relative_delta",
+        "delta_ci95",
+        "gain_pairs_percent"
+      ],
+      "sha256": "0d91103ed02fe6299953ebdbf6ad53bc2ceeba3a866e6a5093789eedf593e368",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "8a63ba64349c0ab0cf6a090d3d093f41a82155e7f1e96170d324e5b2840d1c31"
+    },
+    {
+      "file": "main/web_source.csv",
+      "manuscript": "main",
+      "table_label": "tab:web-source-reference",
+      "caption_tex": "Web-source EdgeF1 across nine open-weight configurations (nested slices of the same population; best-match convention as above; 2{,}000 paired task-cluster resamples).",
+      "rows": 3,
+      "columns": [
+        "group",
+        "slice",
+        "tasks",
+        "edge_f1_native",
+        "edge_f1_augmented",
+        "edge_f1_delta",
+        "delta_ci95"
+      ],
+      "sha256": "543822c26666be5bb6900db8ecf72530eea009bb96c851d0e3800084085cea82",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "11580a748cf7a75da8b7b8f2c93300a0bdc18f3a68a8c2165fb5852694d09f0b"
+    },
+    {
+      "file": "appendix/reference_robustness/best_match_distribution.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:best-match-distribution-current",
+      "caption_tex": "Best-match and score-distribution diagnostic on the released references. All 165 contains 1{,}485 model--task pairs; Rich 63 contains 567. Native wins ties, so candidate winners equal strict gains; the median delta over all pairs is zero in every row. No pair decreases because Native remains available. Ties, gains, and zero scores describe reference agreement, not semantic-validity judgments. S3 is the primary planning stage; the S1 rows are an auxiliary stage comparison using the same task sets and references.",
+      "rows": 4,
+      "columns": [
+        "group",
+        "stage",
+        "scope",
+        "gain_and_tie_pairs",
+        "tasks_with_gain",
+        "median_delta_among_gains",
+        "native_zero_percent",
+        "augmented_zero_percent"
+      ],
+      "sha256": "3003615bd26c1f86c9848add989236ef64d55e10e66f25c29c4ba96e8834c749",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "4aa833ede1f1731c90464251ab9f261422688006ea4c92799179bc68e8905515"
+    },
+    {
+      "file": "appendix/reference_robustness/alignment_threshold_s1.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:alignment-threshold-current",
+      "caption_tex": "Auxiliary S1 threshold sensitivity under the per-order best-match protocol. All tasks comprise 165 tasks $\\times$ nine configurations (1{,}485 model--task pairs); multi-order-rich comprises 63 tasks $\\times$ nine configurations (567 pairs), each with at least two non-native candidates. NodeF1 is identical under Native and Augmented at a fixed threshold. Benefiting pairs have strictly positive PlanningScore differences. Rank $\\rho$ is Spearman correlation between the nine mean Augmented PlanningScores at the indicated threshold and at $\\xi=0.45$, computed separately in each subset. Scores are equal-model means; all released references are included.",
+      "rows": 10,
+      "columns": [
+        "group",
+        "subset",
+        "threshold",
+        "node_f1",
+        "edge_f1_native",
+        "edge_f1_augmented",
+        "delta",
+        "relative_delta_percent",
+        "benefiting_pairs",
+        "rank_spearman"
+      ],
+      "sha256": "705a61237ae2e11f33519909e865bcd0fbdbb5a9ae974902ab523a7bb7d11ea2",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "d6e159656c10e7cdcde412eb910e70a54b06413c3b25313d5a915d5192c3f6cb"
+    },
+    {
+      "file": "appendix/planning_answer/stage_cohort_summary.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:current-stage-correlation-summary",
+      "caption_tex": "Stage/cohort diagnostics. $N$ and $A$ denote Native and Augmented references. Pairs count model--task evaluations, not independent GAIA tasks. The conditional slice uses 51--63 tasks per model; the all-task cohort uses the same 165 tasks for every model.",
+      "rows": 4,
+      "columns": [
+        "group",
+        "cohort",
+        "stage",
+        "pairs",
+        "correct",
+        "mean_r_native",
+        "mean_r_augmented",
+        "mean_delta_r"
+      ],
+      "sha256": "8f36d9dc26c23721e143fc2fa93c59221d7da5dc44d272439bc67bd3ee17695e",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "ec654b7edba9e4cc39f20b9b2b1c9eb59fb52a9bca1481bda044877f7ae226cf"
+    },
+    {
+      "file": "appendix/planning_answer/tool_clean_per_model.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:tool-clean-planning-association",
+      "caption_tex": "Per-model conditional planning--answer correlations on the Level 2 Text/Document/Audio tool-clean diagnostic. S1 and S3 use identical task IDs and final human labels within each model. $N$ is model-specific; acceptance is human-correct final answers divided by $N$. The 95\\% correlation and paired stage-difference intervals are retained in the analysis sidecars. These point estimates do not establish reliable positive associations or a significant S3 advantage.",
+      "rows": 9,
+      "columns": [
+        "group",
+        "model",
+        "tasks",
+        "acceptance_percent",
+        "s3_r_native",
+        "s3_r_augmented",
+        "s3_delta_r",
+        "s1_r_native",
+        "s1_r_augmented",
+        "s1_delta_r"
+      ],
+      "sha256": "e562c0699966f1850a69f17af77fc7526548eea2e699fd17facd22aa1b9d1053",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "cbb315a9ababde1912c79c77656cf9b936cafceee96e7fda25590b14ecaeeac1"
+    },
+    {
+      "file": "appendix/data_profile/tool_demand_by_modality.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:appendix-domain-tool-interface",
+      "caption_tex": "Gold-reference demand under the common 14-entry prompt-visible catalog (13 nonterminal tools/helpers and one submission action). Counts use literal primary tool IDs in the 379 gold slots and exclude final-answer submission. Document reader alternatives are not counted as separate extra slots. These are annotations, not realized model calls.",
+      "rows": 4,
+      "columns": [
+        "group",
+        "modality",
+        "tasks",
+        "gold_slots",
+        "primary_tool_families"
+      ],
+      "sha256": "dbb293c8d04680e6d6b5f1aa02137b2a0cd2803ecc431131efdb5c1bc1042ac6",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "a42b238c786989f6fb640af51475f74e8234d4bc79afd5a207e065a43a3c8484"
+    },
+    {
+      "file": "appendix/data_profile/reference_accounting.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:appendix-augmented-gaia-accounting",
+      "caption_tex": "Released GAIA reference profile. These are candidate-availability and annotation counts, not replay-retention statistics or semantic-validity certifications. Dependency-annotation metadata identifies GPT-6.1 Sol as the generator on all 165 records.",
+      "rows": 10,
+      "columns": [
+        "group",
+        "quantity",
+        "value",
+        "interpretation"
+      ],
+      "sha256": "e9b25cd58fc8ca84fc55ac723123170491c8d5a209edcf03726a210c9179dfad",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "156856d77830ac8840aa4d63c1507060e7b64a1ec6f82f979c047715a270defc"
+    },
+    {
+      "file": "appendix/data_profile/precedence_depth.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:appendix-critical-path-buckets",
+      "caption_tex": "Task-weighted structural profile from the released candidate pool. Induced depth is the longest path, counted in nodes, in the intersection of pairwise precedence relations across Native and all stored candidates. Native-only tasks preserve the full chain by definition. This is sample-induced precedence, not replay-validated dependence or measured execution speedup.",
+      "rows": 4,
+      "columns": [
+        "group",
+        "task_bucket",
+        "tasks",
+        "native_mean",
+        "native_median",
+        "induced_depth_mean",
+        "induced_depth_median",
+        "depth_reduction_mean"
+      ],
+      "sha256": "c1eb473c520224f8395d80d2d478071f9693713f9876ac68eee3eed7214e624c",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "4ccd3bfc23078143dad9d60136e482da6e10742c167d53ca82f6f5a02a899593"
+    },
+    {
+      "file": "appendix/data_profile/candidate_count_strata.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:appendix-critical-path",
+      "caption_tex": "Released candidate-count strata. Depth reduction is computed from the same sample-induced precedence as Table~\\ref{tab:appendix-critical-path-buckets}; task means give each task equal weight, whereas row means weight by its number of non-native candidates. Kendall distance counts inversions relative to Native, divided by all step pairs, over the candidate rows only. Individual ordering chains all retain the original node-count depth. No replay filtering or runtime speedup is measured.",
+      "rows": 6,
+      "columns": [
+        "group",
+        "candidate_threshold",
+        "tasks",
+        "candidate_rows",
+        "depth_reduction_task_and_row_mean",
+        "kendall_row_mean_median_max"
+      ],
+      "sha256": "828552dd3aed78307d0977fff0539152885cf9ffb14e1c4be4d753706dccc578",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "ac8dbcac90dd1ff2ad02d8bd7b8595e83512a33deb4f82e15e07e3a12dfb8800"
+    },
+    {
+      "file": "appendix/replay/coverage_and_outcomes.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:appendix-current-replay-filter",
+      "caption_tex": "Fixed-order replay evidence on the released references. These are observed execution outcomes rather than retained-reference counts. Rate divides same-outcome pairs by observed candidate pairs. Full-traversal support additionally requires both paired trajectories to traverse every ordered step with no flagged tool error, mock, or empty output under the original diagnostics. Neither column substitutes for human AD/SD judgments.",
+      "rows": 2,
+      "columns": [
+        "group",
+        "model",
+        "native_observed",
+        "candidate_observed",
+        "same_outcome",
+        "rate_percent",
+        "full_traversal_support"
+      ],
+      "sha256": "23dbe60fb72946482675ab9a284dd10ccace8f1885ed1158b436ad81210f68c3",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "72325c6593550ed5e489472d2a82b3e01f2b80ec0bca218ca4ab44ad4b96636f"
+    },
+    {
+      "file": "appendix/replay/outcome_transitions.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:appendix-current-replay-outcomes",
+      "caption_tex": "Observed candidate outcome transitions under the frozen automatic answer matcher. Each column contains 1,786 pairs. The first three rows comprise automatic outcome preservation; tool and execution review flags can overlap every outcome category.",
+      "rows": 8,
+      "columns": [
+        "group",
+        "outcome",
+        "llama4",
+        "gemma4"
+      ],
+      "sha256": "9ff215d9790db9e1892e0d0c1b966f30c7cd6a9197cd0867aa7516e9662e5979",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "688c3f3311baa2301d65d8114724d8418c834019cccfc013dc0aaec6721190ac"
+    },
+    {
+      "file": "appendix/human_dependency_audit/pair_majorities.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:human-audit-pairs",
+      "caption_tex": "Majority dependency-existence judgments and three-category Fleiss agreement. Present and Absent columns count pair-level majority outcomes; $\\kappa$ uses all three individual judgments per pair, including Unsure. No pair has an Unsure majority.",
+      "rows": 3,
+      "columns": [
+        "group",
+        "pair_stratum",
+        "pairs",
+        "present",
+        "absent",
+        "no_majority",
+        "fleiss_kappa"
+      ],
+      "sha256": "857b9cd421064362bf5930487ef9d74f69ab9ec88fb8dcb69ca1264b426b1bed",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "8a8067fc108537b6cc5fc2f1af1643b07c7a617229370f1bce073e942325bc58"
+    },
+    {
+      "file": "appendix/human_dependency_audit/anonymous_rater_counts.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:human-audit-raters",
+      "caption_tex": "Individual dependency-existence judgments. Rater identifiers are anonymous. Every rater completed all 422 pair judgments.",
+      "rows": 3,
+      "columns": [
+        "group",
+        "rater",
+        "asserted_present",
+        "asserted_absent",
+        "asserted_unsure",
+        "incomparable_present",
+        "incomparable_absent",
+        "incomparable_unsure"
+      ],
+      "sha256": "a844840d1eeab5e74540dd29631509c0f6c8128e4637e40b90d7529584ebbe30",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "edeaeef75bf2a5c77501b8be70c895f2351140b629cf90c41448bfaadd4e9b26"
+    },
+    {
+      "file": "appendix/human_dependency_audit/task_majorities.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:human-audit-task-checks",
+      "caption_tex": "Task-level majority judgments, each over the same 30 tasks. Yes indicates the property named in the row; for interference it therefore indicates a concern. No majority denotes three distinct responses. Unsure factual judgments remain unresolved rather than being counted as consistent.",
+      "rows": 6,
+      "columns": [
+        "group",
+        "check",
+        "yes",
+        "no",
+        "unsure",
+        "no_majority"
+      ],
+      "sha256": "44358c86258a1e4f832aef217fc49b439817475b66d217409da229c9eda92686",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "83248e4396e576265dec9fde6b8d2461dd90dbcbdc97e05418effbbe78abcc02"
+    },
+    {
+      "file": "appendix/cross_benchmark/planning_s1.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:appendix-cross-benchmark-taskbench-ultratool",
+      "caption_tex": "Auxiliary S1 planning diagnostics on five configurations shared with the nine-model GAIA evaluation. All 1{,}000 tasks per benchmark and model contribute to the means. PlanningScore is $(\\mathrm{NodeF1}+\\mathrm{EdgeF1})/2$. The main GAIA experiment evaluates S3.",
+      "rows": 12,
+      "columns": [
+        "group",
+        "model",
+        "tasks",
+        "node_f1",
+        "edge_f1",
+        "planning_score"
+      ],
+      "sha256": "20367db1059f36efd212c45d66d905c8d1ec191fd96fa65297a48374f31d43c4",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "79014cdab380ca5857103faed38c804aaeb32a1d42d93b49684aad330d392df7"
+    },
+    {
+      "file": "appendix/planning_answer/tool_clean_and_intensive.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:tool-density-definition",
+      "caption_tex": "Nine-model conditional diagnostics. Acceptance and correlations are equal-weight averages of the nine within-model values. Pairs are model--task evaluations; cohorts differ by model. All rows use the per-order maximum over the released references.",
+      "rows": 4,
+      "columns": [
+        "group",
+        "slice",
+        "stage",
+        "pairs",
+        "correct",
+        "acceptance_percent",
+        "mean_r_native",
+        "mean_r_augmented",
+        "mean_delta_r"
+      ],
+      "sha256": "4682a24039810feae838384a83d43c16d3a031a6a3ebecf1a45a389c630348f2",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "74f5ed2242b4acbf3363c209fe368db88e1c8c83de4f10b1e094a25f7ac7f0cf"
+    },
+    {
+      "file": "appendix/planning_answer/tool_clean_thresholds.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:stable-tool-use-threshold-sensitivity",
+      "caption_tex": "Sensitivity over the original fixed threshold grid, with all settings retained. Pairs, Correct and acceptance refer to the selected cohorts across all nine models; correlation means and positive-model counts use only models with defined correlations (Valid). Acceptance averages all nine model rates. Positive counts describe point estimates and do not establish statistical significance. No replay filter is applied.",
+      "rows": 14,
+      "columns": [
+        "group",
+        "ats",
+        "tisr",
+        "stage",
+        "pairs",
+        "correct",
+        "acceptance_percent",
+        "valid_models",
+        "mean_r_native",
+        "mean_r_augmented",
+        "mean_delta_r",
+        "positive_r_and_delta_models"
+      ],
+      "sha256": "aff3723012c78bfaeb802ef116e105047ac3bd86112489a748c2aa7be1f211ac",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "51ca5407c1d514166e33e50610c3d58532d341e1aa47b3ebe97368a03270e52d"
+    },
+    {
+      "file": "appendix/planning_answer/tool_intensive_per_model.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:appendix-current-tool-intensive",
+      "caption_tex": "Tool-intensive conditional diagnostic for nine configurations. Every row has at least three human-correct and three human-incorrect responses. Native and Augmented predictions are identical; only their reference score changes.",
+      "rows": 9,
+      "columns": [
+        "group",
+        "model",
+        "tasks",
+        "acceptance_percent",
+        "s3_r_native",
+        "s3_r_augmented",
+        "s3_delta_r",
+        "s1_r_native",
+        "s1_r_augmented",
+        "s1_delta_r"
+      ],
+      "sha256": "2a0b968c25be0c2faa081f3863897f5af7b50da7b3291251c40da3a1985f3eec",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "5eee7afc8902d650a7d761296ce8ecea3ded5663accbeaa516404928c70ce5ea"
+    },
+    {
+      "file": "appendix/data_profile/dependency_synthesis.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:appendix-synthesis-stats",
+      "caption_tex": "Dependency-synthesis accounting. Records, compiled edges, and orderings are different objects.",
+      "rows": 9,
+      "columns": [
+        "group",
+        "quantity",
+        "value"
+      ],
+      "sha256": "b7ced86591116de7b92f30608e010c4c23e6436034f2ecfa0a625fff99826dca",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "6ad795e77926f6d9ff526c38e8c2cf4a8e9d8c721dba174badac37a4c9d4c427"
+    },
+    {
+      "file": "appendix/closed_models/planning_headline_s3.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:appendix-closed-headline",
+      "caption_tex": "Planning evaluation of the eleven closed-model configurations against the released references. Every row includes all 165 tasks. Empty and deterministically constructed chain counts are disjoint; Planning denotes the stored pre-execution output under the recorded inference pipeline. $N$ denotes Native; $A$ denotes the best score over Native plus each recorded Augmented ordering. All rows use the same planning references and matching rule as the main results.",
+      "rows": 11,
+      "columns": [
+        "group",
+        "model",
+        "empty_graphs",
+        "constructed_chains",
+        "node_f1",
+        "edge_f1_native",
+        "edge_f1_augmented",
+        "planning_score_native",
+        "planning_score_augmented",
+        "planning_score_delta"
+      ],
+      "sha256": "4057f04d01b01163dffc976edff2669e29944e912d64ba540bf6a9d4739b29ea",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "aed23c761b192462ad57f56867975227f2a0d841a8f1b59af77ef6ee3105da16"
+    },
+    {
+      "file": "appendix/closed_models/stage_score_lift.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:appendix-closed-score-lift",
+      "caption_tex": "Equal-model planning scores for eleven closed-model configurations under the released references. Pre-execution plans supply the primary results; abstract plans use matched records from the same runs and provide an auxiliary comparison. The 63-task slice uses the same reference-defined richness rule as the main analysis (at least two non-native candidates), without replay or tool-clean filtering. Intervals use 2,000 paired task-cluster resamples shared across the eleven fixed models, seed 20261022.",
+      "rows": 4,
+      "columns": [
+        "group",
+        "slice",
+        "plan_stage",
+        "tasks",
+        "edge_f1_native",
+        "edge_f1_augmented",
+        "edge_delta_ci95",
+        "planning_score_native",
+        "planning_score_augmented",
+        "planning_score_delta"
+      ],
+      "sha256": "b51172eb42f7411fd9b02c71d095e040db15ab9a7acdbdddc654abfad0e19b38",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "11a280259cb1e036df6988fd2687f62250cfa2d36ebf762ac04e90a2487d9dc9"
+    },
+    {
+      "file": "appendix/closed_models/chain_zero_credit_sensitivity.csv",
+      "manuscript": "appendix",
+      "table_label": "tab:appendix-closed-chain-sensitivity",
+      "caption_tex": "Closed-model sensitivity with all 522 deterministically constructed chains assigned zero planning credit. The 24 originally empty graphs also retain zero credit; no task is dropped. The fixed eleven-model averages and paired task-cluster bootstrap use the same settings as Table~\\ref{tab:appendix-closed-score-lift}. Reference coverage still increases under this stricter zero-credit convention.",
+      "rows": 2,
+      "columns": [
+        "group",
+        "scope",
+        "edge_f1_native",
+        "edge_f1_augmented",
+        "edge_delta_ci95",
+        "relative_lift",
+        "planning_score_native",
+        "planning_score_augmented"
+      ],
+      "sha256": "d77a54be7dfb1e728e23d64aec2c9338a358fb6c1490a26a24a40e99ed73d83f",
+      "numeric_cell_fidelity_checked": true,
+      "numeric_fingerprint_sha256": "f0c8282c4e81c12205191cbf11ffdea660ef3beb5fc68165cb7f5dcb61510524"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+group,quantity,value
+,Tasks compiled (structural PASS),165 / 165
+,Source steps (mean per task),"1,284 (7.78)"
+,Dependency records: AD / SD,"1,103 / 231"
+,Status: SUPPORTED / UNRESOLVED,932 / 402
+,Unresolved source-level items (tasks),282 (119)
+,Compiled precedence edges (policy-only),"2,197 (867)"
+,Edges after transitive reduction,"1,207"
+,Mean Kahn levels / mean max. level width,6.15 / 1.79
+,Non-native orderings (tasks with >=1; >=2),"1,786 (72; 63)"

@@ -4,9 +4,17 @@ Anonymous experimental framework for WWW 2027 review. The framework evaluates
 planning structure, tool invocation, and final-answer correctness separately.
 GAIA is the main benchmark; TaskBench and UltraTool provide auxiliary checks.
 
-This release contains source code and synthetic tests. Experimental results,
-individual model responses, execution trajectories, paper sources, and gated
-benchmark data are distributed separately.
+This release contains source code, synthetic tests, and
+[manuscript-aligned core aggregate results](results/README.md). Individual model
+responses, execution trajectories, paper sources, and gated benchmark data are
+distributed separately.
+
+![Framework and three-facet evaluation](docs/assets/framework_overview.png)
+
+The [PDF](docs/assets/framework_overview.pdf) and
+[SVG](docs/assets/framework_overview.svg) versions use the same current
+reference counts and group-specific response policy. Replay and human review
+provide separate evidence; neither filters the main reference pool.
 
 ## Installation
 
@@ -37,6 +45,7 @@ playwright install chromium
 | `scripts/prepare_crossbench.py` | TaskBench and UltraTool adapters |
 | `configs/www2027.json` | Cohort, stage budgets, and reference policy |
 | `docs/protocol.md` | Execution, technical repair, evidence, and evaluation details |
+| `results/www2027/` | Main and appendix aggregate tables aligned to the manuscript |
 | `release/www2027/` | Source snapshot, file manifest, and checksums |
 
 ## Data preparation
@@ -75,7 +84,8 @@ ANSWER_VERIFIER_MODEL="" bash scripts/exp.sh \
   --dataset gaia_cat_A --dataset gaia_cat_B \
   --dataset gaia_cat_C --dataset gaia_cat_D \
   --mode answer --backend api --provider-profile openai_compatible \
-  --model "$MODEL_ID" --remote-only --max-turns 15 --tool-scope record
+  --model "$MODEL_ID" --remote-only --max-turns 15 --tool-scope record \
+  --plan-source stage3
 ```
 
 Use `bash scripts/exp.sh --paper-models --dry-run` to inspect the nine-model
@@ -122,14 +132,17 @@ ToolUsageScore = (ToolF1 + ParamF1 + ValueF1) / 3
 ```
 
 Node alignment is shared across references. Exact ties prefer Native, then the
-lower candidate rank. S1 is the main planning measurement; S3 is a separate
-diagnostic. Pass `--gaia_ordering_schedule` to `src.evaluation.runner` or
+lower candidate rank. S3 is the main pre-execution planning measurement; S1 is
+an auxiliary abstract-plan diagnostic. Pass `--gaia_ordering_schedule` to `src.evaluation.runner` or
 `--gaia-ordering-schedule` to `scripts/exp.sh`. The older two-reference interface
 is a different diagnostic and cannot replace this recorded multi-order schedule.
 
-The final-answer target is the saved S5 `pred.final_answer`; human review is
-separate from automatic exact matching. A native S4 submission is retained as
-separate evidence. Reference selection uses the full candidate set; replay and
+Open-weight answer results use the synthesized S5 `pred.final_answer`.
+Closed-model answer results use the recorded submitted response, falling back
+to the recorded final response when no submission exists. Human review is
+separate from automatic exact matching and is matched to the same response
+field within each group. A native S4 submission is retained as separate
+evidence for open-weight runs. Reference selection uses the full candidate set; replay and
 human semantic review remain separate evidence. A completed execution does not
 certify an ordering's semantics.
 
