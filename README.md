@@ -1,4 +1,4 @@
-# Beyond Sequential Plans
+# Beyond Sequential Plans: A Three-Facet Evaluation of Agentic Planning under Dependency-Preserving Augmentation
 
 Anonymous experimental framework for WWW 2027 review. The framework evaluates
 planning structure, tool invocation, and final-answer correctness separately.
