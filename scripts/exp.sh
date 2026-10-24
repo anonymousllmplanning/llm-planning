@@ -1109,7 +1109,7 @@ Environment Variables:
   GAIA_REFERENCE_MODE   GAIA planning GT mode: auto (default), chain, or augmented
                         With a schedule, auto/augmented/both take the maximum over
                         Native and every recorded candidate chain; exact ties keep
-                        Native. Without a schedule they use the legacy DAG adapter.
+                        Native. Without a schedule they use the embedded DAG reference.
   GAIA_MODIFIED_GT_DIR  Optional GAIA modified-GT scoring layer
                         (default: GAIA_DATA_ROOT)
   GAIA_MODIFIED_GT_MODE auto (default), off, or require. auto uses modified-GT

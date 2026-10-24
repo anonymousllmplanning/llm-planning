@@ -3,6 +3,8 @@
 The final reference set contains 165 Native chains and 1,429 retained alternatives
 (1,594 references in total), selected from 1,786 sampled candidates.
 
+- `reference_counts.json`: final count ledger, retention rate, cohort sizes,
+  and hashes of the three reference files below.
 - `replay_retained_orderings.json`: retained candidate IDs, permutations,
   supporting executors, and the final retention and answer-matching policy.
 - `reference_set_1594.csv`: all Native and retained alternatives, with source
@@ -23,7 +25,7 @@ comparison. Successful replay is executor-dependent evidence, not certification
 of every step's semantics or every dependency. Gemma 4 and Llama-4 Maverick also
 appear in the evaluated model cohort, and executors share tool helpers.
 
-These files preserve the supplied final reference decisions. Offline validation
+These files record the reference-retention decisions. Offline validation
 checks identities, permutations, hashes, and accounting; it does not rerun
 models or independently adjudicate semantic answer matches. Source annotations
 and the official gated GAIA inputs are required to rebuild runnable tasks.

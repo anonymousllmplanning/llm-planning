@@ -1,73 +1,49 @@
 {
   "status": "passed",
-  "release": "WWW2027 final results, references, figures, and framework",
-  "reference_count": 1594,
-  "retained_candidates": 1429,
-  "parser_checkpoint_and_export_unit_tests": {
+  "reference_accounting": {
+    "reference_version": "gaia165-native165-retained1429-total1594",
+    "tasks": 165,
+    "sampled_candidates": 1786,
+    "retained_candidates": 1429,
+    "excluded_candidates": 357,
+    "native_references": 165,
+    "total_references": 1594,
+    "retention_rate_percent": 80.01,
+    "tasks_with_sampled_candidates": 72,
+    "tasks_with_retained_candidates": 64,
+    "tasks_with_at_least_two_retained_candidates": 56,
+    "fixed_original_rich_cohort_tasks": 63,
+    "fixed_original_rich_levels_2_3_tasks": 51,
+    "minimum_successful_executors": 1,
+    "all_native_references_retained": true,
+    "files_sha256": {
+      "replay_retained_orderings.json": "a0a35867fdc6f2ef606536b9b0ec65f19b61fe61b2377dd78363255aa1c48c00",
+      "reference_set_1594.csv": "1c64b2e69236b8f002256687e8fc010a9ffac93785bee7802e5d0a5f9f1b37bf",
+      "ordering_schedule.json": "0fadc5725faa9460c4021f8a3558e4c5be2b4209bf55e56132e0736390fe4b4e"
+    }
+  },
+  "manuscript_aligned_results": {
+    "status": "passed",
+    "checks": 110,
+    "tables": 10,
+    "aggregate_rows": 87,
+    "scope": "Final displayed-value hashes and accounting; reference identity/permutation consistency; asset checks. No live inference or independent semantic answer adjudication.",
+    "api_calls": 0,
+    "gpu_used": false
+  },
+  "unit_tests": {
     "passed": 13
   },
   "recorded_ordering_and_stage4_handoff_tests": {
     "passed": 8
   },
   "optional_argument_normalization": "passed",
+  "evaluation_cli_help": "passed",
   "shell_syntax": "passed",
   "python_ast_files": 46,
-  "manuscript_aligned_results": {
-    "status": "passed",
-    "checks": 69,
-    "tables": 10,
-    "aggregate_rows": 91,
-    "scope": "Final displayed-value hashes and accounting; reference identity/permutation consistency; asset checks. No live inference or independent semantic answer adjudication.",
-    "api_calls": 0,
-    "gpu_used": false
-  },
+  "inference_and_metric_logic_preserved": true,
   "offline_validation_api_calls": 0,
   "gpu_used": false,
-  "historical_framework_validation": {
-    "source_commit": "a1ac89b14cdc045289c0c5aa3de2b745a7e5aeb9",
-    "scope": "Previously executed source checks; historical 1951-reference parity is not a rerun on the final pool.",
-    "cli_and_portability_checks": {
-      "passed": 19,
-      "checks": [
-        "bash_syntax",
-        "python_compile",
-        "recorded_ordering_and_stage4_prompt_smoke",
-        "src.evaluation.runner_help",
-        "src.inference.runner_help",
-        "prepare_gaia_from_official.py_help",
-        "export_gaia_annotations.py_help",
-        "exp_help_outside_checkout",
-        "api_argument_arrays_and_space_paths",
-        "captured_command_arrays",
-        "nine_paper_model_routing_dry_run",
-        "configured_remote_inventory_dry_run",
-        "custom_api_remote_filter",
-        "zh_profile_outside_checkout",
-        "invalid_backend_fails",
-        "empty_remote_filter_fails",
-        "schedule_auto_discovery",
-        "cleanup_preserves_unrelated_process",
-        "private_inventory_and_global_process_kill_removed"
-      ]
-    },
-    "primary_planning_parity": {
-      "tasks": 2970,
-      "orders": 35118,
-      "references": 1951,
-      "alignment_matches": 2970,
-      "selected_rank_matches": 2970,
-      "primary_score_values_checked": 105354,
-      "max_absolute_score_difference": 0.0,
-      "diagnostic_overrides": [
-        "span alignment bypassed",
-        "node label similarity bypassed"
-      ]
-    }
-  },
-  "limitations": [
-    "No live model inference or external tool replay was rerun for this update.",
-    "Final retention and semantic answer-match decisions preserve the supplied artifacts."
-  ],
-  "unchanged_implementation_tests_retained_from_previous_validation": true,
-  "paper_source_files_published": false
+  "paper_source_files_published": false,
+  "scope": "Displayed aggregate fidelity, homepage and configuration accounting, reference identities, and offline framework checks. Model inference and semantic answer review are not rerun."
 }

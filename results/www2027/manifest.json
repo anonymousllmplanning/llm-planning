@@ -17,11 +17,11 @@
   "manuscript_snapshots": [
     {
       "manuscript": "main",
-      "sha256": "c04c91fb9617d9efae4f64d0d5dfdac7664e1bde0d5182b4c8a6482747a8519e"
+      "sha256": "bd5c51ac7cd9ecf718f4a0bda2193f3be3fbfa8770744b13212a753a5dd93772"
     },
     {
       "manuscript": "appendix",
-      "sha256": "7400d6221f5f106510ba6d66267d396798e5b0cf5bd969cf549d69806196bd01"
+      "sha256": "efff1791d838d71be0652a4ef05f8cda0659ce98332466bb9da595d80fa5d71e"
     }
   ],
   "raw_questions_answers_traces_or_identifiers_included": false,
@@ -71,8 +71,8 @@
       "file": "main/multi_order_score_lift.csv",
       "manuscript": "main",
       "table_label": "tab:multi-order-score-lift",
-      "caption_tex": "Native-to-Augmented gains on the original multi-order-rich cohorts, held fixed after replay filtering. Augmented uses Native and retained alternatives. Scores are equal-model means; $\\Delta$ is absolute and $\\Delta(\\%)$ relative to Native, using unrounded scores. 95\\% CIs use 2{,}000 paired task-cluster resamples retaining all configurations in each group.",
-      "rows": 12,
+      "caption_tex": "Native-to-Augmented gains on the original multi-order-rich cohorts, held fixed after replay filtering. Augmented uses Native and retained alternatives; NodeF1 is unchanged and omitted. Scores are equal-model means; $\\Delta$ is absolute and $\\Delta(\\%)$ relative to Native, using unrounded scores. 95\\% CIs use 2{,}000 paired task-cluster resamples retaining all configurations in each group.",
+      "rows": 8,
       "columns": [
         "group",
         "subset",
@@ -84,9 +84,9 @@
         "delta_ci95",
         "models_with_positive_delta"
       ],
-      "sha256": "63a9a5075c3c3f24c702d34eb5377ace5b7e466d4968cf3a9f8585de1c43a944",
+      "sha256": "7efebfdbf63480ea2d6806b08644204366608953595308370ebb06eaeace59c7",
       "numeric_cell_fidelity_checked": true,
-      "numeric_fingerprint_sha256": "06528b19f5f2d64137648419a4c998c35e461b9f61ff7ab6d62f61ac4b792eb5"
+      "numeric_fingerprint_sha256": "7b2e30a98a28b7c29483244328eab8d6e65d33e934f4f605d42f37fb8bf90a03"
     },
     {
       "file": "main/reference_budget.csv",
@@ -183,7 +183,7 @@
       "file": "appendix/planning_answer/tool_clean_thresholds.csv",
       "manuscript": "main",
       "table_label": "tab:tool-threshold",
-      "caption_tex": "ATS/TISR lower bounds and mean within-model Pearson correlations with binary human acceptance. $\\bar r_N$/$\\bar r_A$ use Native/retained-pool Augmented PlanningScore. Bold: default; ---: no TISR gate. Pairs/Correct include all nine open-weight configurations.",
+      "caption_tex": "ATS/TISR sensitivity across eleven closed-model and nine open-weight configurations. Counts cover configurations contributing to the means, which equally weight within-model Pearson correlations with binary human acceptance. $\\bar r_N$/$\\bar r_A$ use Native/retained-pool Augmented PlanningScore. Bold: default; ---: no TISR gate.",
       "rows": 13,
       "columns": [
         "group",
@@ -194,9 +194,9 @@
         "mean_r_native",
         "mean_r_augmented"
       ],
-      "sha256": "0f5b6b8997b7dfdd7470744ffab43c5981f72f7861a258ff8a64176e667ec1b2",
+      "sha256": "83d13af5efa093b96fab5c0c5925c83baaa4f67f21337a0f2b7aeccab3c53e66",
       "numeric_cell_fidelity_checked": true,
-      "numeric_fingerprint_sha256": "0f6ee32f93a9b4214f62317935eb0a88f6a29312dd19bdbdcb2318c52bc10916"
+      "numeric_fingerprint_sha256": "ceb74d8b970e121090c10f7be32a38957b7c3d2b49fbafe2260e8cd69284413b"
     },
     {
       "file": "appendix/cross_benchmark/planning_s1.csv",

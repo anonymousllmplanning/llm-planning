@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-Dual Facet Evaluation Runner  - Dataset-Aware Version
+Dataset-aware evaluation runner
 
-Key Improvements:
+Capabilities:
 1. Uses ast_evaluation_system with dataset-aware metrics
 2. Properly handles None values for N/A metrics (Delta has no arguments)
 3. Computes separate aggregate metrics for datasets with/without arguments
-4. Cleaner CSV output with N/A indicators
+4. CSV output with N/A indicators
 
 Usage:
-    python dual_facet_evaluation_runner_v2.py \
+    python -m src.evaluation.runner \
         --input unified_50.qwen32b.jsonl \
         --output_csv per_sample.csv \
         --output_summary summary.json
@@ -25,7 +25,7 @@ from collections import Counter, defaultdict
 from dataclasses import dataclass
 import copy
 
-# Use V2 evaluation system
+# Dataset-aware graph and tool metrics
 from .metrics import ASTEvaluationSystem, _extract_tool_name
 from .ordering_references import load_ordering_schedule, ordering_references
 from src.inference.prompts import normalize_tool_environment
@@ -1276,20 +1276,20 @@ def evaluate_file(
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Evaluate LLM planning predictions (V2 - Dataset-Aware).",
+        description="Evaluate LLM planning predictions with dataset-aware metrics.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Key Improvements in V2:
+Evaluation capabilities:
 - Dataset-aware metrics (Delta vs TaskBench/UltraTool)
 - Proper handling of N/A for param_name_f1 and type_aware_value_f1 when dataset has no arguments
 - Separate aggregation for samples with/without arguments
 
 Examples:
     # Basic evaluation
-    python dual_facet_evaluation_runner_v2.py --input results.jsonl
+    python -m src.evaluation.runner --input results.jsonl
 
     # With CSV and JSON output
-    python dual_facet_evaluation_runner_v2.py \\
+    python -m src.evaluation.runner \\
         --input results.jsonl \\
         --output_csv per_sample.csv \\
         --output_summary summary.json
@@ -1305,7 +1305,7 @@ Examples:
                         help="Optional canonical dataset JSON/JSONL used to override embedded gold by meta.id")
     parser.add_argument("--gaia_reference_mode", type=str, default="auto",
                         choices=["auto", "chain", "augmented", "both"],
-                        help="GAIA reference mode: chain scores Native only; auto/augmented/both use each recorded chain when --gaia_ordering_schedule is set, otherwise the legacy async dependency-DAG adapter.")
+                        help="GAIA reference mode: chain scores Native only; auto/augmented/both use each recorded chain when --gaia_ordering_schedule is set, otherwise the embedded dependency-DAG reference.")
     parser.add_argument("--gaia_async_dataset", type=Path, default=None,
                         help="Optional GAIA async JSONL reference file. If omitted, inferred from --gold_dataset when possible.")
     parser.add_argument("--gaia_ordering_schedule", type=Path, default=None,

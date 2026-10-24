@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-AST Evaluation System V2 - Fixed and Dataset-Aware Version
+Dataset-aware planning and tool-use metrics
 
-Key Improvements over V1:
+Capabilities:
 1. Dataset-aware metrics (Delta vs TaskBench/UltraTool handling)
-2. Fixed empty-set handling for param F1 and value F1
-3. Proper tool F1 calculation with alternative tools support
-4. Better handling of different tool_id formats
+2. Empty-set handling for param F1 and value F1
+3. Tool F1 with alternative-tool support
+4. Normalization of different tool_id formats
 5. Explicit "not applicable" (N/A) for metrics that don't apply to certain datasets
 
 Metric Definitions (dataset-aware):

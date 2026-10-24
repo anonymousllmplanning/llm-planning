@@ -9,6 +9,10 @@ and 56 have at least two. The original rich cohort of 63 tasks, including its
 51-task Levels 2+3 subset, remains fixed for the corresponding score comparison.
 The budget experiment instead uses the 56 retained-rich tasks.
 
+There are 357 excluded alternatives. The 80.01% retention rate divides 1,429
+retained alternatives by 1,786 sampled candidates; it is not final-answer
+accuracy. The machine-readable ledger is `references/reference_counts.json`.
+
 Use `references/ordering_schedule.json` with the matching source annotations.
 Each reference preserves the Native nodes and replaces adjacent chain edges
 with the recorded permutation. Predictions and node alignment remain fixed
@@ -26,16 +30,16 @@ response. Matching includes task-aware number, unit, list, and source-alias
 normalization with LLM-assisted semantic review. Keep every Native chain
 regardless of its own replay outcome.
 
-The supplied final candidate decisions and supporting executors are preserved
+The candidate decisions and supporting executors are preserved
 in `references/replay_retained_orderings.json`. Their full permutations and
 source hashes appear in `references/reference_set_1594.csv`. The JSON evaluator
 schedule is a lossless conversion of that CSV's task IDs, kinds, ranks, and
 orders. Offline checks do not recreate live replay or semantic answer review.
 
-Earlier Native/candidate outcome-preservation diagnostics answer a different
-question: both-correct and same-wrong pairs can preserve outcome. A same-wrong
-pair does not establish successful gold-equivalent replay under the final rule.
-Do not substitute earlier outcome-majority counts for the final retained list.
+Outcome preservation compares Native and candidate responses: both-correct
+and same-wrong pairs can preserve outcome. Successful-replay retention requires
+a gold-equivalent candidate answer; an equivalent wrong answer does not qualify.
+Native failure does not veto a successful candidate replay.
 
 ## Scope of evidence
 

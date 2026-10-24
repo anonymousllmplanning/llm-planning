@@ -96,7 +96,7 @@ def file_object(
 
 
 def annotation_directory(root: Path) -> Path:
-    """Select the current candidate view without using a legacy filtered view."""
+    """Select unfiltered candidate annotation inputs."""
     for candidate in (root / "Asynchronous_output", root / "GPT4o_NonNative_Orderings", root):
         if candidate.is_dir() and any(candidate.glob("gaia_cat_*_async_plan.jsonl")):
             return candidate
@@ -136,7 +136,7 @@ def inspect_annotations(paths: list[Path]) -> tuple[list[dict[str, Any]], dict[s
                 )
                 if filtered:
                     raise ValueError(
-                        f"Legacy replay-filtered input at {location}; supply the current "
+                        f"Replay-retained input at {location}; supply the current "
                         "unfiltered candidate view instead."
                     )
                 task_id = row.get("meta", {}).get("id") if isinstance(row.get("meta"), dict) else None

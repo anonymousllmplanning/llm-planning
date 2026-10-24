@@ -10,10 +10,14 @@
   "tasks": 165,
   "native_references": 165,
   "sampled_candidate_references": 1786,
+  "tasks_with_sampled_candidates": 72,
   "candidate_references": 1429,
   "total_references": 1594,
   "tasks_with_retained_candidates": 64,
   "tasks_with_at_least_two_retained_candidates": 56,
+  "fixed_original_rich_cohort_tasks": 63,
+  "fixed_original_rich_levels_2_3_tasks": 51,
+  "reference_count_ledger": "references/reference_counts.json",
   "ordering_schedule": "references/ordering_schedule.json",
   "replay_filter_applied_to_main_reference_set": true,
   "retention_policy": {
@@ -26,7 +30,7 @@
   },
   "stage1_dag_handoff": "steps_only",
   "technical_repair": {
-    "parser": "uniform-technical-repair-v2",
+    "parser": "uniform-technical-repair",
     "max_new_attempts_per_selected_case": 1,
     "S1_max_tokens": 8192,
     "S3_max_tokens": 16384,
@@ -35,7 +39,7 @@
     "S4_action_requests_per_turn": 2,
     "model_specific_forced_submit": false,
     "selection_uses_answers_or_scores": false,
-    "historical_first_pass_budgets_mixed": true
+    "first_pass_budgets_uniform": false
   },
   "models": [
     "Mistral-Large-3-675B-Instruct-2512",

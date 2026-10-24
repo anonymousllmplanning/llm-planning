@@ -104,7 +104,7 @@ def main() -> None:
         help="Replace output-root if it already exists.",
     )
     parser.add_argument("--reference-view", choices=("current", "legacy-filtered"), default="current",
-                        help="current exports unfiltered candidates; legacy-filtered explicitly includes a historical retained view")
+                        help="current exports source candidates; legacy-filtered includes an explicitly selected retained annotation view")
     parser.add_argument("--candidate-dir", type=Path, default=None,
                         help="Controlled unfiltered annotation directory; relative to --source-root unless absolute")
     parser.add_argument("--legacy-dir", type=Path, default=None,
@@ -188,7 +188,7 @@ def main() -> None:
                                           "native": sum(ref["kind"] == "native" for refs in schedule.values() for ref in refs),
                                           "candidates": sum(ref["kind"] == "candidate" for refs in schedule.values() for ref in refs)}
 
-    # Historical summaries are copied only for the explicitly selected legacy view.
+    # Copy retained-view summaries only when explicitly requested.
     for source_rel_text, output_rel_text in SUMMARY_FILES if args.reference_view == "legacy-filtered" else ():
         src = source_root / source_rel_text
         if not src.exists():

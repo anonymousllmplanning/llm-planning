@@ -387,7 +387,7 @@ def main() -> None:
     parser.add_argument("--candidate-dir", default="Asynchronous_output",
                         help="Controlled unfiltered annotation directory, relative to --annotation-root or absolute")
     parser.add_argument("--legacy-dir", default=None,
-                        help="Controlled retained annotation directory for the opt-in legacy view")
+                        help="Controlled retained annotation directory for an explicitly selected retained view")
     parser.add_argument("--ordering-schedule", type=Path, default=None,
                         help="Authoritative recorded schedule; otherwise use annotation-root/ordering_schedule.json if present")
     args = parser.parse_args()
@@ -497,7 +497,7 @@ def main() -> None:
         "annotation_root": str(annotation_root),
         "output_root": str(output_root),
         "reference_view": args.reference_view,
-        "scheme": "Native plus every recorded candidate chain, with per-task maximum PlanningScore" if args.reference_view == "current" else "Explicit historical retained-ordering view",
+        "scheme": "Native plus every recorded candidate chain, with per-task maximum PlanningScore" if args.reference_view == "current" else "Explicit retained-annotation view",
         "ordering_schedule": "ordering_schedule.json" if schedule is not None else None,
         "counts": {
             "tasks": sum(len(v) for v in categorized.values()),

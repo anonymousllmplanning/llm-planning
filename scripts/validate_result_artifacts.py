@@ -4,6 +4,7 @@ import csv
 import hashlib
 import json
 from pathlib import Path
+import re
 import sys
 import zipfile
 from PIL import Image
@@ -67,8 +68,56 @@ def main():
     check('retained_decisions_match_csv', len(decisions)==1429 and decisions=={k:v for k,v in csv_map.items() if k[1]=='candidate'})
     check('retention_rule', retained['retention_criteria']['required_executor_successes']==1 and
           all(r['supporting_executors'] for r in retained['retained_candidates']))
+    ledger=json.loads((refs/'reference_counts.json').read_text())
+    config=json.loads((ROOT/'configs/www2027.json').read_text())
+    actual={'tasks':len(schedule),'sampled_candidates':retained['sampled_candidate_count'],
+            'retained_candidates':len(decisions),'native_references':len(schedule),
+            'total_references':len(csv_rows),
+            'excluded_candidates':retained['sampled_candidate_count']-len(decisions),
+            'tasks_with_retained_candidates':sum(len(v)>1 for v in schedule.values()),
+            'tasks_with_at_least_two_retained_candidates':sum(len(v)>2 for v in schedule.values())}
+    for key,value in actual.items():
+        check('count_ledger:'+key,ledger[key]==value)
+    check('ledger_retention_rate',ledger['retention_rate_percent']==round(100*len(decisions)/retained['sampled_candidate_count'],2))
+    for name,digest in ledger['files_sha256'].items():
+        check('ledger_input_hash:'+name,hashlib.sha256((refs/name).read_bytes()).hexdigest()==digest)
+    for config_key,ledger_key in [('tasks','tasks'),('native_references','native_references'),
+        ('sampled_candidate_references','sampled_candidates'),('candidate_references','retained_candidates'),
+        ('total_references','total_references'),('tasks_with_sampled_candidates','tasks_with_sampled_candidates'),
+        ('tasks_with_retained_candidates','tasks_with_retained_candidates'),
+        ('tasks_with_at_least_two_retained_candidates','tasks_with_at_least_two_retained_candidates'),
+        ('fixed_original_rich_cohort_tasks','fixed_original_rich_cohort_tasks'),
+        ('fixed_original_rich_levels_2_3_tasks','fixed_original_rich_levels_2_3_tasks')]:
+        check('config_ledger:'+config_key,config[config_key]==ledger[ledger_key])
+    readme=(ROOT/'README.md').read_text()
+    block=readme.split('<!-- FINAL_REFERENCE_COUNTS_START -->',1)[1].split('<!-- FINAL_REFERENCE_COUNTS_END -->',1)[0]
+    display={}
+    for line in block.splitlines():
+        cells=[c.strip() for c in line.strip().strip('|').split('|')]
+        if len(cells)==3:display[cells[0]]=re.sub(r'[^\d.]','',cells[1])
+    for label,key in [('GAIA tasks','tasks'),('Sampled non-native candidates','sampled_candidates'),
+        ('Replay-retained alternatives','retained_candidates'),('Excluded alternatives','excluded_candidates'),
+        ('Native chains','native_references'),('Final scoring references','total_references'),
+        ('Alternative retention rate','retention_rate_percent')]:
+        check('homepage_count:'+label,float(display[label])==ledger[key])
+    check('result_table_rows',sum(t['rows'] for t in manifest['tables'])==87)
+    check('homepage_result_rows','**10 tables, 87 aggregate rows**' in readme)
+    thresholds=rows('appendix/planning_answer/tool_clean_thresholds.csv')
+    default=[r for r in thresholds if r['ats']=='0.5' and r['tisr']=='0.7']
+    check('tool_threshold_default_cohort',len(default)==1 and default[0]['pairs']=='1,094' and default[0]['correct']=='302')
+    docs=[ROOT/'README.md',ROOT/'results/README.md',ROOT/'results/www2027/README.md',
+          ROOT/'release/www2027/README.md',ROOT/'references/README.md',*sorted((ROOT/'docs').glob('*.md'))]
+    check('documentation_uses_current_presentation',all(not re.search(r'(?i)\bv[123]\b',
+          re.sub(r'https?://\S+','',p.read_text())) for p in docs))
+    for suffix in ['pdf','png']:
+        current=ROOT/('docs/assets/overview_figure.'+suffix)
+        overview_asset=ROOT/('docs/assets/overview_figure_final_1594.'+suffix)
+        check('overview_asset_match:'+suffix,current.read_bytes()==overview_asset.read_bytes())
+        check('homepage_overview_asset:'+suffix,str(overview_asset.relative_to(ROOT)) in readme)
+    check('coverage_pdf_present',(ROOT/'docs/assets/reference_coverage_1786_1429.pdf').read_bytes().startswith(b'%PDF-'))
+    check('homepage_coverage_figure','docs/assets/reference_coverage_1786_1429.png' in readme)
     check('overview_pdf_present', (ROOT/'docs/assets/overview_figure.pdf').read_bytes().startswith(b'%PDF-'))
-    for name in ['overview_figure.png','pipeline_figure.png']:
+    for name in ['overview_figure.png','overview_figure_final_1594.png','reference_coverage_1786_1429.png','pipeline_figure.png']:
         image=Image.open(ROOT/'docs/assets'/name)
         check('png_metadata:'+name,all(k in {'dpi'} for k in image.info))
     report={'status':'passed','checks':len(checks),'tables':len(manifest['tables']),

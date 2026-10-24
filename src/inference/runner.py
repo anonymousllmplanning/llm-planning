@@ -2439,7 +2439,7 @@ Output ONLY one JSON object with exactly these top-level keys:
                         if repaired_error:
                             parse_failure_reason = f"{parse_failure_reason or 'Invalid decision'}; repair failed: {repaired_error}"
 
-            # uniform-repair-v2: every model receives the initial action request
+            # Every model receives the initial action request
             # and at most one generic schema-repair reprompt. No model-specific
             # fallback, forced-submit or last-resort paid action call is used.
 
@@ -3479,7 +3479,7 @@ def main():
                         help="Deprecated no-op. Stage 3 no longer receives Stage-1 abs_plan_dag context; Stage-1 planning intent is stored and evaluated separately.")
     parser.add_argument("--stage1_dag_handoff", "--stage1-dag-handoff",
                         choices=["steps_only", "dag_v1"], default="steps_only",
-                        help="Versioned Stage 1 to Stage 3 context. dag_v1 is an explicit architecture ablation, not a silent baseline repair.")
+                        help="Stage 1 to Stage 3 context. Graph handoff is an explicit architecture ablation; the paper cohort uses steps_only.")
     parser.add_argument("--checkpoint_predictions", type=Path, default=None,
                         help="Immutable prior predictions for stage-specific repair attempts.")
     parser.add_argument("--resume_from_stage", choices=["s1", "s3", "s4", "s5"], default="s1",

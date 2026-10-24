@@ -9,10 +9,10 @@ from typing import Any, Dict
 
 def build_stage3_abstract_context(abstract_plan: Dict[str, Any], *,
                                   handoff: str = "steps_only") -> str:
-    """Expose S1 dependencies for an explicitly versioned S3 experiment.
+    """Expose S1 dependencies for an explicit graph-handoff experiment.
 
-    ``steps_only`` preserves the historical prompt. ``dag_v1`` transmits the
-    original graph and correspondence hints; it never copies S1 edges into a
+    The default handoff uses planning steps only. Graph handoff transmits the
+    source graph and correspondence hints; it never copies S1 edges into a
     different S3 node namespace or infers dependencies from array order.
     """
     if handoff not in ("steps_only", "dag_v1"):

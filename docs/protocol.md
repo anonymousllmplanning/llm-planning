@@ -39,11 +39,9 @@ identity, and exact preservation of upstream stages.
 The common repair caps are 8,192 output tokens for S1, 16,384 for S3, and 4,096
 for S5. S4 has 15 turns and up to two action-generation requests per turn.
 Selection and promotion never depend on reference answers or evaluation scores.
-Historical first-pass budgets differ; the framework preserves checkpoints and
-lineage rather than claiming every cohort prediction is a fresh identical-budget
-run. The portable repair wrapper accepts operator-supplied checkpoints; raw
-historical checkpoints and their model-specific selection manifests are separate
-experimental artifacts.
+These caps apply to repair attempts. Record the actual first-pass budgets
+and generation metadata of supplied checkpoints. Preserve stage lineage and
+the associated model-specific selection manifests with each experiment.
 
 ## Evidence
 
@@ -56,7 +54,7 @@ written into these records. Keep local run outputs untracked.
 
 ## Reference evaluation
 
-The final reference version contains 165 Native chains plus 1,429 retained
+The reference set contains 165 Native chains plus 1,429 retained
 alternatives (1,594 references), selected from 1,786 sampled candidates.
 Each candidate shares the Native node inventory and connects adjacent actions
 according to its recorded permutation. The evaluator reuses the same node

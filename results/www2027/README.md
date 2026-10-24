@@ -1,7 +1,7 @@
 # Final manuscript-aligned aggregate results
 
-These ten tables preserve the displayed values from the supplied final
-manuscript. The main manuscript contains its appendix; the separate appendix
+These ten tables contain 87 aggregate rows and preserve the displayed values
+from the manuscript. The main manuscript contains its appendix; the separate appendix
 copy is checked for consistent duplicate tables during export.
 
 | Directory | Contents |
@@ -14,7 +14,8 @@ copy is checked for consistent duplicate tables during export.
 The final pool is 165 Native plus 1,429 retained alternative references (1,594
 total). Every configuration uses the same pool. The original 63-task rich
 comparison cohort is fixed; the retained-rich reference-budget cohort has 56
-tasks. See `references/README.md` for the successful-replay rule and source files.
+tasks. See [the reference guide](../../references/README.md) for the
+successful-replay rule, count ledger, and source files.
 
 `manifest.json` maps each CSV to its final manuscript table label, caption,
 source snapshot hash, displayed-value fingerprints, and file checksum.

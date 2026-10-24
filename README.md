@@ -10,10 +10,41 @@ This release contains source code, synthetic tests,
 Individual model responses, execution trajectories, and gated benchmark data
 are distributed separately.
 
-![Framework and three-facet evaluation](docs/assets/overview_figure.png)
+## Final reference set
 
-The overview uses the supplied final figure. A vector
-[PDF version](docs/assets/overview_figure.pdf) is also available. It depicts
+The figures, tables, configuration, and released schedules use the same reference set:
+
+<!-- FINAL_REFERENCE_COUNTS_START -->
+| Item | Count | Scope |
+|---|---:|---|
+| GAIA tasks | **165** | All tasks remain in evaluation |
+| Sampled non-native candidates | **1,786** | Before retention; 72 tasks |
+| Replay-retained alternatives | **1,429** | After retention; 64 tasks |
+| Excluded alternatives | **357** | Sampled candidates that are not retained |
+| Native chains | **165** | Always retained |
+| Final scoring references | **1,594** | 165 Native + 1,429 alternatives |
+| Alternative retention rate | **80.01%** | 1,429 / 1,786; not task-answer accuracy |
+<!-- FINAL_REFERENCE_COUNTS_END -->
+
+A retained alternative has at least one complete, ordered, gold-equivalent
+replay by the three-executor committee, with no flagged ERROR, MOCK, or empty
+tool output. The final rule is an at-least-one-success union. All evaluated
+configurations use the same retained reference set.
+
+The [count ledger](references/reference_counts.json),
+[complete reference CSV](references/reference_set_1594.csv), and
+[evaluator schedule](references/ordering_schedule.json) make these counts
+independently checkable. The published result exports contain **10 tables, 87 aggregate rows**, including
+the 20-configuration tool-threshold sensitivity analysis.
+
+![Final reference coverage: 1,786 sampled alternatives, 1,429 retained](docs/assets/reference_coverage_1786_1429.png)
+
+[Vector coverage figure](docs/assets/reference_coverage_1786_1429.pdf).
+
+![Final framework with 1,429 retained alternatives and 165 Native references](docs/assets/overview_figure_final_1594.png)
+
+The overview summarizes reference construction and three-facet evaluation. A vector
+[PDF](docs/assets/overview_figure_final_1594.pdf) is also available. It depicts
 successful-replay filtering followed by evaluation over Native chains and
 retained alternatives. The manuscript and [result tables](results/README.md)
 define the exact statistics and reference policy.
@@ -70,13 +101,13 @@ python scripts/prepare_gaia_from_official.py \
   --reference-view current --output-root data/Augmented
 ```
 
-The final reference version contains 165 tasks and 1,594 references:
+The reference set contains 165 tasks and 1,594 references:
 165 Native chains plus 1,429 retained alternatives. There are 64 tasks with a
 retained alternative and 56 with at least two. The sampled pool contained
 1,786 candidates on 72 tasks. The original 63-task rich cohort remains fixed
 for the corresponding comparison; it is distinct from the 56-task retained-rich
 budget experiment. Questions, answers, attachments, and source annotations are
-not bundled. Do not substitute an unrelated annotation version. See the
+not bundled. Use source annotations matching the recorded schedule. See the
 [annotation guide](annotations/README.md) and [final reference policy](docs/reference_policy.md).
 
 ## Run inference
@@ -126,10 +157,9 @@ python scripts/repair_predictions.py --input /path/to/predictions.jsonl \
 
 Selection and promotion depend on technical defects and upstream preservation,
 with at most one new attempt per selected case. They do not use gold answers,
-answer correctness, or planning scores. Original checkpoints, raw attempts,
-decision streams, and promotion decisions are retained. Historical checkpoints
-can have different first-pass budgets; rerunning the framework does not recreate
-past service responses.
+answer correctness, or planning scores. Checkpoints, raw attempts, decision streams, and promotion decisions are
+retained. Record the actual first-pass generation budgets with each checkpoint;
+new model calls produce new experimental responses.
 
 ## Evaluation
 
@@ -146,8 +176,7 @@ lower candidate rank. S3 is the main pre-execution planning measurement; S1 is
 an auxiliary abstract-plan diagnostic. Pass
 `--gaia_ordering_schedule references/ordering_schedule.json` to `src.evaluation.runner`
 or `--gaia-ordering-schedule references/ordering_schedule.json` to `scripts/exp.sh`.
-The older two-reference interface
-is a different diagnostic and cannot replace this recorded multi-order schedule.
+Use the recorded multi-order schedule for per-task maximum-reference scoring.
 
 Open-weight answer results use the synthesized S5 `pred.final_answer`.
 Closed-model answer results use the recorded submitted response, falling back
