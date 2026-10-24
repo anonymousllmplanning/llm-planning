@@ -1,50 +1,50 @@
-# Reference selection and replay evidence
+# Final reference selection and replay evidence
 
-## Planning references
+## Published reference set
 
-Keep each prediction fixed. Build the Native reference and one reference for
-every supplied candidate ordering, retaining the same node inventory. Score
-each reference with a shared node alignment and select the highest
-PlanningScore. Exact ties prefer Native, then candidate rank.
+The final set has 165 Native chains plus 1,429 retained alternatives: 1,594
+references shared by all evaluated configurations. The sampled pool contained
+1,786 alternatives on 72 tasks. After retention, 64 tasks have an alternative
+and 56 have at least two. The original rich cohort of 63 tasks, including its
+51-task Levels 2+3 subset, remains fixed for the corresponding score comparison.
+The budget experiment instead uses the 56 retained-rich tasks.
 
-The ordering schedule is part of the experiment input. Record its checksum and
-the number of candidate-bearing tasks. A sensitivity analysis that changes the
-reference budget must preserve the prediction and evaluation cohort.
+Use `references/ordering_schedule.json` with the matching source annotations.
+Each reference preserves the Native nodes and replaces adjacent chain edges
+with the recorded permutation. Predictions and node alignment remain fixed
+across references. Select maximum PlanningScore; exact ties prefer Native,
+then lower candidate rank. The compiled dependency DAG constrains generation
+and is not the adjacency-scoring target.
 
-## Fixed-order replay
+## Successful-replay retention
 
-Replay provides evidence about behavior under a prescribed ordering. Execute
-the scheduled steps in order, retain concrete intermediate results, and compare
-the Native and candidate final answers. Pure reasoning steps do not need an
-artificial tool call. Tools must retain their actual arguments and observations.
+Retain a candidate if at least one of GPT-6 Luna, Gemma 4 31B, or Llama-4
+Maverick completes its specified step order without flagged ERROR, MOCK, or
+empty tool output and returns a gold-equivalent final answer. An explicit
+submitted answer takes precedence; otherwise use the complete final synthesis
+response. Matching includes task-aware number, unit, list, and source-alias
+normalization with LLM-assisted semantic review. Keep every Native chain
+regardless of its own replay outcome.
 
-Report these outcomes separately:
+The supplied final candidate decisions and supporting executors are preserved
+in `references/replay_retained_orderings.json`. Their full permutations and
+source hashes appear in `references/reference_set_1594.csv`. The JSON evaluator
+schedule is a lossless conversion of that CSV's task IDs, kinds, ranks, and
+orders. Offline checks do not recreate live replay or semantic answer review.
 
-- Both executions produce an answer matching the reference.
-- Both are incorrect and produce equivalent answers.
-- Both are incorrect and produce different answers.
-- One execution matches and the other does not.
-- Execution or scoring is insufficient to decide, including tool faults,
-  incomplete traversals, mock outputs, and missing answers.
+Earlier Native/candidate outcome-preservation diagnostics answer a different
+question: both-correct and same-wrong pairs can preserve outcome. A same-wrong
+pair does not establish successful gold-equivalent replay under the final rule.
+Do not substitute earlier outcome-majority counts for the final retained list.
 
-Equivalent incorrect answers are a behavior-preservation observation. They are
-not evidence of task correctness. Unobserved candidates remain unknown.
-Answer matching used by replay must be identified separately from the completed
-human review of the main model answers.
+## Scope of evidence
 
-## Model committees
+The final rule is an at-least-one-success union, not an executor intersection
+or majority vote. The evaluated cohort includes Gemma 4 and Llama-4 Maverick;
+executors also share helpers. Retention is therefore configuration-dependent
+evidence, and the original rich cohort must not be redefined after filtering.
 
-An intersection requires every selected validator to support a candidate;
-a union requires at least one; a voting rule requires its stated quorum.
-Use the same observed candidate pool when comparing these policies. Record
-unknown cases separately and keep Native as a scoring fallback.
-
-Choose the committee before inspecting which policy improves a model's planning
-score. When a validator also appears in the evaluated cohort, report that
-overlap and include a sensitivity analysis. Incomplete third-model coverage
-cannot support a full-pool three-model comparison.
-
-Human AD/SD review checks whether the generated dependencies make semantic
-sense. It is separate from replay outcomes and final-answer grading. Report
-completed annotations and their sampling design; do not transfer a quality
-percentage from an earlier annotation set.
+Source plans may include answer literals. Successful replay does not certify
+step semantics, safe parallel execution, or every AD/SD relation. Human review
+assesses dependency semantics on its stated panel and remains complementary
+to replay, source-plan coherence checks, and final-answer adjudication.

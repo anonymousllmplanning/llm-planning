@@ -1,13 +1,13 @@
 group,subset,metric,native,augmented,delta,relative_delta_percent,delta_ci95,models_with_positive_delta
 Closed-model,GAIA Levels 2+3 (n=51),NodeF1,0.441,0.441,+0.000,+0.00%,--- (by construction),0/11
-Closed-model,GAIA Levels 2+3 (n=51),EdgeF1,0.058,0.110,+0.052,+88.76%,"[+0.039,+0.065]",11/11
-Closed-model,GAIA Levels 2+3 (n=51),PlanningScore,0.249,0.275,+0.026,+10.36%,"[+0.020,+0.033]",11/11
+Closed-model,GAIA Levels 2+3 (n=51),EdgeF1,0.058,0.106,+0.048,+81.95%,"[+0.034,+0.062]",11/11
+Closed-model,GAIA Levels 2+3 (n=51),PlanningScore,0.249,0.273,+0.024,+9.57%,"[+0.017,+0.031]",11/11
 Closed-model,All levels (n=63),NodeF1,0.446,0.446,+0.000,+0.00%,--- (by construction),0/11
-Closed-model,All levels (n=63),EdgeF1,0.063,0.118,+0.055,+88.76%,"[+0.043,+0.068]",11/11
-Closed-model,All levels (n=63),PlanningScore,0.254,0.282,+0.028,+10.90%,"[+0.022,+0.034]",11/11
+Closed-model,All levels (n=63),EdgeF1,0.063,0.115,+0.052,+83.62%,"[+0.040,+0.065]",11/11
+Closed-model,All levels (n=63),PlanningScore,0.254,0.281,+0.026,+10.27%,"[+0.020,+0.033]",11/11
 Open-weight,GAIA Levels 2+3 (n=51),NodeF1,0.481,0.481,+0.000,+0.00%,--- (by construction),0/9
-Open-weight,GAIA Levels 2+3 (n=51),EdgeF1,0.065,0.121,+0.056,+87.13%,"[+0.041,+0.073]",9/9
-Open-weight,GAIA Levels 2+3 (n=51),PlanningScore,0.273,0.301,+0.028,+10.33%,"[+0.020,+0.037]",9/9
+Open-weight,GAIA Levels 2+3 (n=51),EdgeF1,0.065,0.109,+0.045,+68.85%,"[+0.030,+0.059]",9/9
+Open-weight,GAIA Levels 2+3 (n=51),PlanningScore,0.273,0.295,+0.022,+8.16%,"[+0.015,+0.030]",9/9
 Open-weight,All levels (n=63),NodeF1,0.484,0.484,+0.000,+0.00%,--- (by construction),0/9
-Open-weight,All levels (n=63),EdgeF1,0.067,0.128,+0.061,+90.69%,"[+0.048,+0.076]",9/9
-Open-weight,All levels (n=63),PlanningScore,0.275,0.306,+0.031,+11.08%,"[+0.024,+0.038]",9/9
+Open-weight,All levels (n=63),EdgeF1,0.067,0.119,+0.051,+76.45%,"[+0.038,+0.066]",9/9
+Open-weight,All levels (n=63),PlanningScore,0.275,0.301,+0.026,+9.34%,"[+0.019,+0.033]",9/9

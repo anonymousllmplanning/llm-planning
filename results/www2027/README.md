@@ -1,35 +1,23 @@
-# Manuscript-aligned WWW 2027 aggregates
+# Final manuscript-aligned aggregate results
 
-| Directory | Results |
+These ten tables preserve the displayed values from the supplied final
+manuscript. The main manuscript contains its appendix; the separate appendix
+copy is checked for consistent duplicate tables during export.
+
+| Directory | Contents |
 |---|---|
-| `main/` | Dataset profile, twenty-configuration three-facet headline, reference-score lift, reference budget, Web-source slice |
-| `appendix/reference_robustness/` | Best-match distribution and auxiliary S1 alignment thresholds |
-| `appendix/planning_answer/` | Stage/cohort, tool-clean, tool-intensive, and threshold diagnostics |
-| `appendix/data_profile/` | Tool demand, reference accounting, precedence depth, candidate strata, dependency synthesis |
-| `appendix/replay/` | Frozen Llama-4 and Gemma 4 coverage and outcome transitions |
-| `appendix/human_dependency_audit/` | Pair-level majorities, anonymous rater totals, and task-level checks |
-| `appendix/cross_benchmark/` | TaskBench and UltraTool auxiliary S1 results, five models and 1,000 tasks per benchmark |
-| `appendix/closed_models/` | Eleven-model S3 planning, stage comparison, and chain-zero-credit sensitivity |
+| `main/` | Dataset profile, twenty-configuration headline, fixed-cohort gains, reference budget, planning/answer correlations, and Web-source results |
+| `appendix/reference_robustness/` | Best-match outcomes and alignment-threshold sensitivity |
+| `appendix/planning_answer/` | Tool-threshold sensitivity |
+| `appendix/cross_benchmark/` | Five-model TaskBench and UltraTool planning diagnostics |
 
-S3 is the primary GAIA planning stage; S1 rows are explicitly auxiliary. The
-main reference set contains 165 Native chains and all 1,786 recorded candidates.
-Replay and human review are separate diagnostics; they do not filter the main
-results. The evolving third replay run is not inserted into this fixed paper
-snapshot.
+The final pool is 165 Native plus 1,429 retained alternative references (1,594
+total). Every configuration uses the same pool. The original 63-task rich
+comparison cohort is fixed; the retained-rich reference-budget cohort has 56
+tasks. See `references/README.md` for the successful-replay rule and source files.
 
-Planning and answers use 165 tasks per configuration. Tool scores use the same
-144 tasks with gold tool slots. Open-weight answers use synthesized S5; closed
-answers use the recorded submission or, when absent, recorded final response.
-Accepted human judgments remain attached to that same response field.
-
-`manifest.json` maps every CSV to its manuscript table label and caption.
-All values have **manuscript display precision**. Blank multirow subset cells
-are expanded into explicit subset labels. `group` records the displayed model
-group or benchmark heading; it is empty when no group heading is present.
-Confidence intervals and paired-count strings remain text fields. Aggregate
-means retain their table weighting and are not inferred by averaging rounded
-CSV rows.
-
-Only aggregate tables are exported. Qualitative source-task examples, task-ID
-prefixes, prompt templates, bibliographic tables, manuscript source files,
-execution traces, and private provenance files are excluded.
+`manifest.json` maps each CSV to its final manuscript table label, caption,
+source snapshot hash, displayed-value fingerprints, and file checksum.
+`SHA256SUMS` covers the table files and manifest. Export and validation do not
+rerun inference, reconstruct unreported precision, or independently certify
+the supplied semantic answer-matching decisions.

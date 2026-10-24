@@ -2,4 +2,4 @@ group,layer,statistics
 ,Native task,"165 tasks; query, attachments, native steps, and answer retained"
 ,Tool reference,Shared 14-action catalog; 379 gold tool slots across 144 annotated tasks
 ,Planning reference,"1,284 step nodes; 1,334 semantic records (1,103 AD, 231 SD); 1,207 reduced precedence edges"
-,Order candidates,"165 native plus 1,786 non-native orderings; 72 tasks with candidates, 63 multi-order-rich (>= 2)"
+,Order candidates,"165 Native plus 1,429 retained alternatives on 64 tasks (56 with >=2); sampled pool: 1,786 on 72 tasks"

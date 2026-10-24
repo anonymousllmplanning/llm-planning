@@ -249,8 +249,9 @@ def main() -> None:
         "name": args.name,
         "description": (
             "Metadata for explicitly supplied controlled GAIA planning annotations. "
-            "The current reference policy adds one native chain per task to unique "
-            "non-native sampled orderings without replay filtering. Counts and checksums "
+            "This annotation inventory counts one native chain per task and unique "
+            "non-native sampled orderings before retention. The final retained reference "
+            "schedule is distributed separately under references/. Counts and checksums "
             "are computed from the supplied JSONL files; they do not certify equivalence "
             "to a separately frozen paper reference set or ordering schedule. "
             "Annotations may include task-specific solution steps and require controlled "

@@ -1,3 +1,0 @@
-group,model,native_observed,candidate_observed,same_outcome,rate_percent,full_traversal_support
-,Llama-4 Maverick,72/72,"1,786/1,786",1274,71.33,425
-,Gemma 4 31B,72/72,"1,786/1,786",1432,80.18,450

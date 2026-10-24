@@ -14,28 +14,12 @@ TABLES = {
  'tab:native-augmented-eval': ('main/three_facet_headline', 'model,parameters,node_f1,edge_f1_native,edge_f1_augmented,edge_f1_delta,tool_f1,param_f1,param_value_f1,normalized_em,token_f1,accepted_rate'),
  'tab:multi-order-score-lift': ('main/multi_order_score_lift', 'subset,metric,native,augmented,delta,relative_delta_percent,delta_ci95,models_with_positive_delta'),
  'tab:reference-budget-sensitivity': ('main/reference_budget', 'non_native_budget,edge_f1,relative_delta,delta_ci95,gain_pairs_percent'),
+ 'tab:planning-answer-toolclean': ('main/planning_answer_toolclean', 'model,tasks,pearson_r,ci95'),
  'tab:web-source-reference': ('main/web_source', 'slice,tasks,edge_f1_native,edge_f1_augmented,edge_f1_delta,delta_ci95'),
- 'tab:best-match-distribution-current': ('appendix/reference_robustness/best_match_distribution', 'stage,scope,gain_and_tie_pairs,tasks_with_gain,median_delta_among_gains,native_zero_percent,augmented_zero_percent'),
- 'tab:alignment-threshold-current': ('appendix/reference_robustness/alignment_threshold_s1', 'subset,threshold,node_f1,edge_f1_native,edge_f1_augmented,delta,relative_delta_percent,benefiting_pairs,rank_spearman'),
- 'tab:current-stage-correlation-summary': ('appendix/planning_answer/stage_cohort_summary', 'cohort,stage,pairs,correct,mean_r_native,mean_r_augmented,mean_delta_r'),
- 'tab:tool-clean-planning-association': ('appendix/planning_answer/tool_clean_per_model', 'model,tasks,acceptance_percent,s3_r_native,s3_r_augmented,s3_delta_r,s1_r_native,s1_r_augmented,s1_delta_r'),
- 'tab:appendix-domain-tool-interface': ('appendix/data_profile/tool_demand_by_modality', 'modality,tasks,gold_slots,primary_tool_families'),
- 'tab:appendix-augmented-gaia-accounting': ('appendix/data_profile/reference_accounting', 'quantity,value,interpretation'),
- 'tab:appendix-critical-path-buckets': ('appendix/data_profile/precedence_depth', 'task_bucket,tasks,native_mean,native_median,induced_depth_mean,induced_depth_median,depth_reduction_mean'),
- 'tab:appendix-critical-path': ('appendix/data_profile/candidate_count_strata', 'candidate_threshold,tasks,candidate_rows,depth_reduction_task_and_row_mean,kendall_row_mean_median_max'),
- 'tab:appendix-current-replay-filter': ('appendix/replay/coverage_and_outcomes', 'model,native_observed,candidate_observed,same_outcome,rate_percent,full_traversal_support'),
- 'tab:appendix-current-replay-outcomes': ('appendix/replay/outcome_transitions', 'outcome,llama4,gemma4'),
- 'tab:human-audit-pairs': ('appendix/human_dependency_audit/pair_majorities', 'pair_stratum,pairs,present,absent,no_majority,fleiss_kappa'),
- 'tab:human-audit-raters': ('appendix/human_dependency_audit/anonymous_rater_counts', 'rater,asserted_present,asserted_absent,asserted_unsure,incomparable_present,incomparable_absent,incomparable_unsure'),
- 'tab:human-audit-task-checks': ('appendix/human_dependency_audit/task_majorities', 'check,yes,no,unsure,no_majority'),
- 'tab:appendix-cross-benchmark-taskbench-ultratool': ('appendix/cross_benchmark/planning_s1', 'model,tasks,node_f1,edge_f1,planning_score'),
- 'tab:tool-density-definition': ('appendix/planning_answer/tool_clean_and_intensive', 'slice,stage,pairs,correct,acceptance_percent,mean_r_native,mean_r_augmented,mean_delta_r'),
- 'tab:stable-tool-use-threshold-sensitivity': ('appendix/planning_answer/tool_clean_thresholds', 'ats,tisr,stage,pairs,correct,acceptance_percent,valid_models,mean_r_native,mean_r_augmented,mean_delta_r,positive_r_and_delta_models'),
- 'tab:appendix-current-tool-intensive': ('appendix/planning_answer/tool_intensive_per_model', 'model,tasks,acceptance_percent,s3_r_native,s3_r_augmented,s3_delta_r,s1_r_native,s1_r_augmented,s1_delta_r'),
- 'tab:appendix-synthesis-stats': ('appendix/data_profile/dependency_synthesis', 'quantity,value'),
- 'tab:appendix-closed-headline': ('appendix/closed_models/planning_headline_s3', 'model,empty_graphs,constructed_chains,node_f1,edge_f1_native,edge_f1_augmented,planning_score_native,planning_score_augmented,planning_score_delta'),
- 'tab:appendix-closed-score-lift': ('appendix/closed_models/stage_score_lift', 'slice,plan_stage,tasks,edge_f1_native,edge_f1_augmented,edge_delta_ci95,planning_score_native,planning_score_augmented,planning_score_delta'),
- 'tab:appendix-closed-chain-sensitivity': ('appendix/closed_models/chain_zero_credit_sensitivity', 'scope,edge_f1_native,edge_f1_augmented,edge_delta_ci95,relative_lift,planning_score_native,planning_score_augmented'),
+ 'tab:best-match': ('appendix/reference_robustness/best_match_distribution', 'scope,pairs,gain_pairs,tie_pairs,native_zero_percent,augmented_zero_percent'),
+ 'tab:alignment-threshold-current': ('appendix/reference_robustness/alignment_threshold_s1', 'threshold,all_edge_delta,original_rich_edge_delta,all_rank_spearman,original_rich_rank_spearman'),
+ 'tab:tool-threshold': ('appendix/planning_answer/tool_clean_thresholds', 'ats,tisr,pairs,correct,mean_r_native,mean_r_augmented'),
+ 'tab:appendix-cross-benchmark-taskbench-ultratool': ('appendix/cross_benchmark/planning_s1', 'model,taskbench_node_f1,taskbench_edge_f1,taskbench_planning_score,ultratool_node_f1,ultratool_edge_f1,ultratool_planning_score'),
 }
 
 def braced(text, pos):
@@ -133,7 +117,7 @@ def parse_table(table, columns):
 
 def export(main_path, appendix_path, output):
     output.mkdir(parents=True, exist_ok=False)
-    entries, sources, seen = [], [], set()
+    entries, sources, seen, exported_rows = [], [], set(), {}
     for manuscript, path in [('main', main_path), ('appendix', appendix_path)]:
         data = path.read_bytes()
         sources.append({'manuscript': manuscript, 'sha256': hashlib.sha256(data).hexdigest()})
@@ -145,12 +129,15 @@ def export(main_path, appendix_path, output):
             if not selected:
                 continue
             label = selected[0]
-            if label in seen:
-                raise ValueError('Duplicate table label')
-            seen.add(label)
             relative, columns = TABLES[label]
             columns = columns.split(',')
             rows, fingerprints = parse_table(table, columns)
+            if label in seen:
+                if exported_rows[label] != rows:
+                    raise ValueError('Conflicting duplicate table label: ' + label)
+                continue
+            seen.add(label)
+            exported_rows[label] = rows
             destination = output / (relative + '.csv')
             destination.parent.mkdir(parents=True, exist_ok=True)
             with destination.open('w', newline='') as handle:
@@ -174,9 +161,13 @@ def export(main_path, appendix_path, output):
                 'precision': 'Exact displayed manuscript values; no unreported precision is inferred.',
                 'primary_planning_stage': 'S3', 'auxiliary_planning_stage': 'S1',
                 'open_weight_configurations': 9, 'closed_model_configurations': 11,
-                'tasks': 165, 'native_references': 165, 'candidate_orderings': 1786,
-                'replay_filters_main_references': False, 'manuscript_snapshots': sources,
+                'tasks': 165, 'native_references': 165, 'sampled_candidate_orderings': 1786,
+                'candidate_orderings': 1429, 'total_references': 1594,
+                'tasks_with_retained_candidates': 64, 'retained_rich_tasks': 56,
+                'original_rich_cohort_tasks': 63,
+                'replay_filters_main_references': True, 'manuscript_snapshots': sources,
                 'raw_questions_answers_traces_or_identifiers_included': False,
+                'retention_policy': 'At least one complete, error/mock/empty-free, gold-equivalent executor replay; all Native chains retained',
                 'tables': entries}
     (output / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
     return manifest

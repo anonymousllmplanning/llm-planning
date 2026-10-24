@@ -1,5 +1,0 @@
-group,slice,stage,pairs,correct,acceptance_percent,mean_r_native,mean_r_augmented,mean_delta_r
-,Tool-clean,S3,525,115,21.92,+0.043,+0.026,-0.017
-,Tool-clean,S1,525,115,21.92,+0.021,+0.011,-0.009
-,Tool-intensive,S3,434,96,21.91,+0.034,+0.015,-0.019
-,Tool-intensive,S1,434,96,21.91,+0.002,-0.006,-0.008

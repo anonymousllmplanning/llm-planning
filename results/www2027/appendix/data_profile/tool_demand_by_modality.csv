@@ -1,5 +1,0 @@
-group,modality,tasks,gold_slots,primary_tool_families
-,Text,127,288,"Web search (193), Web browser (51), Calculator (20), Reasoning (19), Python (5)"
-,Document,25,48,"Python (25), Reasoning (23)"
-,Vision,10,37,"Calculator (10), Image recognition (10), Web browser (9), Python (5), Web search (3)"
-,Audio,3,6,"Audio transcription (3), Reasoning (3)"

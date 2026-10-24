@@ -1,5 +1,5 @@
 {
-  "reference_version": "gaia165-native165-candidates1786",
+  "reference_version": "gaia165-native165-retained1429-total1594",
   "primary_planning_stage": "stage3",
   "auxiliary_planning_stage": "stage1",
   "closed_model_configurations_in_results": 11,
@@ -9,8 +9,21 @@
   },
   "tasks": 165,
   "native_references": 165,
-  "candidate_references": 1786,
-  "replay_filter_applied_to_main_reference_set": false,
+  "sampled_candidate_references": 1786,
+  "candidate_references": 1429,
+  "total_references": 1594,
+  "tasks_with_retained_candidates": 64,
+  "tasks_with_at_least_two_retained_candidates": 56,
+  "ordering_schedule": "references/ordering_schedule.json",
+  "replay_filter_applied_to_main_reference_set": true,
+  "retention_policy": {
+    "minimum_successful_executors": 1,
+    "executors": ["GPT-6 Luna", "Gemma 4 31B", "Llama-4 Maverick"],
+    "complete_specified_order": true,
+    "no_error_mock_or_empty_tool_output": true,
+    "gold_equivalent_final_answer": true,
+    "native_always_retained": true
+  },
   "stage1_dag_handoff": "steps_only",
   "technical_repair": {
     "parser": "uniform-technical-repair-v2",

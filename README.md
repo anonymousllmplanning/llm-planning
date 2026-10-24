@@ -4,17 +4,19 @@ Anonymous experimental framework for WWW 2027 review. The framework evaluates
 planning structure, tool invocation, and final-answer correctness separately.
 GAIA is the main benchmark; TaskBench and UltraTool provide auxiliary checks.
 
-This release contains source code, synthetic tests, and
-[manuscript-aligned core aggregate results](results/README.md). Individual model
-responses, execution trajectories, paper sources, and gated benchmark data are
-distributed separately.
+This release contains source code, synthetic tests,
+[manuscript-aligned aggregate results](results/README.md), and the
+[final reference schedule](references/README.md).
+Individual model responses, execution trajectories, and gated benchmark data
+are distributed separately.
 
 ![Framework and three-facet evaluation](docs/assets/overview_figure.png)
 
-Both supplied figures are retained unchanged as architecture illustrations.
-For current statistics, stage definitions, and reference policy, the manuscript
-text and [core result tables](results/README.md) take precedence over numbers
-or labels printed in the figures.
+The overview uses the supplied final figure. A vector
+[PDF version](docs/assets/overview_figure.pdf) is also available. It depicts
+successful-replay filtering followed by evaluation over Native chains and
+retained alternatives. The manuscript and [result tables](results/README.md)
+define the exact statistics and reference policy.
 
 The dependency-synthesis workflow is shown in the original pipeline diagram:
 
@@ -48,6 +50,7 @@ playwright install chromium
 | `scripts/prepare_gaia_from_official.py` | Rebuild local inputs from official GAIA and matching controlled annotations |
 | `scripts/prepare_crossbench.py` | TaskBench and UltraTool adapters |
 | `configs/www2027.json` | Cohort, stage budgets, and reference policy |
+| `references/` | Final retained candidates, complete reference CSV, and evaluator-ready JSON schedule |
 | `docs/protocol.md` | Execution, technical repair, evidence, and evaluation details |
 | `results/www2027/` | Main and appendix aggregate tables aligned to the manuscript |
 | `release/www2027/` | Source/result snapshots, file manifest, and checksums |
@@ -55,23 +58,26 @@ playwright install chromium
 ## Data preparation
 
 Obtain GAIA from the [official gated dataset](https://huggingface.co/datasets/gaia-benchmark/GAIA)
-under its access conditions. Set `GAIA_SOURCE`, `GAIA_ANNOTATIONS`, and
-`GAIA_ORDERING_SCHEDULE` to your local official snapshot, matching controlled
-annotation directory, and recorded ordering schedule:
+under its access conditions. Set `GAIA_SOURCE` and `GAIA_ANNOTATIONS` to your
+official snapshot and matching controlled annotation directory. Use the
+published final schedule:
 
 ```bash
 python scripts/prepare_gaia_from_official.py \
   --gaia-source "$GAIA_SOURCE" \
   --annotation-root "$GAIA_ANNOTATIONS" \
-  --ordering-schedule "$GAIA_ORDERING_SCHEDULE" \
+  --ordering-schedule references/ordering_schedule.json \
   --reference-view current --output-root data/Augmented
 ```
 
-The experiment reference version contains 165 tasks, 165 Native references and
-1,786 candidate orderings. There are 72 tasks with a candidate and 63 with at
-least two. Questions, answers, attachments, annotations, and the matching
-schedule are not bundled in this source release. Do not substitute an unrelated
-annotation or reference version. See [the annotation guide](annotations/README.md).
+The final reference version contains 165 tasks and 1,594 references:
+165 Native chains plus 1,429 retained alternatives. There are 64 tasks with a
+retained alternative and 56 with at least two. The sampled pool contained
+1,786 candidates on 72 tasks. The original 63-task rich cohort remains fixed
+for the corresponding comparison; it is distinct from the 56-task retained-rich
+budget experiment. Questions, answers, attachments, and source annotations are
+not bundled. Do not substitute an unrelated annotation version. See the
+[annotation guide](annotations/README.md) and [final reference policy](docs/reference_policy.md).
 
 ## Run inference
 
@@ -127,18 +133,20 @@ past service responses.
 
 ## Evaluation
 
-For fixed predictions, evaluate Native and every candidate ordering separately:
+For fixed predictions, evaluate Native and every retained ordering separately:
 
 ```text
 PlanningScore = (NodeF1 + EdgeF1) / 2
-AugmentedScore = max(PlanningScore over Native and every candidate)
+AugmentedScore = max(PlanningScore over Native and retained alternatives)
 ToolUsageScore = (ToolF1 + ParamF1 + ValueF1) / 3
 ```
 
 Node alignment is shared across references. Exact ties prefer Native, then the
 lower candidate rank. S3 is the main pre-execution planning measurement; S1 is
-an auxiliary abstract-plan diagnostic. Pass `--gaia_ordering_schedule` to `src.evaluation.runner` or
-`--gaia-ordering-schedule` to `scripts/exp.sh`. The older two-reference interface
+an auxiliary abstract-plan diagnostic. Pass
+`--gaia_ordering_schedule references/ordering_schedule.json` to `src.evaluation.runner`
+or `--gaia-ordering-schedule references/ordering_schedule.json` to `scripts/exp.sh`.
+The older two-reference interface
 is a different diagnostic and cannot replace this recorded multi-order schedule.
 
 Open-weight answer results use the synthesized S5 `pred.final_answer`.
@@ -146,9 +154,12 @@ Closed-model answer results use the recorded submitted response, falling back
 to the recorded final response when no submission exists. Human review is
 separate from automatic exact matching and is matched to the same response
 field within each group. A native S4 submission is retained as separate
-evidence for open-weight runs. Reference selection uses the full candidate set; replay and
-human semantic review remain separate evidence. A completed execution does not
-certify an ordering's semantics.
+evidence for open-weight runs. Reference selection uses the published retained
+pool. An alternative is retained when at least one of the three executors
+completes its specified ordering without flagged ERROR, MOCK, or empty tool
+output and returns a gold-equivalent answer. All Native chains are retained.
+Human semantic review is complementary evidence; successful replay does not
+certify every dependency or step's semantics.
 
 ## Offline checks
 

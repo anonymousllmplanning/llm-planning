@@ -1,5 +1,0 @@
-group,cohort,stage,pairs,correct,mean_r_native,mean_r_augmented,mean_delta_r
-,All165,S3,1485,383,-0.072,-0.078,-0.005
-,All165,S1,1485,383,-0.078,-0.080,-0.002
-,L2 tool-clean,S3,525,115,+0.043,+0.026,-0.017
-,L2 tool-clean,S1,525,115,+0.021,+0.011,-0.009

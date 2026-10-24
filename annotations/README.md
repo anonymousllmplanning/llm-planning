@@ -18,7 +18,7 @@ Then rebuild the local GAIA working tree from the official gated GAIA snapshot:
 python scripts/prepare_gaia_from_official.py \
   --gaia-source /path/to/official/GAIA \
   --annotation-root /path/to/controlled/gaia_annotations \
-  --ordering-schedule /path/to/controlled/ordering_schedule.json \
+  --ordering-schedule references/ordering_schedule.json \
   --reference-view current \
   --output-root data/Augmented \
   --overwrite
@@ -29,3 +29,7 @@ attachments. Planning step labels and tool annotations are derived benchmark
 annotations and may expose task-specific solution structure, so distribute them
 through the controlled artifact channel chosen for release rather than a
 crawlable public repository.
+
+The public final schedule contains task identifiers and step permutations,
+without questions, answers, attachments, or step labels. It selects 165 Native
+chains and 1,429 replay-supported alternatives from matching source annotations.

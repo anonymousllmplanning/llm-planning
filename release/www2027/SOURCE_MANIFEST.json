@@ -1,6 +1,10 @@
 {
-  "release": "WWW2027 anonymous framework",
+  "release": "WWW2027 final anonymous framework",
   "files": {
+    ".gitattributes": {
+      "size": 27,
+      "sha256": "41d4a1aede6082b7e7e0681b48e796d3acee8122b81f8b18f997565e3476bc6d"
+    },
     ".gitignore": {
       "size": 554,
       "sha256": "b628c39684308c20972780a823ff1f270a2d3b25adda66979b40ff1121732b46"
@@ -10,36 +14,56 @@
       "sha256": "9f6893ce757ee4a94db5c1f5c1f5ea2e28c6aa62b54259ce6f82b94ff6cdcb0a"
     },
     "README.md": {
-      "size": 7317,
-      "sha256": "60d00c76c8c43181c0ab4da20dc92739fca587a4daddce855b8c71272affe975"
+      "size": 8030,
+      "sha256": "4d32a8912049e479a6acbb0d664adb9670122a1d47e9d904f8b670102d8dc226"
     },
     "annotations/README.md": {
-      "size": 1079,
-      "sha256": "19adbfc404da8bf68594467f4abbfdbcd9670f2ac86369c5b6892c5079b1ce05"
+      "size": 1306,
+      "sha256": "80181d61ce1919a5f95639e9c66dfa85d8bf37719aa2b8acfd6e5d743615bd01"
     },
     "configs/www2027.json": {
-      "size": 1240,
-      "sha256": "223977395ef8f16bbcdb4ac14f4963ce8a3eabf08bd756913b16f1106b57b76f"
+      "size": 1767,
+      "sha256": "bf18ce133d46bf6cda94e1e4ca5d428054e1c4d71c59aff83862daee29966c0d"
     },
     "docs/assets/inference_pipeline_main.png": {
       "size": 324266,
       "sha256": "74ca02fa31e4df4a9b9daea66d40e8fcf4376aa830a9aa6d509fad7ed2bfcd80"
     },
+    "docs/assets/overview_figure.pdf": {
+      "size": 57456,
+      "sha256": "554da5902353ee7d58e75b981fef3baa8575dff0ccc44f56409b412b76dfcde3"
+    },
     "docs/assets/overview_figure.png": {
-      "size": 296929,
-      "sha256": "0826c68464f18867ad81224a35df585920e42b0b45c7dd12842eb587d62fdaf7"
+      "size": 290321,
+      "sha256": "6bb3eaeecf3da7adb4e9f8568cb4a59276402637d547017e7b45555a3448b07b"
     },
     "docs/assets/pipeline_figure.png": {
       "size": 336577,
       "sha256": "8262c05ee348607566f633c1d3c69af9619f3dc25e2ea081c7539917e2435774"
     },
     "docs/protocol.md": {
-      "size": 4304,
-      "sha256": "f637d31352fd3c5534b0a6e47590f9ae59ba9d20f0074b17bb55c7c0fac1613b"
+      "size": 4838,
+      "sha256": "0f0372a7dffbc39f47b00ab093d094c22b6a4712f19a835468405460a09d8aa8"
     },
     "docs/reference_policy.md": {
-      "size": 2429,
-      "sha256": "21c69db158a0847df97c658f759fbe1e94bd4d125cea5e297c935ca7b37ddde2"
+      "size": 2820,
+      "sha256": "6f9726d36f802e07e865ea861677bee31ee6319485ab76fbd37a8c6bf45962f5"
+    },
+    "references/README.md": {
+      "size": 1757,
+      "sha256": "9c65cb2bbfcd2bf79e9335d862e0c0a70b6baa4d445dd30832edd1a1af4279c8"
+    },
+    "references/ordering_schedule.json": {
+      "size": 722403,
+      "sha256": "0fadc5725faa9460c4021f8a3558e4c5be2b4209bf55e56132e0736390fe4b4e"
+    },
+    "references/reference_set_1594.csv": {
+      "size": 376273,
+      "sha256": "1c64b2e69236b8f002256687e8fc010a9ffac93785bee7802e5d0a5f9f1b37bf"
+    },
+    "references/replay_retained_orderings.json": {
+      "size": 499593,
+      "sha256": "a0a35867fdc6f2ef606536b9b0ec65f19b61fe61b2377dd78363255aa1c48c00"
     },
     "requirements.txt": {
       "size": 1729,
@@ -58,16 +82,16 @@
       "sha256": "e5af3afa5ea9712c091987481dee318cb451992d58fa5c3baee660c29d6470b2"
     },
     "scripts/export_paper_results.py": {
-      "size": 12324,
-      "sha256": "6f1c94aa1bd7fc31fb7614ea9d6c52da0eb2374b88da5634ebc0cf3f10553a38"
+      "size": 9921,
+      "sha256": "76ea7e91362a08a58ae8e7368953f136fceca73b9bdf7f87b77443e405e1f3ef"
     },
     "scripts/fetch_official_sources.py": {
       "size": 4492,
       "sha256": "735b44dd28d6eab65913d0448a676bf263d3cb067d607c10ed70e53df1e01d84"
     },
     "scripts/generate_croissant.py": {
-      "size": 13607,
-      "sha256": "64d31d757d165cb5e6128247f496f062a65c1ef232d80feafd3a447773919624"
+      "size": 13697,
+      "sha256": "deb7eb746257783349978ed9f52cc430369bb7ae53557e719093465360753086"
     },
     "scripts/prepare_crossbench.py": {
       "size": 10787,
@@ -90,8 +114,8 @@
       "sha256": "3889594cf1ba77aea9fd645cdc33200175258d8441c37fa43de53bd6ed59ecaf"
     },
     "scripts/validate_result_artifacts.py": {
-      "size": 4048,
-      "sha256": "0ecfb7fbe2d870cf0c453903d87a3c3cae3e12fba63695b9f8e8a2b7b14e6f55"
+      "size": 4858,
+      "sha256": "5abaf2393eab9b8ac2f0b85c339b9b5c5eeb8a345f3ceae617442797ff65e5fb"
     },
     "src/__init__.py": {
       "size": 448,

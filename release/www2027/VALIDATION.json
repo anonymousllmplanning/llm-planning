@@ -1,71 +1,73 @@
 {
   "status": "passed",
-  "release": "WWW2027 anonymous experimental framework",
-  "offline_validation_api_calls": 0,
-  "gpu_used": false,
-  "recorded_ordering_and_stage4_handoff_tests": {
-    "passed": 8
+  "release": "WWW2027 final results, references, figures, and framework",
+  "reference_count": 1594,
+  "retained_candidates": 1429,
+  "parser_checkpoint_and_export_unit_tests": {
+    "passed": 13
   },
-  "parser_checkpoint_and_technical_repair_tests": {
+  "recorded_ordering_and_stage4_handoff_tests": {
     "passed": 8
   },
   "optional_argument_normalization": "passed",
   "shell_syntax": "passed",
   "python_ast_files": 46,
-  "cli_and_portability_checks": {
-    "passed": 19,
-    "checks": [
-      "bash_syntax",
-      "python_compile",
-      "recorded_ordering_and_stage4_prompt_smoke",
-      "src.evaluation.runner_help",
-      "src.inference.runner_help",
-      "prepare_gaia_from_official.py_help",
-      "export_gaia_annotations.py_help",
-      "exp_help_outside_checkout",
-      "api_argument_arrays_and_space_paths",
-      "captured_command_arrays",
-      "nine_paper_model_routing_dry_run",
-      "configured_remote_inventory_dry_run",
-      "custom_api_remote_filter",
-      "zh_profile_outside_checkout",
-      "invalid_backend_fails",
-      "empty_remote_filter_fails",
-      "schedule_auto_discovery",
-      "cleanup_preserves_unrelated_process",
-      "private_inventory_and_global_process_kill_removed"
-    ]
-  },
-  "primary_planning_parity": {
-    "tasks": 2970,
-    "orders": 35118,
-    "references": 1951,
-    "alignment_matches": 2970,
-    "selected_rank_matches": 2970,
-    "primary_score_values_checked": 105354,
-    "max_absolute_score_difference": 0.0,
-    "diagnostic_overrides": [
-      "span alignment bypassed",
-      "node label similarity bypassed"
-    ]
-  },
-  "executed_inference_modules_preserved": 16,
-  "limitations": [
-    "Live model inference and external tools were not rerun for this source validation.",
-    "Primary planning parity uses frozen cached embeddings; it does not validate every auxiliary metric.",
-    "Gated benchmark inputs, controlled annotations, schedules, historical checkpoints and experimental results are separate artifacts."
-  ],
-  "aggregate_export_tests": {
-    "passed": 5
-  },
   "manuscript_aligned_results": {
     "status": "passed",
-    "checks": 132,
-    "tables": 26,
-    "aggregate_rows": 183,
-    "scope": "Displayed-value fidelity, checksums, aggregate accounting and asset metadata; no claim of independently rerunning all experiments.",
+    "checks": 69,
+    "tables": 10,
+    "aggregate_rows": 91,
+    "scope": "Final displayed-value hashes and accounting; reference identity/permutation consistency; asset checks. No live inference or independent semantic answer adjudication.",
     "api_calls": 0,
     "gpu_used": false
   },
-  "unchanged_component_checks_retained_from_source_release": true
+  "offline_validation_api_calls": 0,
+  "gpu_used": false,
+  "historical_framework_validation": {
+    "source_commit": "a1ac89b14cdc045289c0c5aa3de2b745a7e5aeb9",
+    "scope": "Previously executed source checks; historical 1951-reference parity is not a rerun on the final pool.",
+    "cli_and_portability_checks": {
+      "passed": 19,
+      "checks": [
+        "bash_syntax",
+        "python_compile",
+        "recorded_ordering_and_stage4_prompt_smoke",
+        "src.evaluation.runner_help",
+        "src.inference.runner_help",
+        "prepare_gaia_from_official.py_help",
+        "export_gaia_annotations.py_help",
+        "exp_help_outside_checkout",
+        "api_argument_arrays_and_space_paths",
+        "captured_command_arrays",
+        "nine_paper_model_routing_dry_run",
+        "configured_remote_inventory_dry_run",
+        "custom_api_remote_filter",
+        "zh_profile_outside_checkout",
+        "invalid_backend_fails",
+        "empty_remote_filter_fails",
+        "schedule_auto_discovery",
+        "cleanup_preserves_unrelated_process",
+        "private_inventory_and_global_process_kill_removed"
+      ]
+    },
+    "primary_planning_parity": {
+      "tasks": 2970,
+      "orders": 35118,
+      "references": 1951,
+      "alignment_matches": 2970,
+      "selected_rank_matches": 2970,
+      "primary_score_values_checked": 105354,
+      "max_absolute_score_difference": 0.0,
+      "diagnostic_overrides": [
+        "span alignment bypassed",
+        "node label similarity bypassed"
+      ]
+    }
+  },
+  "limitations": [
+    "No live model inference or external tool replay was rerun for this update.",
+    "Final retention and semantic answer-match decisions preserve the supplied artifacts."
+  ],
+  "unchanged_implementation_tests_retained_from_previous_validation": true,
+  "paper_source_files_published": false
 }

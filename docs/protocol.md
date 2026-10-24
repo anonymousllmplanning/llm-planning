@@ -56,7 +56,8 @@ written into these records. Keep local run outputs untracked.
 
 ## Reference evaluation
 
-The reference version contains 165 Native chains plus 1,786 candidate orderings.
+The final reference version contains 165 Native chains plus 1,429 retained
+alternatives (1,594 references), selected from 1,786 sampled candidates.
 Each candidate shares the Native node inventory and connects adjacent actions
 according to its recorded permutation. The evaluator reuses the same node
 alignment, computes each reference's PlanningScore, then selects the maximum.
@@ -72,6 +73,14 @@ a diagnostic; human judgments are a separate input. Tool metrics retain their el
 denominators and normalized-value diagnostics. TaskBench and UltraTool are
 auxiliary benchmarks and do not share GAIA's final-answer target.
 
-Replay evidence is separate from the planning maximum. Missing answers,
-transport failures, partial traversals, early submissions, mock outputs, and
-tool errors require review; they do not establish semantic invalidity of a DAG.
+The planning maximum uses the published retained pool. Retention requires at
+least one successful replay by GPT-6 Luna, Gemma 4 31B, or Llama-4 Maverick:
+complete ordered execution, no flagged ERROR/MOCK/empty tool output, and a
+gold-equivalent final answer. All Native chains are included. The final matcher
+and submitted-answer fallback are recorded in `references/README.md` and
+`references/replay_retained_orderings.json`.
+
+Missing answers, transport failures, partial traversals, and tool errors do not
+by themselves establish semantic invalidity of a DAG. Successful replay also
+does not certify every step or AD/SD relation. Human dependency review remains
+a separate semantic assessment.
